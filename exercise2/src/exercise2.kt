@@ -12,8 +12,20 @@ fun main(args: Array<String>) {
         println("A fish is swimming.")
     }*/
     //eagerExample()
-    filterTest()
+    //filterTest()
 }
+var dirty = 20
+val waterFiller: (Int) -> Int = {dirty -> dirty / 2}
+fun feedFish(dirty: Int) = dirty + 10
+fun updateDirty(dirty: Int, operation: (Int) -> Int): Int {
+    return operation(dirty)
+}
+fun dirtyProcessor() {
+    dirty = updateDirty(dirty,waterFiller)
+    dirty = updateDirty(dirty,::feedFish)
+    dirty = updateDirty(dirty) { dirty -> dirty + 50}
+}
+
 fun eagerExample() {
     val decorations = listOf("rock", "pagoda", "plastic plant", "alligator", "flowerpot")
     val eager = decorations.filter { it[0] == 'p' }
@@ -38,6 +50,7 @@ fun feedTheFish() {
         println("Change the water today.")
     }
     swim(50, speed="slow")
+    dirtyProcessor()
 }
 
 fun randomDay(): String {
