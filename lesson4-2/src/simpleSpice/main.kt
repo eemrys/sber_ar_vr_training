@@ -1,5 +1,8 @@
 package simpleSpice
 
+import spices.Curry
+import spices.SpiceContainer
+
 fun main(args: Array<String>) {
     val spices = listOf(
         Spice("curry", "mild"),
@@ -11,6 +14,13 @@ fun main(args: Array<String>) {
         Spice("hot pepper", "extremely spicy")
     )
     val spiceList = spices.filter {it.heat < 5}
+
+    val spiceCabinet = listOf(
+        SpiceContainer(Curry("Yellow Curry", "mild")),
+        SpiceContainer(Curry("Red Curry", "medium")),
+        SpiceContainer(Curry("Green Curry", "spicy")))
+
+    for(element in spiceCabinet) println(element.label)
 }
 
 fun makeSalt() = Spice("Salt")

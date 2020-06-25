@@ -20,40 +20,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="264e0d74-b8a5-44fa-a938-d959c8f4152d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../lesson4-2/.idea/kotlinc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lesson4-2/.idea/libraries/KotlinJavaRuntime.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lesson4-2/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lesson4-2/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lesson4-2/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lesson4-2/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lesson4-2/lesson4-2.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lesson4-2/out/production/lesson4-2/META-INF/lesson4-2.kotlin_module" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lesson4-2/out/production/lesson4-2/simpleSpice/MainKt.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lesson4-2/out/production/lesson4-2/simpleSpice/SimpleSpice.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lesson4-2/src/simpleSpice/SimpleSpice.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lesson4-2/src/simpleSpice/Spice.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lesson4-2/src/simpleSpice/main.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lesson4-2/src/spices/Spice.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/KotlinJavaRuntime.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lesson4-3.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/book/Book.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lesson4/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lesson4/.idea/kotlinc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lesson4/.idea/libraries/KotlinJavaRuntime.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lesson4/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lesson4/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lesson4/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lesson4/lesson4.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lesson4/src/aquarium/Aquarium.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lesson4/src/aquarium/AquariumFish.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lesson4/src/aquarium/Fish.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lesson4/src/aquarium/decorations/Decorations.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lesson4/src/aquarium/main.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lesson4/src/aquarium/SpecialClasses.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson4-2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../lesson4-2/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson4-2/out/production/lesson4-2/simpleSpice/MainKt$main$spiceList$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson4-2/out/production/lesson4-2/simpleSpice/MainKt.class" beforeDir="false" afterPath="$PROJECT_DIR$/../lesson4-2/out/production/lesson4-2/simpleSpice/MainKt.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson4-2/src/simpleSpice/main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../lesson4-2/src/simpleSpice/main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson4-2/src/spices/Spice.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../lesson4-2/src/spices/Spice.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson4/out/production/lesson4/META-INF/lesson4.kotlin_module" beforeDir="false" afterPath="$PROJECT_DIR$/../lesson4/out/production/lesson4/META-INF/lesson4.kotlin_module" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson4/src/aquarium/decorations/Decorations.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../lesson4/src/aquarium/decorations/Decorations.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

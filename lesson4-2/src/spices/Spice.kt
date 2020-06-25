@@ -1,6 +1,6 @@
 package spices
 
-abstract class Spice(val name: String, private val spiciness: String = "mild", color: SpiceColor):
+sealed class Spice(val name: String, private val spiciness: String = "mild", color: SpiceColor):
                             SpiceColor by color {
     val heat: Int
         get(): Int {
@@ -28,13 +28,20 @@ class Curry(name: String, spiciness: String,
         grind()
     }
 }
+enum class Color(val rgb: Int) {
+    RED(0xFF0000), GREEN(0x00FF00), BLUE(0x0000FF), YELLOW(0xFFFF00)
+}
 
 interface Grinder {
     fun grind()
 }
 interface SpiceColor {
-    val color: String
+    val color: Color
 }
 object YellowSpiceColor: SpiceColor {
-    override val color = "yellow"
+    override val color = Color.YELLOW
+}
+
+data class SpiceContainer(val spice: Spice) {
+    val label = spice.name
 }
