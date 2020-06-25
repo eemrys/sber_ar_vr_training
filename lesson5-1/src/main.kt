@@ -17,8 +17,22 @@ fun main(args: Array<String>) {
     val inventory = mutableMapOf("fish net" to 1)
     inventory.put("tank scrubber", 3)
     inventory.remove("fish tank")
+    val foo = Constants.CONSTANT2
+    println("Do I have spaces?".hasSpaces())
 
 }
 fun giveMeATool(): Pair<String,Int>{
     return ("ten" to 10)
 }
+
+object Constants {
+    const val CONSTANT2 = "object constant"
+}
+
+class ClassWithConstants {
+    companion object {
+        const val CONSTANT3 = "constant inside companion"
+    }
+}
+
+fun String.hasSpaces(): Boolean = find { it == ' '} != null
