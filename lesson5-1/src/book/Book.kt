@@ -3,7 +3,7 @@ package book
 import java.util.*
 
 const val MAX_BOOKS = 10
-class Book(val title: String, val author: String, val year: String, var pages: Int) {
+class Book(val title: String, private val author: String, private val year: String, var pages: Int) {
     companion object {
         const val BASE_URL = "BASE_URL"
     }
