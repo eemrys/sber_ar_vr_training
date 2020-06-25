@@ -36,3 +36,12 @@ class ClassWithConstants {
 }
 
 fun String.hasSpaces(): Boolean = find { it == ' '} != null
+
+class MyList<T> {
+    fun get(pos: Int) {}
+    fun addItem(item: T) {}
+}
+
+fun workWithGenericList() {
+    val strList: MyList<String>
+}
