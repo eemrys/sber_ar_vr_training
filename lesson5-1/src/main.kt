@@ -20,7 +20,9 @@ fun main(args: Array<String>) {
     val foo = Constants.CONSTANT2
     println("Do I have spaces?".hasSpaces())
 
+    labels()
 }
+
 fun giveMeATool(): Pair<String,Int>{
     return ("ten" to 10)
 }
@@ -44,4 +46,13 @@ class MyList<T> {
 
 fun workWithGenericList() {
     val strList: MyList<String>
+}
+
+fun labels() {
+    loop@for (i in 1..100) {
+        for (j in 1..100) {
+            println(i)
+            if (i > 10) break@loop
+        }
+    }
 }
