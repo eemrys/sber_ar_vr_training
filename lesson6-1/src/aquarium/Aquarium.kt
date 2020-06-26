@@ -27,7 +27,8 @@ fun fishExamples() {
         .let{it + 31}) // it --> int (new string length)
 }
 
-fun myWith(name: String, block: String.() -> Unit) {
+// with inline no object (=lambda) is created with every call to function
+inline fun myWith(name: String, block: String.() -> Unit) {
     name.block()
 }
 
