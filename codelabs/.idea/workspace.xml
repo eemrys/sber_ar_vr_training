@@ -20,10 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e42791ac-1414-47c7-b6d8-10a04dcf531a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Extensions.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/HashMapsAndConst.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/generics/Aquarium.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/codelabs/HashMapsKt.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/codelabs/META-INF/codelabs.kotlin_module" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/codelabs/META-INF/codelabs.kotlin_module" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +54,20 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Kotlin.AquariumKt">
+    <configuration name="AquariumKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <module name="codelabs" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" value="generics.AquariumKt" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="HashMapsAndConstKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
       <module name="codelabs" />
       <option name="VM_PARAMETERS" />
@@ -70,6 +83,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Kotlin.AquariumKt" />
         <item itemvalue="Kotlin.HashMapsAndConstKt" />
       </list>
     </recent_temporary>
@@ -100,5 +114,23 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1358" height="194" key="GridCell.Tab.0.bottom" timestamp="1593237232695">
+      <screen x="0" y="23" width="1440" height="805" />
+    </state>
+    <state width="1358" height="194" key="GridCell.Tab.0.bottom/0.23.1440.805@0.23.1440.805" timestamp="1593237232695" />
+    <state width="1358" height="194" key="GridCell.Tab.0.center" timestamp="1593237232693">
+      <screen x="0" y="23" width="1440" height="805" />
+    </state>
+    <state width="1358" height="194" key="GridCell.Tab.0.center/0.23.1440.805@0.23.1440.805" timestamp="1593237232693" />
+    <state width="1358" height="194" key="GridCell.Tab.0.left" timestamp="1593237232692">
+      <screen x="0" y="23" width="1440" height="805" />
+    </state>
+    <state width="1358" height="194" key="GridCell.Tab.0.left/0.23.1440.805@0.23.1440.805" timestamp="1593237232692" />
+    <state width="1358" height="194" key="GridCell.Tab.0.right" timestamp="1593237232694">
+      <screen x="0" y="23" width="1440" height="805" />
+    </state>
+    <state width="1358" height="194" key="GridCell.Tab.0.right/0.23.1440.805@0.23.1440.805" timestamp="1593237232694" />
   </component>
 </project>
