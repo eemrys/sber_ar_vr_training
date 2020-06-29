@@ -17,6 +17,33 @@
         android:text="@string/name"
         android:textAlignment="center" />
 
+    <EditText
+        android:id="@+id/eTxtName"
+        style="@style/nameStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/what_is_your_nickname"
+        android:inputType="textPersonName"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/txtvNickname"
+        style="@style/nameStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/btnDone"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/layout_margin"
+        android:fontFamily="@font/roboto"
+        android:text="@string/done" />
+
     <ImageView
         android:id="@+id/imgvStar"
         android:layout_width="match_parent"
@@ -28,7 +55,8 @@
     <ScrollView
         android:id="@+id/scrollvBio"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/layout_margin">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,16 +66,17 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/layout_margin"
-                android:contentDescription="@string/wicked_witch"
-                android:scaleType="center"
-                app:srcCompat="@android:drawable/sym_def_app_icon" />
+                android:adjustViewBounds="false"
+                android:contentDescription="@string/horizontal_bar"
+                android:scaleType="centerCrop"
+                app:srcCompat="@android:drawable/title_bar" />
 
             <TextView
                 android:id="@+id/txtvBio"
                 style="@style/nameStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/layout_margin"
                 android:lineSpacingMultiplier="@dimen/line_spacing"
                 android:text="@string/bio" />
 

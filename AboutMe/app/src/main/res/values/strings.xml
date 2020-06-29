@@ -2,11 +2,12 @@
     <string name="app_name">About Me</string>
     <string name="name">Kelly George</string>
     <string name="yellow_star">Yellow star</string>
-    <string name="bio">HOLD ON\nHOLD ON\nHOLD ON
-    \n\nHER SISTER WAS A WITCH RIGHT? AND WHAT WAS HER SISTER?\n\nA PRINCESS, THE WICKED WITCH OF THE EAST BRO.
-    \n\nYOU\'RE GONNA LOOK AT ME AND YOU\'RE GONNA TELL ME THAT I\'M WRONG? AM I WRONG?
-    \n\nSHE WORE A CROWN AND SHE CAME DOWN IN A BUBBLE, DOUG.
-    \n\nGROW UP BRO, GROW UP.
+    <string name="bio">The First Amendment to the US Constitution prevents the government from making laws which regulate an establishment of religion, prohibit the free exercise of religion, or abridge the freedom of speech, the freedom of the press, the right to peaceably assemble, or the right to petition the government for redress of grievances.
+        \n\nIt was adopted on December 15, 1791, as one of the ten amendments that constitute the Bill of Rights.
+        \n\nThe Bill of Rights was proposed to assuage Anti-Federalist opposition to Constitutional ratification. Initially, the First Amendment applied only to laws enacted by the Congress, and many of its provisions were interpreted more narrowly than they are today.
+        \n\nBeginning with Gitlow v. New York (1925), the Supreme Court applied the First Amendment to states — a process known as incorporation — through the Due Process Clause of the Fourteenth Amendment.
     </string>
-    <string name="wicked_witch">Wicked Witch of the West</string>
+    <string name="horizontal_bar">Horizontal bar</string>
+    <string name="what_is_your_nickname">What is your nickname?</string>
+    <string name="done">Done</string>
 </resources>
