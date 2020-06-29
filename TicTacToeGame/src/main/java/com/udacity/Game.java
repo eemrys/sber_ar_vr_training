@@ -1,6 +1,7 @@
 package com.udacity;
 
 import java.util.Arrays;
+import java.util.HashSet;
 
 /**
  * Created by udacity 2016
@@ -69,7 +70,7 @@ public class Game {
      * @return boolean: true if play was successful, false if invalid play
      */
     public boolean playAt(int i, int j){
-        //check for index boundries
+        //check for index boundaries
         if(i>=3||j>=3||i<0||j<0)
             return false;
         //check if this position is available
@@ -148,17 +149,75 @@ public class Game {
      * @param grid 2D array of characters representing the game board
      * @return String indicating the outcome of the game: "X wins" or "O wins" or "Tie" or "None"
      */
+
+    /* the straightforward way would've been to write down all the winning combinations
+    and test for them (e.g. { [0,0], [0,1], [0,2] }, { [1,0], [1,1], [1,2] }, etc)
+    but i decided to create a function that would be adaptable to ANY grid size (e.g. 20 x 20) */
+
     public String checkGameWinner(char [][]grid){
         String result = "None";
-        //Student code goes here ...
+
+        int arraySize = grid.length;
+
+        char [] tempArrayDiagonalMain = new char[arraySize];
+        char [] tempArrayDiagonalSecond = new char[arraySize];
+
+        String tempResult = "";
+
+        for (int i = 0; i < arraySize; i++) {
+
+            tempArrayDiagonalMain[i] = grid[i][i];
+            tempArrayDiagonalSecond[i] = grid[i][arraySize-1-i];
+
+            // checking if columns contain only Xs or Os
+            char [] tempArrayColumns = grid[i];
+            tempResult = containsSameValue(tempArrayColumns);
+            if (!tempResult.equals("None")) {
+                return tempResult;
+            }
+
+            // checking if rows contain only Xs or Os
+            char [] tempArrayRows = new char[grid.length];
+            for (int j = 0; j < grid.length; j++) {
+                tempArrayRows[j] = grid[j][i];
+            }
+            tempResult = containsSameValue(tempArrayRows);
+            if (!tempResult.equals("None")) {
+                return tempResult;
+            }
+        }
+        // checking if diagonals contain only Xs or Os
+        tempResult = containsSameValue(tempArrayDiagonalMain);
+        if (!tempResult.equals("None")) {
+            result = tempResult;
+        }
+        tempResult = containsSameValue(tempArrayDiagonalSecond);
+        if (!tempResult.equals("None")) {
+            result = tempResult;
+        }
+
         return result;
     }
 
+    public String containsSameValue(char [] gridCells) {
+        HashSet<Character> setOfCells = new HashSet<>();
+        for (char cell: gridCells) {
+            setOfCells.add(cell);
+        }
+        if (setOfCells.size() == 1) {
+            if (setOfCells.contains('x')) {
+                return "X wins";
+            } else if (setOfCells.contains('o')) {
+                return "O wins";
+            }
+        }
+        return "None";
+    }
     /**
      * Main function
      * @param args command line arguments
      */
-    public static void main(String args[]){
+    public static void main(String[] args){
         Game game = new Game();
         gui = new GameUI(game);
     }
