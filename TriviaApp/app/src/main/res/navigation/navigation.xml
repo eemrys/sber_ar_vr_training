@@ -12,7 +12,11 @@
         tools:layout="@layout/fragment_title" >
         <action
             android:id="@+id/action_fragmentTitle_to_fragmentGame"
-            app:destination="@id/fragmentGame" />
+            app:destination="@id/fragmentGame"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/fragmentGame"
@@ -22,11 +26,19 @@
         <action
             android:id="@+id/action_fragmentGame_to_fragmentGameOver"
             app:destination="@id/fragmentGameOver"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
             app:popUpTo="@id/fragmentGame"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_fragmentGame_to_fragmentGameWon"
             app:destination="@id/fragmentGameWon"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
             app:popUpTo="@id/fragmentGame"
             app:popUpToInclusive="true" />
     </fragment>
@@ -38,6 +50,10 @@
         <action
             android:id="@+id/action_fragmentGameOver_to_fragmentGame"
             app:destination="@id/fragmentGame"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
             app:popUpTo="@id/fragmentTitle" />
     </fragment>
     <fragment
@@ -48,6 +64,10 @@
         <action
             android:id="@+id/action_fragmentGameWon_to_fragmentGame"
             app:destination="@id/fragmentGame"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
             app:popUpTo="@id/fragmentTitle" />
         <argument
             android:name="numQuestions"
