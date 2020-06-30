@@ -34,10 +34,20 @@
         android:id="@+id/fragmentGameOver"
         android:name="com.example.android.navigation.GameOverFragment"
         android:label="fragment_game_over"
-        tools:layout="@layout/fragment_game_over" />
+        tools:layout="@layout/fragment_game_over" >
+        <action
+            android:id="@+id/action_fragmentGameOver_to_fragmentGame"
+            app:destination="@id/fragmentGame"
+            app:popUpTo="@id/fragmentTitle" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentGameWon"
         android:name="com.example.android.navigation.GameWonFragment"
         android:label="fragment_game_won"
-        tools:layout="@layout/fragment_game_won" />
+        tools:layout="@layout/fragment_game_won" >
+        <action
+            android:id="@+id/action_fragmentGameWon_to_fragmentGame"
+            app:destination="@id/fragmentGame"
+            app:popUpTo="@id/fragmentTitle" />
+    </fragment>
 </navigation>
