@@ -1,17 +1,32 @@
 package com.company;
 
+/*
+    AND - &&
+    OR - ||
+    NOT - !
+
+    i++
+    i--
+    i -=
+    I +=
+    i *=
+    i /=
+
+    for (int i = 1; i <= 10; i+=2) { } --> increment by two
+
+*/
 public class Main {
 
     public static void main(String[] args) {
-
+        numberMessage(rollDice());
     }
 
-    public void printInReverse(String[] stringArray) {
+    public static void printInReverse(String[] stringArray) {
         for (int i = stringArray.length - 1; i >= 0; i--) {
             System.out.println(stringArray[i]); }
     }
 
-    public int indexOfFirstOccurrence(String[] stringArray, String target) {
+    public static int indexOfFirstOccurrence(String[] stringArray, String target) {
         for (int i = 0; i < stringArray.length; i++) {
             if (stringArray[i].equals(target)) {
                 return i;
@@ -20,18 +35,17 @@ public class Main {
         return -1;
     }
 
-    public String findLongestName(String [] names){
-        int size = names.length;
+    public static String findLongestName(String [] names){
         String longestName = names[0];
-        for (int i = 0; i < size; i++) {
-            if (names[i].length() > longestName.length()) {
-                longestName = names[i];
+        for (String name : names) {
+            if (name.length() > longestName.length()) {
+                longestName = name;
             }
         }
         return longestName;
     }
 
-    public int martingale() {
+    public static int martingale() {
         int money = 1000;
         int target = 1200;
         int bet = 10;
@@ -44,15 +58,47 @@ public class Main {
                 money -= bet;
                 bet *= 2;
             }
-            // Add the break here:
             if(money >= target)
                 break;
         }
         return money;
     }
 
-    private boolean play() {
+    public static boolean play() {
         // not implemented
         return true;
+    }
+
+    public static boolean rollASix() {
+        int dice = rollDice();
+        while(dice!=6) {
+            dice = rollDice();
+            if(dice == 3) break; // roll a three = you lose
+        }
+        return dice == 6;
+    }
+
+    public static int rollDice() {
+        double randomNumber = Math.random() * 6;
+        int randomInt = (int) randomNumber + 1;
+        return randomInt;
+    }
+
+    public static void numberMessage(int number) {
+        switch (number) {
+            case 1, 2, 3 -> System.out.println("You rolled three or less.");
+            case 4, 5, 6 -> System.out.println("You rolled four or more.");
+            default -> System.out.println("Invalid dice roll.");
+        }
+    }
+
+    public static double studentAverage(int [][] grades, int student) {
+        int total = 0;
+        int subjects = grades.length;
+        for (int[] grade : grades) {
+            total += grade[student];
+        }
+        double average = total / (double) subjects;
+        return average;
     }
 }
