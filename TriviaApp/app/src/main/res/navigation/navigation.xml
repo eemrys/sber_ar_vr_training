@@ -18,5 +18,26 @@
         android:id="@+id/fragmentGame"
         android:name="com.example.android.navigation.GameFragment"
         android:label="@string/title_android_trivia_question"
-        tools:layout="@layout/fragment_game" />
+        tools:layout="@layout/fragment_game" >
+        <action
+            android:id="@+id/action_fragmentGame_to_fragmentGameOver"
+            app:destination="@id/fragmentGameOver"
+            app:popUpTo="@id/fragmentGame"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_fragmentGame_to_fragmentGameWon"
+            app:destination="@id/fragmentGameWon"
+            app:popUpTo="@id/fragmentGame"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentGameOver"
+        android:name="com.example.android.navigation.GameOverFragment"
+        android:label="fragment_game_over"
+        tools:layout="@layout/fragment_game_over" />
+    <fragment
+        android:id="@+id/fragmentGameWon"
+        android:name="com.example.android.navigation.GameWonFragment"
+        android:label="fragment_game_won"
+        tools:layout="@layout/fragment_game_won" />
 </navigation>
