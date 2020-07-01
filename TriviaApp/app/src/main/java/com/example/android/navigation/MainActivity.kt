@@ -24,24 +24,36 @@ import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.NavigationUI.setupWithNavController
+import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-
-    private val appBarConfiguration by lazy {
-        AppBarConfiguration(navController.graph, drawerLayout)
-    }
 
     private val navController by lazy {
         this.findNavController(R.id.navHostFragment)
     }
 
+    private val appBarConfiguration by lazy {
+        AppBarConfiguration(navController.graph, drawerLayout)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         @Suppress("UNUSED_VARIABLE")
-        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
+        setContentView(R.layout.activity_main)
 
+        setupActionBarWithNavController(this, navController, drawerLayout)
+        setupWithNavController(viewNavigation, navController)
+
+        onDestinationChanged()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return NavigationUI.navigateUp(navController, appBarConfiguration)
+    }
+
+    private fun onDestinationChanged() {
         // prevent nav gesture if not on start destination
         navController.addOnDestinationChangedListener { navController: NavController,
                                                         navDestination: NavDestination, _: Bundle? ->
@@ -51,11 +63,5 @@ class MainActivity : AppCompatActivity() {
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             }
         }
-
-        NavigationUI.setupWithNavController(viewNavigation, navController)
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
     }
 }
