@@ -36,7 +36,9 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
     private var revenue = 0
     private var dessertsSold = 0
 
-    private lateinit var dessertTimer: DessertTimer
+    private val dessertTimer by lazy {
+        DessertTimer(this.lifecycle)
+    }
 
     // Contains all the views
 
@@ -78,12 +80,13 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
             onDessertClicked()
         }
 
-        dessertTimer = DessertTimer(this.lifecycle)
+        dessertTimer.secondsCount = 0
 
-        if (savedInstanceState != null) {
-            revenue = savedInstanceState.getInt(KEY_REVENUE)
-            dessertsSold = savedInstanceState.getInt(KEY_DESSERTS)
-            dessertTimer.secondsCount = savedInstanceState.getInt(KEY_TIMER)
+        // retrieve data from bundle
+        savedInstanceState?.apply {
+            dessertTimer.secondsCount = getInt(KEY_TIMER)
+            revenue = getInt(KEY_REVENUE)
+            dessertsSold = getInt(KEY_DESSERTS)
         }
 
         // Set the TextViews to the right values
@@ -149,11 +152,16 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         }
     }
 
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        Timber.i("onRestoreInstanceState called")
+    }
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt(KEY_REVENUE, revenue)
         outState.putInt(KEY_DESSERTS, dessertsSold)
         outState.putInt(KEY_TIMER, dessertTimer.secondsCount)
+        Timber.i("onSaveInstanceState called")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
