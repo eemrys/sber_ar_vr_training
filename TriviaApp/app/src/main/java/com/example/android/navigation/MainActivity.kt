@@ -18,28 +18,28 @@ package com.example.android.navigation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import com.example.android.navigation.databinding.ActivityMainBinding
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var drawerLayout: DrawerLayout
+    private val appBarConfiguration by lazy {
+        AppBarConfiguration(navController.graph, drawerLayout)
+    }
 
     private val navController by lazy {
         this.findNavController(R.id.navHostFragment)
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         @Suppress("UNUSED_VARIABLE")
-        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-        drawerLayout = binding.drawerLayout
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
 
         // prevent nav gesture if not on start destination
@@ -52,10 +52,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        NavigationUI.setupWithNavController(binding.viewNavigation, navController)
+        NavigationUI.setupWithNavController(viewNavigation, navController)
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return NavigationUI.navigateUp(navController, drawerLayout)
+        return NavigationUI.navigateUp(navController, appBarConfiguration)
     }
 }

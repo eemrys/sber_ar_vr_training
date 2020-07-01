@@ -22,11 +22,15 @@ apply plugin: 'kotlin-kapt'
 
 apply plugin: 'androidx.navigation.safeargs'
 
+apply plugin: 'kotlin-android-extensions'
+
 android {
     compileSdkVersion 30
+
     dataBinding {
         enabled = true
     }
+
     defaultConfig {
         applicationId 'com.example.android.navigation'
         minSdkVersion 19
@@ -34,7 +38,6 @@ android {
         vectorDrawables.useSupportLibrary = true
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -42,9 +45,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    productFlavors {
-    }
+
     buildToolsVersion '30.0.0'
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 dependencies {
