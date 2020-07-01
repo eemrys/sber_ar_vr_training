@@ -27,10 +27,16 @@ import androidx.lifecycle.LifecycleObserver
 import timber.log.Timber
 import kotlinx.android.synthetic.main.activity_main.*
 
+const val KEY_REVENUE = "key_revenue"
+const val KEY_DESSERTS = "key_desserts"
+const val KEY_TIMER = "key_timer"
+
 class MainActivity : AppCompatActivity(), LifecycleObserver {
 
     private var revenue = 0
     private var dessertsSold = 0
+
+    private lateinit var dessertTimer: DessertTimer
 
     // Contains all the views
 
@@ -72,14 +78,20 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
             onDessertClicked()
         }
 
+        dessertTimer = DessertTimer(this.lifecycle)
+
+        if (savedInstanceState != null) {
+            revenue = savedInstanceState.getInt(KEY_REVENUE)
+            dessertsSold = savedInstanceState.getInt(KEY_DESSERTS)
+            dessertTimer.secondsCount = savedInstanceState.getInt(KEY_TIMER)
+        }
+
         // Set the TextViews to the right values
         revenue_text.text = getString(R.string.dollars, revenue)
         amount_sold_text.text = dessertsSold.toString()
 
         // Make sure the correct dessert is showing
         dessert_button.setImageResource(currentDessert.imageId)
-
-        DessertTimer(this.lifecycle)
     }
 
     /**
@@ -135,6 +147,13 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
             Toast.makeText(this, getString(R.string.sharing_not_available),
                     Toast.LENGTH_LONG).show()
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(KEY_REVENUE, revenue)
+        outState.putInt(KEY_DESSERTS, dessertsSold)
+        outState.putInt(KEY_TIMER, dessertTimer.secondsCount)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
