@@ -23,10 +23,9 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ShareCompat
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleObserver
-import com.example.android.dessertpusher.databinding.ActivityMainBinding
 import timber.log.Timber
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), LifecycleObserver {
 
@@ -34,7 +33,6 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
     private var dessertsSold = 0
 
     // Contains all the views
-    private lateinit var binding: ActivityMainBinding
 
     /** Dessert Data **/
 
@@ -68,19 +66,18 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
         Timber.i("onCreate called")
 
-        // Use Data Binding to get reference to the views
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        setContentView(R.layout.activity_main)
 
-        binding.dessertButton.setOnClickListener {
+        dessert_button.setOnClickListener {
             onDessertClicked()
         }
 
         // Set the TextViews to the right values
-        binding.revenue = revenue
-        binding.amountSold = dessertsSold
+        revenue_text.text = getString(R.string.dollars, revenue)
+        amount_sold_text.text = dessertsSold.toString()
 
         // Make sure the correct dessert is showing
-        binding.dessertButton.setImageResource(currentDessert.imageId)
+        dessert_button.setImageResource(currentDessert.imageId)
     }
 
     /**
@@ -92,8 +89,8 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         revenue += currentDessert.price
         dessertsSold++
 
-        binding.revenue = revenue
-        binding.amountSold = dessertsSold
+        revenue_text.text = getString(R.string.dollars, revenue)
+        amount_sold_text.text = dessertsSold.toString()
 
         // Show the next dessert
         showCurrentDessert()
@@ -118,7 +115,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         // If the new dessert is actually different than the current dessert, update the image
         if (newDessert != currentDessert) {
             currentDessert = newDessert
-            binding.dessertButton.setImageResource(newDessert.imageId)
+            dessert_button.setImageResource(newDessert.imageId)
         }
     }
 

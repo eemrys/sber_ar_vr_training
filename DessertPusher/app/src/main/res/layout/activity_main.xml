@@ -14,25 +14,13 @@
   ~ limitations under the License.
   -->
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-
-        <variable
-            name="revenue"
-            type="Integer" />
-
-        <variable
-            name="amountSold"
-            type="Integer" />
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 
         <ImageView
             android:id="@+id/background_image"
@@ -95,7 +83,6 @@
             android:id="@+id/revenue_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text='@{"$" + revenue.toString()}'
             android:textColor="@color/green"
             android:textSize="@dimen/large_text_size"
             app:layout_constraintBottom_toTopOf="@+id/margin_bottom_guide"
@@ -119,12 +106,10 @@
             android:layout_marginBottom="@dimen/default_spacing"
             android:fontFamily="sans-serif-medium"
             android:paddingTop="@dimen/default_spacing"
-            android:text="@{amountSold.toString()}"
             android:textColor="@color/grey"
             android:textSize="@dimen/medium_text_size"
             app:layout_constraintBottom_toTopOf="@+id/revenue_text"
             app:layout_constraintEnd_toStartOf="@+id/margin_end_guide"
             tools:text="12" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>
