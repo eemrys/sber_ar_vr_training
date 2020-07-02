@@ -19,27 +19,21 @@ package com.example.android.navigation
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.core.app.ShareCompat
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.example.android.navigation.databinding.FragmentGameWonBinding
+import kotlinx.android.synthetic.main.fragment_game_won.*
 
-class GameWonFragment : Fragment() {
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        val binding: FragmentGameWonBinding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_game_won, container, false)
+class GameWonFragment : Fragment(R.layout.fragment_game_won) {
 
-        binding.nextMatchButton.setOnClickListener { view: View ->
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        nextMatchButton.setOnClickListener {
             view.findNavController().navigate(GameWonFragmentDirections.actionFragmentGameWonToFragmentGame())
         }
 
         setHasOptionsMenu(true)
-
-        return binding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -49,6 +43,13 @@ class GameWonFragment : Fragment() {
         if (null == getShareIntent().resolveActivity(requireActivity().packageManager)) {
             menu.findItem(R.id.share)?.isVisible = false
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.share -> shareSuccess()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun getShareIntent(): Intent {
@@ -63,10 +64,4 @@ class GameWonFragment : Fragment() {
         startActivity(getShareIntent())
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.share -> shareSuccess()
-        }
-        return super.onOptionsItemSelected(item)
-    }
 }

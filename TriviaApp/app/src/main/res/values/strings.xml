@@ -34,6 +34,14 @@
     <string name="congratulations">Congratulations!</string>
     <string name="share">Share</string>
     <string name="sharing_not_available">Sharing Not Available</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="play">Play</string>
+    <string name="navigation_header_image">Navigation header image</string>
+    <string name="title_image">Title image</string>
+    <string name="rules_image">Rules image</string>
+    <string name="next_match">Next Match</string>
+    <string name="you_win_image">You win image</string>
+    <string name="game_over_image">Game over image</string>
+    <string name="question_image">Question image</string>
+    <string name="about_image">About image</string>
 </resources>
