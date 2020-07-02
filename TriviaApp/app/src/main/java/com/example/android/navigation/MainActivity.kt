@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setupActionBarWithNavController(this, navController, drawerLayout)
-        setupWithNavController(viewNavigation, navController)
+        setupWithNavController(navigationView, navController)
 
         onDestinationChanged()
     }

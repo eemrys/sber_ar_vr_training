@@ -27,7 +27,7 @@ class GameOverFragment : Fragment(R.layout.fragment_game_over) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        tryAgainButton.setOnClickListener {
+        btnTryAgain.setOnClickListener {
             view.findNavController().navigate(GameOverFragmentDirections.actionFragmentGameOverToFragmentGame())
         }
     }

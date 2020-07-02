@@ -12,7 +12,7 @@ class TitleFragment : Fragment(R.layout.fragment_title) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        playButton.setOnClickListener {
+        btnPlay.setOnClickListener {
             view.findNavController().navigate(TitleFragmentDirections.actionFragmentTitleToFragmentGame())
         }
 

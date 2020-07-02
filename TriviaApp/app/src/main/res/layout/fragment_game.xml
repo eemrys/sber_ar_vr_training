@@ -23,12 +23,12 @@
     android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/frameLayout"
+            android:id="@+id/constLayoutGame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/questionImage"
+                android:id="@+id/imgvQuestion"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/image_header_height"
                 android:layout_marginStart="@dimen/horizontal_margin"
@@ -36,7 +36,7 @@
                 android:layout_marginEnd="@dimen/horizontal_margin"
                 android:layout_marginBottom="@dimen/vertical_margin"
                 android:scaleType="fitCenter"
-                app:layout_constraintBottom_toTopOf="@+id/questionText"
+                app:layout_constraintBottom_toTopOf="@+id/txtvQuestion"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -45,7 +45,7 @@
                 android:contentDescription="@string/question_image" />
 
             <TextView
-                android:id="@+id/questionText"
+                android:id="@+id/txtvQuestion"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/question_horizontal_margin"
@@ -58,11 +58,11 @@
                 android:typeface="normal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/questionImage"
+                app:layout_constraintTop_toBottomOf="@+id/imgvQuestion"
                 tools:text="What color is the Android mascot?" />
 
             <RadioGroup
-                android:id="@+id/questionRadioGroup"
+                android:id="@+id/radioGroupQuestion"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/question_horizontal_margin"
@@ -72,10 +72,10 @@
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/questionText">
+                app:layout_constraintTop_toBottomOf="@+id/txtvQuestion">
 
                 <RadioButton
-                    android:id="@+id/firstAnswerRadioButton"
+                    android:id="@+id/radioBtnFirstAnswer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/question_vertical_margin"
@@ -84,7 +84,7 @@
                     tools:text="Blue" />
 
                 <RadioButton
-                    android:id="@+id/secondAnswerRadioButton"
+                    android:id="@+id/radioBtnSecondAnswer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/question_vertical_margin"
@@ -92,7 +92,7 @@
                     tools:text="Green" />
 
                 <RadioButton
-                    android:id="@+id/thirdAnswerRadioButton"
+                    android:id="@+id/radioBtnThirdAnswer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/question_vertical_margin"
@@ -100,7 +100,7 @@
                     tools:text="Yellow" />
 
                 <RadioButton
-                    android:id="@+id/fourthAnswerRadioButton"
+                    android:id="@+id/radioBtnFourthAnswer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/answer_text_size"
@@ -108,7 +108,7 @@
             </RadioGroup>
 
             <Button
-                android:id="@+id/submitButton"
+                android:id="@+id/btnSubmit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/question_horizontal_margin"
@@ -118,6 +118,6 @@
                 android:textSize="@dimen/button_text_size"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/questionRadioGroup" />
+                app:layout_constraintTop_toBottomOf="@+id/radioGroupQuestion" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

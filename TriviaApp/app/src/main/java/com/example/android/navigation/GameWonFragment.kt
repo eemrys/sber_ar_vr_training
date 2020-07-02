@@ -29,7 +29,7 @@ class GameWonFragment : Fragment(R.layout.fragment_game_won) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        nextMatchButton.setOnClickListener {
+        btnNextMatch.setOnClickListener {
             view.findNavController().navigate(GameWonFragmentDirections.actionFragmentGameWonToFragmentGame())
         }
 
