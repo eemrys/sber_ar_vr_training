@@ -22,9 +22,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.example.android.guesstheword.R
-import kotlinx.android.synthetic.main.game_fragment.*
+import kotlinx.android.synthetic.main.fragment_game.*
 
-class GameFragment : Fragment(R.layout.game_fragment) {
+class GameFragment : Fragment(R.layout.fragment_game) {
 
     private val viewModel by lazy {
         ViewModelProviders.of(this).get(GameViewModel::class.java)
@@ -33,12 +33,12 @@ class GameFragment : Fragment(R.layout.game_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        correct_button.setOnClickListener {
+        btnCorrect.setOnClickListener {
             viewModel.onCorrect()
             updateScoreText()
             updateWordText()
         }
-        skip_button.setOnClickListener {
+        btnSkip.setOnClickListener {
             viewModel.onSkip()
             updateScoreText()
             updateWordText()
@@ -53,10 +53,10 @@ class GameFragment : Fragment(R.layout.game_fragment) {
     }
 
     private fun updateWordText() {
-        word_text.text = viewModel.word
+        txtvCurrentWord.text = viewModel.word
     }
 
     private fun updateScoreText() {
-        score_text.text = viewModel.score.toString()
+        txtvScore.text = viewModel.score.toString()
     }
 }

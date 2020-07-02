@@ -14,27 +14,26 @@
   ~ limitations under the License.
   -->
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/score_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".screens.score.ScoreFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constLayoutTitle"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".screens.title.TitleFragment">
 
         <TextView
-            android:id="@+id/you_scored_text"
+            android:id="@+id/txtvGetReady"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="sans-serif"
-            android:text="@string/you_scored"
+            android:text="@string/get_ready"
             android:textColor="@color/black_text_color"
             android:textSize="14sp"
             android:textStyle="normal"
-            app:layout_constraintBottom_toTopOf="@+id/score_text"
+            app:layout_constraintBottom_toTopOf="@+id/txtvTitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,33 +41,30 @@
             app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
-            android:id="@+id/score_text"
+            android:id="@+id/txtvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
             android:fontFamily="sans-serif"
+            android:text="@string/title_text"
             android:textColor="@color/black_text_color"
             android:textSize="34sp"
             android:textStyle="normal"
-            app:layout_constraintBottom_toTopOf="@+id/play_again_button"
+            app:layout_constraintBottom_toTopOf="@+id/btnPlayGame"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/you_scored_text"
-            app:layout_constraintVertical_chainStyle="packed"
-            tools:text="40" />
+            app:layout_constraintTop_toBottomOf="@+id/txtvGetReady"
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <Button
-            android:id="@+id/play_again_button"
+            android:id="@+id/btnPlayGame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
-            android:text="@string/play_again"
+            android:text="@string/play_button"
             android:theme="@style/GoButton"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>
