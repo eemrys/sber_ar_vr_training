@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        dessert_button.apply {
+        btnDessert.apply {
             setOnClickListener { onDessertClicked() }
             setImageResource(currentDessert.imageId)
         }
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.shareMenuButton -> onShare()
+            R.id.btnShareMenu -> onShare()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -117,8 +117,8 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         revenue += currentDessert.price
         dessertsSold++
 
-        revenue_text.text = getString(R.string.dollars, revenue)
-        amount_sold_text.text = dessertsSold.toString()
+        txtvRevenue.text = getString(R.string.dollars, revenue)
+        txtvAmountSold.text = dessertsSold.toString()
 
         showCurrentDessert()
     }
@@ -134,7 +134,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
         if (newDessert != currentDessert) {
             currentDessert = newDessert
-            dessert_button.setImageResource(newDessert.imageId)
+            btnDessert.setImageResource(newDessert.imageId)
         }
     }
 
@@ -178,8 +178,8 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
     }
 
     private fun setTextViews() {
-        revenue_text.text = getString(R.string.dollars, revenue)
-        amount_sold_text.text = dessertsSold.toString()
+        txtvRevenue.text = getString(R.string.dollars, revenue)
+        txtvAmountSold.text = dessertsSold.toString()
     }
 
 }
