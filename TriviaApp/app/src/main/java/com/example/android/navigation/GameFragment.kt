@@ -26,10 +26,8 @@ import kotlinx.android.synthetic.main.fragment_game.*
 class GameFragment : Fragment(R.layout.fragment_game) {
 
     private val questions: MutableList<Question> by lazy { initQuestions() }
-
     private var currentQuestion = questions[0]
     private var answers = currentQuestion.answers.toMutableList()
-
     private var questionIndex = 0
     private val numQuestions = ((questions.size + 1) / 2).coerceAtMost(3)
 
@@ -44,24 +42,21 @@ class GameFragment : Fragment(R.layout.fragment_game) {
     }
 
     private fun onSubmit(view: View) {
-        val checkedId = radioGroupQuestion.checkedRadioButtonId
-        if (-1 != checkedId) {
-            var answerIndex = 0
-            when (checkedId) {
-                R.id.radioBtnSecondAnswer -> answerIndex = 1
-                R.id.radioBtnThirdAnswer -> answerIndex = 2
-                R.id.radioBtnFourthAnswer -> answerIndex = 3
-            }
 
+        val answerIndex = when(radioGroupQuestion.checkedRadioButtonId) {
+            R.id.radioBtnFirstAnswer -> 0
+            R.id.radioBtnSecondAnswer -> 1
+            R.id.radioBtnThirdAnswer -> 2
+            R.id.radioBtnFourthAnswer -> 3
+            else -> -1
+        }
+
+        if ( answerIndex != -1) {
             if (answers[answerIndex] == currentQuestion.answers[0]) {
                 questionIndex++
-                if (questionIndex < numQuestions) {
-                        currentQuestion = questions[questionIndex]
-                        setQuestion()
-                } else {
-                    view.findNavController()
-                            .navigate(GameFragmentDirections.actionFragmentGameToFragmentGameWon(numQuestions,questionIndex))
-                    }
+                if (questionIndex < numQuestions) { setQuestion() }
+                else { view.findNavController()
+                        .navigate(GameFragmentDirections.actionFragmentGameToFragmentGameWon(numQuestions,questionIndex)) }
             } else {
                 view.findNavController()
                         .navigate(GameFragmentDirections.actionFragmentGameToFragmentGameOver())
