@@ -19,7 +19,8 @@ package com.example.android.guesstheword.screens.game
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.example.android.guesstheword.R
 import kotlinx.android.synthetic.main.fragment_game.*
@@ -27,7 +28,7 @@ import kotlinx.android.synthetic.main.fragment_game.*
 class GameFragment : Fragment(R.layout.fragment_game) {
 
     private val viewModel by lazy {
-        ViewModelProviders.of(this).get(GameViewModel::class.java)
+        ViewModelProvider(this).get(GameViewModel::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,28 +36,24 @@ class GameFragment : Fragment(R.layout.fragment_game) {
 
         btnCorrect.setOnClickListener {
             viewModel.onCorrect()
-            updateScoreText()
-            updateWordText()
         }
         btnSkip.setOnClickListener {
             viewModel.onSkip()
-            updateScoreText()
-            updateWordText()
         }
-        updateScoreText()
-        updateWordText()
+        viewModel.score.observe(viewLifecycleOwner, Observer { updateScoreText(it) })
+        viewModel.word.observe(viewLifecycleOwner, Observer { updateWordText(it) })
     }
 
     private fun gameFinished() {
-        val action = GameFragmentDirections.actionGameToScore(viewModel.score)
+        val action = GameFragmentDirections.actionGameToScore(viewModel.score.value ?: 0)
         findNavController(this).navigate(action)
     }
 
-    private fun updateWordText() {
-        txtvCurrentWord.text = viewModel.word
+    private fun updateWordText(word: String) {
+        txtvCurrentWord.text = word
     }
 
-    private fun updateScoreText() {
-        txtvScore.text = viewModel.score.toString()
+    private fun updateScoreText(score: Int) {
+        txtvScore.text = score.toString()
     }
 }
