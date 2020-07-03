@@ -18,6 +18,7 @@ package com.example.android.guesstheword.screens.game
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -42,11 +43,18 @@ class GameFragment : Fragment(R.layout.fragment_game) {
         }
         viewModel.score.observe(viewLifecycleOwner, Observer { updateScoreText(it) })
         viewModel.word.observe(viewLifecycleOwner, Observer { updateWordText(it) })
+        viewModel.eventGameFinished.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                gameFinished()
+                viewModel.onGameFinishComplete()
+            }
+        })
     }
 
     private fun gameFinished() {
-        val action = GameFragmentDirections.actionGameToScore(viewModel.score.value ?: 0)
-        findNavController(this).navigate(action)
+        /*val action = GameFragmentDirections.actionGameToScore(viewModel.score.value ?: 0)
+        findNavController(this).navigate(action)*/
+        Toast.makeText(this.activity, "Game has finished.", Toast.LENGTH_SHORT).show()
     }
 
     private fun updateWordText(word: String) {
