@@ -19,6 +19,8 @@ package com.example.android.guesstheword.screens.score
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.android.guesstheword.R
@@ -26,16 +28,31 @@ import kotlinx.android.synthetic.main.fragment_score.*
 
 class ScoreFragment : Fragment(R.layout.fragment_score) {
 
+    private val viewModelFactory by lazy {
+        val scoreFragmentArgs by navArgs<ScoreFragmentArgs>()
+        ScoreViewModelFactory(scoreFragmentArgs.score)
+    }
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory).get(ScoreViewModel::class.java)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val scoreFragmentArgs by navArgs<ScoreFragmentArgs>()
-        txtvScore.text = scoreFragmentArgs.score.toString()
-        btnPlayAgain.setOnClickListener { onPlayAgain() }
+        btnPlayAgain.setOnClickListener { viewModel.onPlayAgain() }
+        setObserver()
     }
 
-    private fun onPlayAgain() {
-        findNavController().navigate(ScoreFragmentDirections.actionRestart())
+    private fun setObserver() {
+        viewModel.apply{
+            finalScore.observe(viewLifecycleOwner, Observer {
+                txtvScore.text = it.toString()
+            })
+            eventPlayAgain.observe(viewLifecycleOwner, Observer {
+                if (it) {
+                    findNavController().navigate(ScoreFragmentDirections.actionRestart())
+                    viewModel.onPlayAgainCompleted()
+                }
+            })
+        }
     }
 }
