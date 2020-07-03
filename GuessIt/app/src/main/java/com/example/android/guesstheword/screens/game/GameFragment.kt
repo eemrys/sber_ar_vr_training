@@ -17,8 +17,8 @@
 package com.example.android.guesstheword.screens.game
 
 import android.os.Bundle
+import android.text.format.DateUtils
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -34,27 +34,33 @@ class GameFragment : Fragment(R.layout.fragment_game) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setOnClick()
+        setObserver()
+    }
 
+    private fun setOnClick() {
         btnCorrect.setOnClickListener {
             viewModel.onCorrect()
         }
         btnSkip.setOnClickListener {
             viewModel.onSkip()
         }
-        viewModel.score.observe(viewLifecycleOwner, Observer { updateScoreText(it) })
-        viewModel.word.observe(viewLifecycleOwner, Observer { updateWordText(it) })
-        viewModel.eventGameFinished.observe(viewLifecycleOwner, Observer {
-            if (it) {
-                gameFinished()
-                viewModel.onGameFinishComplete()
-            }
-        })
     }
 
-    private fun gameFinished() {
-        /*val action = GameFragmentDirections.actionGameToScore(viewModel.score.value ?: 0)
-        findNavController(this).navigate(action)*/
-        Toast.makeText(this.activity, "Game has finished.", Toast.LENGTH_SHORT).show()
+    private fun setObserver() {
+        viewModel.apply {
+            score.observe(viewLifecycleOwner, Observer { updateScoreText(it) })
+            word.observe(viewLifecycleOwner, Observer { updateWordText(it) })
+            eventGameFinished.observe(viewLifecycleOwner, Observer {
+                if (it) {
+                    gameFinished()
+                    viewModel.onGameFinishComplete()
+                }
+            })
+            currentTime.observe(viewLifecycleOwner, Observer {
+                txtvTimer.text = DateUtils.formatElapsedTime(it)
+            })
+        }
     }
 
     private fun updateWordText(word: String) {
@@ -63,5 +69,10 @@ class GameFragment : Fragment(R.layout.fragment_game) {
 
     private fun updateScoreText(score: Int) {
         txtvScore.text = score.toString()
+    }
+
+    private fun gameFinished() {
+        val action = GameFragmentDirections.actionGameToScore(viewModel.score.value ?: 0)
+        findNavController(this).navigate(action)
     }
 }
