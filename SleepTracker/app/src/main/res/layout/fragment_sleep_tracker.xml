@@ -31,13 +31,12 @@
             app:layout_constraintTop_toBottomOf="@+id/btnStop">
 
             <TextView
-                android:id="@+id/txtvIntro"
+                android:id="@+id/txtvNights"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin"
                 android:layout_marginTop="@dimen/margin"
-                android:layout_marginEnd="@dimen/margin"
-                android:text="@string/how_was_hour_sleep" />
+                android:layout_marginEnd="@dimen/margin" />
         </ScrollView>
 
         <Button

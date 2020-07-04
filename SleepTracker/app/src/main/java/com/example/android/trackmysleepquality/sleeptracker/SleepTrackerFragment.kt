@@ -17,20 +17,56 @@
 package com.example.android.trackmysleepquality.sleeptracker
 
 import android.os.Bundle
+import android.text.Spanned
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.android.trackmysleepquality.R
 import com.example.android.trackmysleepquality.database.SleepDatabase
 import kotlinx.android.synthetic.main.fragment_sleep_tracker.*
 
 class SleepTrackerFragment : Fragment(R.layout.fragment_sleep_tracker) {
+
+    private val application by lazy {
+        requireNotNull(this.activity).application
+    }
+    private val dataSource by lazy {
+        SleepDatabase.getInstance(application).sleepDatabaseDao
+    }
+    private val viewModelFactory by lazy {
+        SleepTrackerViewModelFactory(dataSource, application)
+    }
+    private val sleepTrackerViewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)
+                .get(SleepTrackerViewModel::class.java)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val application = requireNotNull(this.activity).application
-        val dataSource = SleepDatabase.getInstance(application).sleepDatabaseDao
-        val viewModelFactory = SleepTrackerViewModelFactory(dataSource, application)
-        val sleepTrackerViewModel = ViewModelProvider(this, viewModelFactory)
-                .get(SleepTrackerViewModel::class.java)
+        setOnClick()
+        setObserver()
+    }
+
+    private fun setOnClick() {
+        btnStart.setOnClickListener {
+            sleepTrackerViewModel.onStartTracking()
+        }
+        btnStop.setOnClickListener {
+            sleepTrackerViewModel.onStopTracking()
+        }
+        btnClear.setOnClickListener {
+            sleepTrackerViewModel.onClear()
+        }
+    }
+
+    private fun setObserver() {
+        sleepTrackerViewModel.nightsString.observe(viewLifecycleOwner, Observer {
+            updateText(it)
+        })
+    }
+
+    private fun updateText(nights: Spanned) {
+        txtvNights.text = nights
     }
 }
