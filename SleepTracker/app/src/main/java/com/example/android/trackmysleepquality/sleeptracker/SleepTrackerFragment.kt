@@ -25,6 +25,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.example.android.trackmysleepquality.R
 import com.example.android.trackmysleepquality.database.SleepDatabase
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_sleep_tracker.*
 
 class SleepTrackerFragment : Fragment(R.layout.fragment_sleep_tracker) {
@@ -63,13 +64,20 @@ class SleepTrackerFragment : Fragment(R.layout.fragment_sleep_tracker) {
 
     private fun setObserver() {
         sleepTrackerViewModel.apply {
-            nightsString.observe(viewLifecycleOwner, Observer {
-                updateText(it)
-            })
+            nightsString.observe(viewLifecycleOwner, Observer { updateText(it) })
+            startButtonVisible.observe(viewLifecycleOwner, Observer { setVisibilityStart(it) })
+            stopButtonVisible.observe(viewLifecycleOwner, Observer { setVisibilityStop(it) })
+            clearButtonVisible.observe(viewLifecycleOwner, Observer { setVisibilityClear(it) })
             navigateToSleepQuality.observe(viewLifecycleOwner, Observer {
                 it?.let {
                     navigateToSleepQualityFragment(it.nightId)
                     sleepTrackerViewModel.doneNavigating()
+                }
+            })
+            showSnackBarEvent.observe(viewLifecycleOwner, Observer {
+                if (it == true) {
+                    makeSnackbar()
+                    sleepTrackerViewModel.doneShowingSnackbar()
                 }
             })
         }
@@ -79,8 +87,28 @@ class SleepTrackerFragment : Fragment(R.layout.fragment_sleep_tracker) {
         txtvNights.text = nights
     }
 
+    private fun setVisibilityStart(enabled: Boolean) {
+        btnStart.isEnabled = enabled
+    }
+
+    private fun setVisibilityStop(enabled: Boolean) {
+        btnStop.isEnabled = enabled
+    }
+
+    private fun setVisibilityClear(enabled: Boolean) {
+        btnClear.isEnabled = enabled
+    }
+
     private fun navigateToSleepQualityFragment(id: Long) {
         val action = SleepTrackerFragmentDirections.actionSleepTrackerFragmentToSleepQualityFragment(id)
         findNavController(this).navigate(action)
+    }
+
+    private fun makeSnackbar() {
+        Snackbar.make(
+                requireActivity().findViewById(android.R.id.content),
+                getString(R.string.cleared_message),
+                Snackbar.LENGTH_SHORT
+        ).show()
     }
 }
