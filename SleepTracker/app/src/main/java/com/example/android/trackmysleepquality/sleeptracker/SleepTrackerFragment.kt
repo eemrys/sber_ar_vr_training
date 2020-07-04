@@ -16,7 +16,21 @@
 
 package com.example.android.trackmysleepquality.sleeptracker
 
+import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.android.trackmysleepquality.R
+import com.example.android.trackmysleepquality.database.SleepDatabase
+import kotlinx.android.synthetic.main.fragment_sleep_tracker.*
 
-class SleepTrackerFragment : Fragment(R.layout.fragment_sleep_tracker)
+class SleepTrackerFragment : Fragment(R.layout.fragment_sleep_tracker) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val application = requireNotNull(this.activity).application
+        val dataSource = SleepDatabase.getInstance(application).sleepDatabaseDao
+        val viewModelFactory = SleepTrackerViewModelFactory(dataSource, application)
+        val sleepTrackerViewModel = ViewModelProvider(this, viewModelFactory)
+                .get(SleepTrackerViewModel::class.java)
+    }
+}
