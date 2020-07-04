@@ -19,12 +19,68 @@ package com.example.android.trackmysleepquality.sleepquality
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
 import com.example.android.trackmysleepquality.R
+import com.example.android.trackmysleepquality.database.SleepDatabase
+import kotlinx.android.synthetic.main.fragment_sleep_quality.*
 
 class SleepQualityFragment : Fragment(R.layout.fragment_sleep_quality) {
 
+    private val application by lazy {
+        requireNotNull(this.activity).application
+    }
+    private val dataSource by lazy {
+        SleepDatabase.getInstance(application).sleepDatabaseDao
+    }
+    private val viewModelFactory by lazy {
+        val arguments = SleepQualityFragmentArgs.fromBundle(requireArguments())
+        SleepQualityViewModelFactory(arguments.sleepNightKey, dataSource)
+    }
+    private val sleepQualityViewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)
+                .get(SleepQualityViewModel::class.java)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val application = requireNotNull(this.activity).application
+        setOnClick()
+        setObserver()
+    }
+
+    private fun setOnClick() {
+        imgvQualityZero.setOnClickListener {
+            sleepQualityViewModel.onSetSleepQuality(0)
+        }
+        imgvQualityOne.setOnClickListener {
+            sleepQualityViewModel.onSetSleepQuality(1)
+        }
+        imgvQualityTwo.setOnClickListener {
+            sleepQualityViewModel.onSetSleepQuality(2)
+        }
+        imgvQualityThree.setOnClickListener {
+            sleepQualityViewModel.onSetSleepQuality(3)
+        }
+        imgvQualityFour.setOnClickListener {
+            sleepQualityViewModel.onSetSleepQuality(4)
+        }
+        imgvQualityFive.setOnClickListener {
+            sleepQualityViewModel.onSetSleepQuality(5)
+        }
+    }
+
+    private fun setObserver() {
+        sleepQualityViewModel.navigateToSleepTracker.observe(viewLifecycleOwner,  Observer {
+            if (it == true) {
+                navigateToSleepTrackerFragment()
+                sleepQualityViewModel.doneNavigating()
+            }
+        })
+    }
+
+    private fun navigateToSleepTrackerFragment() {
+        val action = SleepQualityFragmentDirections.actionSleepQualityFragmentToSleepTrackerFragment()
+        NavHostFragment.findNavController(this).navigate(action)
     }
 }
