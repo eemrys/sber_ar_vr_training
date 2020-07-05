@@ -17,7 +17,6 @@
 package com.example.android.trackmysleepquality.sleeptracker
 
 import android.os.Bundle
-import android.text.Spanned
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -43,11 +42,15 @@ class SleepTrackerFragment : Fragment(R.layout.fragment_sleep_tracker) {
         ViewModelProvider(this, viewModelFactory)
                 .get(SleepTrackerViewModel::class.java)
     }
+    private val adapter by lazy {
+        SleepNightAdapter()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setOnClick()
         setObserver()
+        recyclervSleepList.adapter = adapter
     }
 
     private fun setOnClick() {
@@ -64,10 +67,14 @@ class SleepTrackerFragment : Fragment(R.layout.fragment_sleep_tracker) {
 
     private fun setObserver() {
         sleepTrackerViewModel.apply {
-            nightsString.observe(viewLifecycleOwner, Observer { updateText(it) })
             startButtonVisible.observe(viewLifecycleOwner, Observer { setVisibilityStart(it) })
             stopButtonVisible.observe(viewLifecycleOwner, Observer { setVisibilityStop(it) })
             clearButtonVisible.observe(viewLifecycleOwner, Observer { setVisibilityClear(it) })
+            allNights.observe(viewLifecycleOwner, Observer {
+                it?.let {
+                    adapter.data = it
+                }
+            })
             navigateToSleepQuality.observe(viewLifecycleOwner, Observer {
                 it?.let {
                     navigateToSleepQualityFragment(it.nightId)
@@ -81,10 +88,6 @@ class SleepTrackerFragment : Fragment(R.layout.fragment_sleep_tracker) {
                 }
             })
         }
-    }
-
-    private fun updateText(nights: Spanned) {
-        txtvNights.text = nights
     }
 
     private fun setVisibilityStart(enabled: Boolean) {

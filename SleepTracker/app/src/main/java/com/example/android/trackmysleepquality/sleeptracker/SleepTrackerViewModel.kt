@@ -32,8 +32,8 @@ class SleepTrackerViewModel(
 
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main +  viewModelJob)
-    private val allNights = database.getAllNights()
     private var currentNight = MutableLiveData<SleepNight?>() // ?
+    val allNights = database.getAllNights()
 
     private val _navigateToSleepQuality = MutableLiveData<SleepNight>()
     val navigateToSleepQuality: LiveData<SleepNight>
@@ -43,9 +43,6 @@ class SleepTrackerViewModel(
     val showSnackBarEvent: LiveData<Boolean>
         get() = _showSnackbarEvent
 
-    val nightsString = Transformations.map(allNights) {
-        formatNights(it, application.resources)
-    }
     val startButtonVisible = Transformations.map(currentNight) {
         null == it
     }
