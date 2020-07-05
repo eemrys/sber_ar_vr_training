@@ -21,23 +21,15 @@
     android:layout_height="match_parent"
     tools:context=".sleeptracker.SleepTrackerFragment">
 
-        <ScrollView
-            android:layout_width="match_parent"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclervSleepList"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@+id/btnClear"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnStop">
-
-            <TextView
-                android:id="@+id/txtvNights"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin"
-                android:layout_marginTop="@dimen/margin"
-                android:layout_marginEnd="@dimen/margin" />
-        </ScrollView>
+            app:layout_constraintTop_toBottomOf="@+id/btnStop"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
         <Button
             android:id="@+id/btnStart"
