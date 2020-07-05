@@ -4,21 +4,19 @@ import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.trackmysleepquality.R
 import com.example.android.trackmysleepquality.convertDurationToFormatted
 import com.example.android.trackmysleepquality.convertNumericQualityToString
 import com.example.android.trackmysleepquality.database.SleepNight
-import kotlinx.android.synthetic.main.list_item_sleep_night.view.*
+import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.list_item_sleep_night.*
 
-class ConstraintLayoutViewHolder private constructor(itemView: View): RecyclerView.ViewHolder(itemView) {
+class ConstraintLayoutViewHolder private constructor(override val containerView: View):
+        RecyclerView.ViewHolder(containerView),
+        LayoutContainer {
 
-    private val res: Resources = itemView.context.resources
-    private val sleepLength: TextView = itemView.txtvLength
-    private val quality: TextView = itemView.txtvQuality
-    private val qualityImage: ImageView = itemView.imgvQuality
+    private val res: Resources = containerView.context.resources
 
     companion object {
         fun from(parent: ViewGroup): ConstraintLayoutViewHolder {
@@ -31,9 +29,9 @@ class ConstraintLayoutViewHolder private constructor(itemView: View): RecyclerVi
     }
 
     fun bind(item: SleepNight) {
-        sleepLength.text = convertDurationToFormatted(item.startTimeMilli, item.endTimeMilli, res)
-        quality.text = convertNumericQualityToString(item.sleepQuality, res)
-        qualityImage.setImageResource(when (item.sleepQuality) {
+        txtvLength.text = convertDurationToFormatted(item.startTimeMilli, item.endTimeMilli, res)
+        txtvQuality.text = convertNumericQualityToString(item.sleepQuality, res)
+        imgvQuality.setImageResource(when (item.sleepQuality) {
             0 -> R.drawable.ic_sleep_0
             1 -> R.drawable.ic_sleep_1
             2 -> R.drawable.ic_sleep_2
