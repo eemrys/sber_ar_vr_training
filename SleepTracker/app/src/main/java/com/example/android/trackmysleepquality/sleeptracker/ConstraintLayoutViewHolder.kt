@@ -29,7 +29,7 @@ class ConstraintLayoutViewHolder private constructor(override val containerView:
     }
 
     fun bind(item: SleepNight) {
-        txtvLength.text = convertDurationToFormatted(item.startTimeMilli, item.endTimeMilli, res)
+        //txtvLength.text = convertDurationToFormatted(item.startTimeMilli, item.endTimeMilli, res)
         txtvQuality.text = convertNumericQualityToString(item.sleepQuality, res)
         imgvQuality.setImageResource(when (item.sleepQuality) {
             0 -> R.drawable.ic_sleep_0

@@ -21,23 +21,10 @@
     <TextView
         android:id="@+id/txtvQuality"
         android:layout_width="0dp"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/txtvLength"
-        app:layout_constraintStart_toStartOf="@+id/txtvLength"
-        app:layout_constraintTop_toBottomOf="@+id/txtvLength"
-        tools:text="Excellent!!!" />
-
-    <TextView
-        android:id="@+id/txtvLength"
-        android:layout_width="0dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imgvQuality"
-        app:layout_constraintTop_toTopOf="@+id/imgvQuality"
-        tools:text="Wednesday" />
+        app:layout_constraintEnd_toEndOf="@+id/imgvQuality"
+        app:layout_constraintStart_toStartOf="@+id/imgvQuality"
+        app:layout_constraintTop_toBottomOf="@+id/imgvQuality"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

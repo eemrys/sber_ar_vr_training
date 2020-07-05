@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.android.trackmysleepquality.R
 import com.example.android.trackmysleepquality.database.SleepDatabase
 import com.google.android.material.snackbar.Snackbar
@@ -45,12 +46,16 @@ class SleepTrackerFragment : Fragment(R.layout.fragment_sleep_tracker) {
     private val adapter by lazy {
         SleepNightAdapter()
     }
+    private val manager by lazy {
+        GridLayoutManager(this.activity, 3)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setOnClick()
         setObserver()
         recyclervSleepList.adapter = adapter
+        recyclervSleepList.layoutManager = manager
     }
 
     private fun setOnClick() {
