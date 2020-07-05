@@ -1,28 +1,17 @@
 package com.example.android.trackmysleepquality.sleeptracker
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ListAdapter
 import com.example.android.trackmysleepquality.database.SleepNight
-import com.example.android.trackmysleepquality.R
 
-class SleepNightAdapter: RecyclerView.Adapter<ConstraintLayoutViewHolder>() {
-    var data = listOf<SleepNight>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
-
-    override fun getItemCount(): Int {
-        return data.size
-    }
+class SleepNightAdapter: ListAdapter<SleepNight, ConstraintLayoutViewHolder>(SleepNightDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConstraintLayoutViewHolder {
         return ConstraintLayoutViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: ConstraintLayoutViewHolder, position: Int) {
-        val item = data[position]
+        val item = getItem(position)
         holder.bind(item)
     }
 }

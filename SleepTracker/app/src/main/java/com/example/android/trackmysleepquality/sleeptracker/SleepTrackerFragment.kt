@@ -72,7 +72,7 @@ class SleepTrackerFragment : Fragment(R.layout.fragment_sleep_tracker) {
             clearButtonVisible.observe(viewLifecycleOwner, Observer { setVisibilityClear(it) })
             allNights.observe(viewLifecycleOwner, Observer {
                 it?.let {
-                    adapter.data = it
+                    adapter.submitList(it)
                 }
             })
             navigateToSleepQuality.observe(viewLifecycleOwner, Observer {
