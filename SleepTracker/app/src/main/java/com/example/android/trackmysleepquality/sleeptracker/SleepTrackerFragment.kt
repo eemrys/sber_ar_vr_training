@@ -18,6 +18,7 @@ package com.example.android.trackmysleepquality.sleeptracker
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -44,18 +45,17 @@ class SleepTrackerFragment : Fragment(R.layout.fragment_sleep_tracker) {
                 .get(SleepTrackerViewModel::class.java)
     }
     private val adapter by lazy {
-        SleepNightAdapter()
-    }
-    private val manager by lazy {
-        GridLayoutManager(this.activity, 3)
+        SleepNightAdapter(SleepNightListener { sleepTrackerViewModel.onSleepNightClicked(it) })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setOnClick()
         setObserver()
-        recyclervSleepList.adapter = adapter
+
+        val manager = GridLayoutManager(this.activity, 3)
         recyclervSleepList.layoutManager = manager
+        recyclervSleepList.adapter = adapter
     }
 
     private fun setOnClick() {
@@ -92,6 +92,12 @@ class SleepTrackerFragment : Fragment(R.layout.fragment_sleep_tracker) {
                     sleepTrackerViewModel.doneShowingSnackbar()
                 }
             })
+            navigateToSleepDetail.observe(viewLifecycleOwner, Observer {
+                it?.let {
+                    navigateToSleepDetailFragment(it)
+                    sleepTrackerViewModel.onSleepNightNavigated()
+                }
+            })
         }
     }
 
@@ -109,6 +115,11 @@ class SleepTrackerFragment : Fragment(R.layout.fragment_sleep_tracker) {
 
     private fun navigateToSleepQualityFragment(id: Long) {
         val action = SleepTrackerFragmentDirections.actionSleepTrackerFragmentToSleepQualityFragment(id)
+        findNavController(this).navigate(action)
+    }
+
+    private fun navigateToSleepDetailFragment(id: Long) {
+        val action = SleepTrackerFragmentDirections.actionSleepTrackerFragmentToSleepDetailFragment(id)
         findNavController(this).navigate(action)
     }
 

@@ -4,7 +4,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.example.android.trackmysleepquality.database.SleepNight
 
-class SleepNightAdapter: ListAdapter<SleepNight, ConstraintLayoutViewHolder>(SleepNightDiffCallback()) {
+class SleepNightAdapter(private val clickListener: SleepNightListener)
+    : ListAdapter<SleepNight, ConstraintLayoutViewHolder>(SleepNightDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConstraintLayoutViewHolder {
         return ConstraintLayoutViewHolder.from(parent)
@@ -12,6 +13,6 @@ class SleepNightAdapter: ListAdapter<SleepNight, ConstraintLayoutViewHolder>(Sle
 
     override fun onBindViewHolder(holder: ConstraintLayoutViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(clickListener, item)
     }
 }
