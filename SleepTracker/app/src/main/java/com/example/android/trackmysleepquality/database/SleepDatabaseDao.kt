@@ -25,8 +25,6 @@ import androidx.room.Update
 @Dao
 interface SleepDatabaseDao {
 
-    // TODO extract string resource
-
     @Insert
     fun insert(night: SleepNight)
 
