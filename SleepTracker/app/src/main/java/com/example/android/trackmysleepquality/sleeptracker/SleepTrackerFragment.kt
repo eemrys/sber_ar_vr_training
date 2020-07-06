@@ -53,6 +53,12 @@ class SleepTrackerFragment : Fragment(R.layout.fragment_sleep_tracker) {
         setObserver()
 
         val manager = GridLayoutManager(this.activity, 3)
+        manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int) = when(position) {
+                0 -> 3
+                else -> 1
+            }
+        }
         recyclervSleepList.layoutManager = manager
         recyclervSleepList.adapter = adapter
     }
