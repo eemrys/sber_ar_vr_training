@@ -13,8 +13,8 @@ class SleepDetailViewModel(
     val currentNight: LiveData<SleepNight>
         get() = _currentNight
 
-    private val _navigateToSleepTracker = MutableLiveData<Boolean?>()
-    val navigateToSleepTracker: LiveData<Boolean?>
+    private val _navigateToSleepTracker = MutableLiveData<Boolean>()
+    val navigateToSleepTracker: LiveData<Boolean>
         get() = _navigateToSleepTracker
 
 
@@ -25,7 +25,7 @@ class SleepDetailViewModel(
     }
 
     fun doneNavigating() {
-        _navigateToSleepTracker.value = null
+        _navigateToSleepTracker.value = false
     }
 
     fun onClose() {

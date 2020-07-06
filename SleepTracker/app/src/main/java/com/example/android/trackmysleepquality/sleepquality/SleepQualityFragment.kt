@@ -71,7 +71,7 @@ class SleepQualityFragment : Fragment(R.layout.fragment_sleep_quality) {
     }
 
     private fun setObserver() {
-        sleepQualityViewModel.navigateToSleepTracker.observe(viewLifecycleOwner,  Observer {
+        sleepQualityViewModel.navigateToSleepTracker.observe(viewLifecycleOwner, Observer {
             if (it == true) {
                 navigateToSleepTrackerFragment()
                 sleepQualityViewModel.doneNavigating()

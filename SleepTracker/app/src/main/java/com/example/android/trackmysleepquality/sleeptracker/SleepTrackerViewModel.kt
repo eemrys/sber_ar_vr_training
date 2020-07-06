@@ -31,7 +31,7 @@ class SleepTrackerViewModel(
 
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main +  viewModelJob)
-    private var currentNight = MutableLiveData<SleepNight?>() // ?
+    private var currentNight = MutableLiveData<SleepNight?>()
     val allNights = database.getAllNights()
 
     private val _navigateToSleepQuality = MutableLiveData<SleepNight>()

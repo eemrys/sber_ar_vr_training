@@ -17,12 +17,25 @@
 package com.example.android.trackmysleepquality
 
 import android.content.res.Resources
+import android.widget.ImageView
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 private val ONE_MINUTE_MILLIS = TimeUnit.MILLISECONDS.convert(1, TimeUnit.MINUTES)
 private val ONE_HOUR_MILLIS = TimeUnit.MILLISECONDS.convert(1, TimeUnit.HOURS)
+
+fun ImageView.setIconImage(number: Int) {
+    this.setImageResource(when (number) {
+        0 -> R.drawable.ic_sleep_0
+        1 -> R.drawable.ic_sleep_1
+        2 -> R.drawable.ic_sleep_2
+        3 -> R.drawable.ic_sleep_3
+        4 -> R.drawable.ic_sleep_4
+        5 -> R.drawable.ic_sleep_5
+        else -> R.drawable.ic_sleep_active
+    })
+}
 
 fun convertDurationToFormatted(startTimeMilli: Long, endTimeMilli: Long, res: Resources): String {
     val durationMilli = endTimeMilli - startTimeMilli

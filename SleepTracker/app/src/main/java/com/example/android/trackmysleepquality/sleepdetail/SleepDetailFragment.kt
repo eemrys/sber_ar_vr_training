@@ -12,6 +12,7 @@ import com.example.android.trackmysleepquality.convertDurationToFormatted
 import com.example.android.trackmysleepquality.convertNumericQualityToString
 import com.example.android.trackmysleepquality.database.SleepDatabase
 import com.example.android.trackmysleepquality.database.SleepNight
+import com.example.android.trackmysleepquality.setIconImage
 import kotlinx.android.synthetic.main.fragment_sleep_detail.*
 
 class SleepDetailFragment : Fragment(R.layout.fragment_sleep_detail) {
@@ -59,15 +60,7 @@ class SleepDetailFragment : Fragment(R.layout.fragment_sleep_detail) {
         val res: Resources = this.requireContext().resources
         txtvLength.text = convertDurationToFormatted(night.startTimeMilli, night.endTimeMilli, res)
         txtvQuality.text = convertNumericQualityToString(night.sleepQuality, res)
-        imgvQuality.setImageResource(when (night.sleepQuality) {
-            0 -> R.drawable.ic_sleep_0
-            1 -> R.drawable.ic_sleep_1
-            2 -> R.drawable.ic_sleep_2
-            3 -> R.drawable.ic_sleep_3
-            4 -> R.drawable.ic_sleep_4
-            5 -> R.drawable.ic_sleep_5
-            else -> R.drawable.ic_sleep_active
-        })
+        imgvQuality.setIconImage(night.sleepQuality)
     }
 
     private fun navigateToSleepTrackerFragment() {
