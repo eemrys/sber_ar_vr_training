@@ -55,12 +55,14 @@ class SleepDetailFragment : Fragment(R.layout.fragment_sleep_detail) {
 
     private fun updateViews() {
 
+        val res: Resources = this.context.resources
         val night = sleepDetailViewModel.getNight()
-        // TODO resources and night.value
 
-        txtvLength.text = convertDurationToFormatted(night.startTimeMilli, night.endTimeMilli, res)
-        txtvQuality.text = convertNumericQualityToString(night.sleepQuality, res)
-        imgvQuality.setImageResource(when (night.sleepQuality) {
+        // TODO safe call
+
+        txtvLength.text = convertDurationToFormatted(night.value.startTimeMilli, night.value.endTimeMilli, res)
+        txtvQuality.text = convertNumericQualityToString(night.value.sleepQuality, res)
+        imgvQuality.setImageResource(when (night.value.sleepQuality) {
             0 -> R.drawable.ic_sleep_0
             1 -> R.drawable.ic_sleep_1
             2 -> R.drawable.ic_sleep_2
