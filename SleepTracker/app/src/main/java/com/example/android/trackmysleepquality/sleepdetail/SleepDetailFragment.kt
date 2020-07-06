@@ -35,7 +35,6 @@ class SleepDetailFragment : Fragment(R.layout.fragment_sleep_detail) {
         super.onViewCreated(view, savedInstanceState)
         setOnClick()
         setObserver()
-        updateViews()
     }
 
     private fun setOnClick() {
@@ -45,24 +44,22 @@ class SleepDetailFragment : Fragment(R.layout.fragment_sleep_detail) {
     }
 
     private fun setObserver() {
-        sleepDetailViewModel.navigateToSleepTracker.observe(viewLifecycleOwner,  Observer {
-            if (it == true) {
-                navigateToSleepTrackerFragment()
-                sleepDetailViewModel.doneNavigating()
-            }
-        })
+        sleepDetailViewModel.apply {
+            currentNight.observe(viewLifecycleOwner, Observer { updateViews(it)} )
+            navigateToSleepTracker.observe(viewLifecycleOwner,  Observer {
+                if (it == true) {
+                    navigateToSleepTrackerFragment()
+                    sleepDetailViewModel.doneNavigating()
+                }
+            })
+        }
     }
 
-    private fun updateViews() {
-
-        val res: Resources = this.context.resources
-        val night = sleepDetailViewModel.getNight()
-
-        // TODO safe call
-
-        txtvLength.text = convertDurationToFormatted(night.value.startTimeMilli, night.value.endTimeMilli, res)
-        txtvQuality.text = convertNumericQualityToString(night.value.sleepQuality, res)
-        imgvQuality.setImageResource(when (night.value.sleepQuality) {
+    private fun updateViews(night: SleepNight) {
+        val res: Resources = this.requireContext().resources
+        txtvLength.text = convertDurationToFormatted(night.startTimeMilli, night.endTimeMilli, res)
+        txtvQuality.text = convertNumericQualityToString(night.sleepQuality, res)
+        imgvQuality.setImageResource(when (night.sleepQuality) {
             0 -> R.drawable.ic_sleep_0
             1 -> R.drawable.ic_sleep_1
             2 -> R.drawable.ic_sleep_2

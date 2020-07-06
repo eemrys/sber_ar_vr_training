@@ -17,7 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/sleep_quality_image" />
+        android:contentDescription="@string/sleep_quality_image"/>
 
     <TextView
         android:id="@+id/txtvQuality"
