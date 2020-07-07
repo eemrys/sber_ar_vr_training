@@ -6,7 +6,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.example.android.trackmysleepquality.R
 import com.example.android.trackmysleepquality.convertDurationToFormatted
 import com.example.android.trackmysleepquality.convertNumericQualityToString
@@ -48,7 +48,7 @@ class SleepDetailFragment : Fragment(R.layout.fragment_sleep_detail) {
         sleepDetailViewModel.apply {
             currentNight.observe(viewLifecycleOwner, Observer { updateViews(it)} )
             navigateToSleepTracker.observe(viewLifecycleOwner,  Observer {
-                if (it == true) {
+                if (it) {
                     navigateToSleepTrackerFragment()
                     sleepDetailViewModel.doneNavigating()
                 }
@@ -64,7 +64,6 @@ class SleepDetailFragment : Fragment(R.layout.fragment_sleep_detail) {
     }
 
     private fun navigateToSleepTrackerFragment() {
-        val action = SleepDetailFragmentDirections.actionSleepDetailFragmentToSleepTrackerFragment()
-        NavHostFragment.findNavController(this).navigate(action)
+        findNavController().navigate(R.id.fragmentSleepTracker)
     }
 }
