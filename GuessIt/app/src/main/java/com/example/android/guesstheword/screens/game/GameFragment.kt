@@ -21,11 +21,14 @@ import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.view.View
+import android.widget.TextView
 import androidx.core.content.getSystemService
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.NavOptions
 import com.example.android.guesstheword.R
 import kotlinx.android.synthetic.main.fragment_game.*
 
@@ -33,6 +36,17 @@ class GameFragment : Fragment(R.layout.fragment_game) {
 
     private val viewModel by lazy {
         ViewModelProvider(this).get(GameViewModel::class.java)
+    }
+
+    private val navOptions by lazy {
+        NavOptions.Builder()
+                .setEnterAnim(R.anim.slide_in_right)
+                .setExitAnim(R.anim.slide_out_left)
+                .setLaunchSingleTop(true)
+                .setPopEnterAnim(R.anim.slide_in_right)
+                .setPopExitAnim(R.anim.slide_out_left)
+                .setPopUpTo(R.id.fragmentTitle, false)
+                .build()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,9 +66,9 @@ class GameFragment : Fragment(R.layout.fragment_game) {
 
     private fun setObserver() {
         viewModel.apply {
-            score.observe(viewLifecycleOwner, Observer { updateScoreText(it) })
-            word.observe(viewLifecycleOwner, Observer { updateWordText(it) })
-            currentTimeString.observe(viewLifecycleOwner, Observer { updateTimerText(it) })
+            score.observe(viewLifecycleOwner, Observer { updateText(txtvScore, getString(R.string.score_format, it)) })
+            word.observe(viewLifecycleOwner, Observer { updateText(txtvCurrentWord, getString(R.string.quote_format, it)) })
+            currentTimeString.observe(viewLifecycleOwner, Observer { updateText(txtvTimer, it) })
             eventGameFinished.observe(viewLifecycleOwner, Observer {
                 if (it) {
                     gameFinished()
@@ -70,21 +84,14 @@ class GameFragment : Fragment(R.layout.fragment_game) {
         }
     }
 
-    private fun updateWordText(word: String) {
-        txtvCurrentWord.text = getString(R.string.quote_format, word)
-    }
-
-    private fun updateScoreText(score: Int) {
-        txtvScore.text = getString(R.string.score_format, score)
-    }
-
-    private fun updateTimerText(time: String) {
-        txtvTimer.text = time
+    private fun updateText(textView: TextView, text: String) {
+        textView.text = text
     }
 
     private fun gameFinished() {
-        val action = GameFragmentDirections.actionGameToScore(viewModel.score.value ?: 0)
-        findNavController(this).navigate(action)
+        val temp = viewModel.score.value ?: 0
+        val bundle = bundleOf("score" to temp)
+        findNavController().navigate(R.id.fragmentScore, bundle, navOptions)
     }
 
     private fun buzz(pattern: LongArray) {

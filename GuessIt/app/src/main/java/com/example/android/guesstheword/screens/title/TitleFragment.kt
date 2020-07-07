@@ -19,16 +19,27 @@ package com.example.android.guesstheword.screens.title
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.android.guesstheword.R
 import kotlinx.android.synthetic.main.fragment_title.*
 
 class TitleFragment : Fragment(R.layout.fragment_title) {
 
+    private val navOptions by lazy {
+        NavOptions.Builder()
+                .setEnterAnim(R.anim.slide_in_right)
+                .setExitAnim(R.anim.slide_out_left)
+                .setLaunchSingleTop(true)
+                .setPopEnterAnim(R.anim.slide_in_right)
+                .setPopExitAnim(R.anim.slide_out_left)
+                .build()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         btnPlayGame.setOnClickListener {
-            findNavController().navigate(TitleFragmentDirections.actionTitleToGame())
+            findNavController().navigate(R.id.fragmentGame, null, navOptions)
         }
     }
 }

@@ -99,13 +99,6 @@ class GameViewModel : ViewModel() {
         return temp
     }
 
-    private fun nextWord() {
-        if (wordList.isEmpty()) {
-            wordList = resetList()
-        }
-        _word.value = wordList.removeAt(0)
-    }
-
     fun onSkip() {
         _score.value = (score.value)?.minus(1)
         nextWord()
@@ -115,6 +108,13 @@ class GameViewModel : ViewModel() {
         _score.value = (score.value)?.plus(1)
         _eventBuzz.value = BuzzType.CORRECT
         nextWord()
+    }
+
+    private fun nextWord() {
+        if (wordList.isEmpty()) {
+            wordList = resetList()
+        }
+        _word.value = wordList.removeAt(0)
     }
 
     fun onGameFinishComplete() {

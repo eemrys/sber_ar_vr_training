@@ -21,6 +21,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.android.guesstheword.R
@@ -36,6 +37,16 @@ class ScoreFragment : Fragment(R.layout.fragment_score) {
         ViewModelProvider(this, viewModelFactory).get(ScoreViewModel::class.java)
     }
 
+    private val navOptions by lazy {
+        NavOptions.Builder()
+                .setEnterAnim(R.anim.slide_in_right)
+                .setExitAnim(R.anim.slide_out_left)
+                .setPopEnterAnim(R.anim.slide_in_right)
+                .setPopExitAnim(R.anim.slide_out_left)
+                .setPopUpTo(R.id.fragmentTitle, false)
+                .build()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         btnPlayAgain.setOnClickListener { viewModel.onPlayAgain() }
@@ -49,7 +60,7 @@ class ScoreFragment : Fragment(R.layout.fragment_score) {
             })
             eventPlayAgain.observe(viewLifecycleOwner, Observer {
                 if (it) {
-                    findNavController().navigate(ScoreFragmentDirections.actionRestart())
+                    findNavController().navigate(R.id.fragmentGame, null, navOptions)
                     viewModel.onPlayAgainCompleted()
                 }
             })
