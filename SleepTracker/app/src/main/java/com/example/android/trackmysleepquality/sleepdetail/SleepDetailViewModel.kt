@@ -20,7 +20,7 @@ class SleepDetailViewModel(
 
     init {
         viewModelScope.launch {
-            _currentNight.value = database.getNightWithId(sleepNightKey)
+            _currentNight.value = database.getById(sleepNightKey)
         }
     }
 

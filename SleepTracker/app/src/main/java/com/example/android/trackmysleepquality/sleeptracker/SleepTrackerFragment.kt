@@ -29,14 +29,14 @@ import com.example.android.trackmysleepquality.R
 import com.example.android.trackmysleepquality.database.SleepDatabase
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_sleep_tracker.*
-
+import kotlinx.coroutines.Dispatchers
 
 class SleepTrackerFragment : Fragment(R.layout.fragment_sleep_tracker) {
 
     private val application by lazy {
         requireNotNull(this.activity).application
     }
-    private val dataSource by lazy {
+    private val dataSource by lazy (Dispatchers.IO) {
         SleepDatabase.getInstance(application).sleepDatabaseDao
     }
     private val viewModelFactory by lazy {

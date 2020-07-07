@@ -26,13 +26,14 @@ import androidx.navigation.fragment.findNavController
 import com.example.android.trackmysleepquality.R
 import com.example.android.trackmysleepquality.database.SleepDatabase
 import kotlinx.android.synthetic.main.fragment_sleep_quality.*
+import kotlinx.coroutines.Dispatchers
 
 class SleepQualityFragment : Fragment(R.layout.fragment_sleep_quality) {
 
     private val application by lazy {
         requireNotNull(this.activity).application
     }
-    private val dataSource by lazy {
+    private val dataSource by lazy (Dispatchers.IO) {
         SleepDatabase.getInstance(application).sleepDatabaseDao
     }
     private val viewModelFactory by lazy {
@@ -51,18 +52,16 @@ class SleepQualityFragment : Fragment(R.layout.fragment_sleep_quality) {
     }
 
     private fun setOnClick() {
-        setQuality(imgvQualityZero, 0)
-        setQuality(imgvQualityOne, 1)
-        setQuality(imgvQualityTwo, 2)
-        setQuality(imgvQualityThree, 3)
-        setQuality(imgvQualityFour, 4)
-        setQuality(imgvQualityFive, 5)
+        val list = listOfImages()
+        list.forEachIndexed { index, imageView ->
+            imageView.setOnClickListener {
+                sleepQualityViewModel.onSetSleepQuality(index)
+            }
+        }
     }
 
-    private fun setQuality(image: ImageView, quality: Int) {
-        image.setOnClickListener {
-            sleepQualityViewModel.onSetSleepQuality(quality)
-        }
+    private fun listOfImages(): List<ImageView> {
+        return listOf(imgvQualityZero, imgvQualityOne, imgvQualityTwo, imgvQualityThree, imgvQualityFour, imgvQualityFive)
     }
 
     private fun setObserver() {

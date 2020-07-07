@@ -14,13 +14,14 @@ import com.example.android.trackmysleepquality.database.SleepDatabase
 import com.example.android.trackmysleepquality.database.SleepNight
 import com.example.android.trackmysleepquality.setIconImage
 import kotlinx.android.synthetic.main.fragment_sleep_detail.*
+import kotlinx.coroutines.Dispatchers
 
 class SleepDetailFragment : Fragment(R.layout.fragment_sleep_detail) {
 
     private val application by lazy {
         requireNotNull(this.activity).application
     }
-    private val dataSource by lazy {
+    private val dataSource by lazy (Dispatchers.IO) {
         SleepDatabase.getInstance(application).sleepDatabaseDao
     }
     private val viewModelFactory by lazy {
