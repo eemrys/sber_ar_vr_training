@@ -23,9 +23,6 @@ apply plugin: "androidx.navigation.safeargs"
 
 android {
     compileSdkVersion 30
-    dataBinding {
-        enabled = true
-    }
     defaultConfig {
         applicationId "com.example.android.marsrealestate"
         minSdkVersion 19
