@@ -19,13 +19,40 @@ package com.example.android.marsrealestate.detail
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.android.marsrealestate.R
+import com.example.android.marsrealestate.bindImage
+import kotlinx.android.synthetic.main.fragment_detail.*
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
 
+    private val viewModelFactory by lazy {
+        val application = requireNotNull(activity).application
+        val arguments = DetailFragmentArgs.fromBundle(requireArguments())
+        DetailViewModelFactory(arguments.selectedProperty, application)
+    }
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)
+                .get(DetailViewModel::class.java)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val application = requireNotNull(activity).application
+        addObserver()
+    }
+
+    private fun addObserver() {
+        viewModel.apply{
+            selectedProperty.observe(viewLifecycleOwner, Observer {
+                bindImage(imgvMainPhoto, it.imgSrcUrl)
+            })
+            displayPropertyPrice.observe(viewLifecycleOwner, Observer {
+                txtvPriceValue.text = it
+            })
+            displayPropertyType.observe(viewLifecycleOwner, Observer {
+                txtvPropertyType.text = it
+            })
+        }
     }
 }

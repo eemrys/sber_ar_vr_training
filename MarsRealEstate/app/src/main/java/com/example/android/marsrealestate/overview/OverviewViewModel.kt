@@ -37,6 +37,10 @@ class OverviewViewModel : ViewModel() {
     val properties: LiveData<List<MarsProperty>>
         get() = _properties
 
+    private val _navigateToDetail = MutableLiveData<MarsProperty>()
+    val navigateToDetail: LiveData<MarsProperty>
+        get() = _navigateToDetail
+
     init {
         getMarsRealEstateProperties()
     }
@@ -56,5 +60,13 @@ class OverviewViewModel : ViewModel() {
                 _properties.value = ArrayList()
             }
         }
+    }
+
+    fun onItemClicked(selectedProperty: MarsProperty){
+        _navigateToDetail.value = selectedProperty
+    }
+
+    fun onItemNavigated() {
+        _navigateToDetail.value = null
     }
 }

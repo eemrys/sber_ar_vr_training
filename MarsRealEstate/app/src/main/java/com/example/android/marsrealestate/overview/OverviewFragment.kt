@@ -19,11 +19,15 @@ package com.example.android.marsrealestate.overview
 
 import android.os.Bundle
 import android.view.*
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.android.marsrealestate.R
+import com.example.android.marsrealestate.network.MarsProperty
 import kotlinx.android.synthetic.main.fragment_overview.*
 
 class OverviewFragment : Fragment(R.layout.fragment_overview) {
@@ -33,7 +37,12 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
     }
 
     private val adapter by lazy {
-        PhotoGridAdapter()
+        PhotoGridAdapter(GridClickListener { viewModel.onItemClicked(it) })
+    }
+
+    private val navOptions by lazy {
+        NavOptions.Builder().setEnterAnim(R.anim.nav_default_enter_anim)
+                .setPopEnterAnim(R.anim.nav_default_pop_enter_anim).build()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,6 +67,12 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
             status.observe(viewLifecycleOwner, Observer {
                 setImageStatus(it)
             })
+            navigateToDetail.observe(viewLifecycleOwner, Observer {
+                it?.apply {
+                    navigateToDetailFragment(it)
+                    viewModel.onItemNavigated()
+                }
+            })
         }
     }
 
@@ -77,5 +92,9 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
                 }
             }
         }
+    }
+    private fun navigateToDetailFragment(property: MarsProperty) {
+        val bundle = bundleOf("selectedProperty" to property)
+        findNavController().navigate(R.id.fragmentDetail, bundle, navOptions)
     }
 }
