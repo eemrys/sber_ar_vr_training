@@ -27,6 +27,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.android.marsrealestate.R
+import com.example.android.marsrealestate.network.MarsApiFilter
 import com.example.android.marsrealestate.network.MarsProperty
 import kotlinx.android.synthetic.main.fragment_overview.*
 
@@ -57,6 +58,17 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.overflow_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        viewModel.updateFilter(
+                when(item.itemId) {
+                    R.id.menuShowBuy -> MarsApiFilter.SHOW_BUY
+                    R.id.menuShowRent -> MarsApiFilter.SHOW_RENT
+                    else -> MarsApiFilter.SHOW_ALL
+                }
+        )
+        return true
     }
 
     private fun addObserver() {

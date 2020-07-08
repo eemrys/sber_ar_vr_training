@@ -29,7 +29,8 @@ import com.example.android.marsrealestate.network.MarsProperty
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.grid_view_item.*
 
-class PhotoGridAdapter(private val clickListener: GridClickListener) : ListAdapter<MarsProperty, PhotoGridAdapter.MarsPropertyViewHolder>(DiffCallback) {
+class PhotoGridAdapter(private val clickListener: GridClickListener) :
+        ListAdapter<MarsProperty, PhotoGridAdapter.MarsPropertyViewHolder>(DiffCallback) {
 
     companion object DiffCallback : DiffUtil.ItemCallback<MarsProperty>() {
          override fun areItemsTheSame(oldItem: MarsProperty, newItem: MarsProperty): Boolean {
