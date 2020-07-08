@@ -20,10 +20,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/devByte">
+    app:startDestination="@id/fragmentDevByte">
 
     <fragment
-        android:id="@+id/devByte"
+        android:id="@+id/fragmentDevByte"
         android:name="com.example.android.devbyteviewer.ui.DevByteFragment"
         android:label="fragment_dev_byte"
         tools:layout="@layout/fragment_dev_byte" />

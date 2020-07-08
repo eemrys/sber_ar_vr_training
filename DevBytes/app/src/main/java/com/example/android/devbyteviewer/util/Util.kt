@@ -17,11 +17,12 @@
 
 package com.example.android.devbyteviewer.util
 
+import android.view.View
+import android.widget.ImageView
+import com.bumptech.glide.Glide
+
 private val PUNCTUATION = listOf(", ", "; ", ": ", " ")
 
-/**
- * Truncate long text with a preference for word boundaries and without trailing punctuation.
- */
 fun String.smartTruncate(length: Int): String {
     val words = split(" ")
     var added = 0
@@ -47,4 +48,12 @@ fun String.smartTruncate(length: Int): String {
         builder.append("...")
     }
     return builder.toString()
+}
+
+fun setImageUrl(imageView: ImageView, url: String) {
+    Glide.with(imageView.context).load(url).into(imageView)
+}
+
+fun goneIfNotNull(view: View, it: Any?) {
+    view.visibility = if (it != null) View.GONE else View.VISIBLE
 }

@@ -17,4 +17,6 @@
 
 <resources>
     <string name="app_name">DevByte Viewer</string>
+    <string name="play_icon">Play Icon</string>
+    <string name="video_thumbnail">Video Thumbnail</string>
 </resources>

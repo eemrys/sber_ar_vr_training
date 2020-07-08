@@ -16,34 +16,24 @@
   ~
   -->
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.DevByteFragment">
-
-    <data>
-
-        <variable
-            name="viewModel"
-            type="com.example.android.devbyteviewer.viewmodels.DevByteViewModel" />
-    </data>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/background_grey">
+    tools:context=".ui.DevByteFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_grey">
 
         <ProgressBar
-            android:id="@+id/loading_spinner"
+            android:id="@+id/progbarSpinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:goneIfNotNull="@{viewModel.playlist}"
             android:layout_gravity="center" />
+    <!--app:goneIfNotNull="@{viewModel.playlist}"-->
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
+            android:id="@+id/recyclervDevByte"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:listitem="@layout/devbyte_item" />
-    </FrameLayout>
-</layout>
+
+</FrameLayout>
