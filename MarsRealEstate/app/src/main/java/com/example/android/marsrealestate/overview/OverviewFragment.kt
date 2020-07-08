@@ -19,13 +19,18 @@ package com.example.android.marsrealestate.overview
 
 import android.os.Bundle
 import android.view.*
+import android.widget.ImageView
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.android.marsrealestate.R
 import kotlinx.android.synthetic.main.fragment_overview.*
+import kotlinx.android.synthetic.main.grid_view_item.*
 
-class OverviewFragment : Fragment(R.layout.fragment_overview) {
+class OverviewFragment : Fragment(R.layout.grid_view_item) {
 
     private val viewModel: OverviewViewModel by lazy {
         ViewModelProvider(this).get(OverviewViewModel::class.java)
@@ -43,8 +48,20 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
     }
 
     private fun addObserver() {
-        viewModel.response.observe(viewLifecycleOwner, Observer {
-            txtvResponse.text = it
+        viewModel.property.observe(viewLifecycleOwner, Observer {
+            bindImage(imgvMars, it.imgSrcUrl)
         })
+    }
+
+    private fun bindImage(imgView: ImageView, imgUrl: String?) {
+        imgUrl?.let {
+            val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
+            Glide.with(imgView.context)
+                    .load(imgUri)
+                    .apply(RequestOptions()
+                            .placeholder(R.drawable.loading_animation)
+                            .error(R.drawable.ic_broken_image))
+                    .into(imgView)
+        }
     }
 }
