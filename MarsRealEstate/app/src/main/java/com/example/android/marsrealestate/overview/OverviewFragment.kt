@@ -51,9 +51,31 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
     }
 
     private fun addObserver() {
-        viewModel.properties.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
-        })
+        viewModel.apply{
+            properties.observe(viewLifecycleOwner, Observer {
+                adapter.submitList(it)
+            })
+            status.observe(viewLifecycleOwner, Observer {
+                setImageStatus(it)
+            })
+        }
     }
 
+    private fun setImageStatus(status: MarsApiStatus) {
+        imgvStatus.apply {
+            when(status) {
+                MarsApiStatus.LOADING -> {
+                    visibility = View.VISIBLE
+                    setImageResource(R.drawable.loading_animation)
+                }
+                MarsApiStatus.ERROR -> {
+                    visibility = View.VISIBLE
+                    setImageResource(R.drawable.ic_connection_error)
+                }
+                MarsApiStatus.DONE -> {
+                    visibility = View.GONE
+                }
+            }
+        }
+    }
 }
