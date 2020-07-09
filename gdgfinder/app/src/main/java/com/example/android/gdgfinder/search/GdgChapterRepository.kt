@@ -13,11 +13,7 @@ import kotlinx.coroutines.withContext
 
 class GdgChapterRepository(gdgApiService: GdgApiService) {
 
-    /**
-     * A single network request, the results won't change. For this lesson we did not add an offline cache for simplicity
-     * and the result will be cached in memory.
-     */
-    private val request = gdgApiService.getChapters()
+    private val request = gdgApiService.getChaptersAsync()
 
     /**
      * An in-progress (or potentially completed) sort, this may be null or cancelled at any time.
@@ -91,7 +87,7 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
         // since we'll need to launch a new coroutine for the sorting use coroutineScope.
         // coroutineScope will automatically wait for anything started via async {} or await{} in it's block to
         // complete.
-        val result = coroutineScope {
+        return coroutineScope {
             // launch a new coroutine to do the sort (so other requests can wait for this sort to complete)
             val deferred = async { SortedData.from(request.await(), location) }
             // cache the Deferred so any future requests can wait for this sort
@@ -99,7 +95,6 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
             // and return the result of this sort
             deferred.await()
         }
-        return result
     }
 
     /**

@@ -9,7 +9,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.IOException
 
-
 class GdgListViewModel: ViewModel() {
 
     private val repository = GdgChapterRepository(GdgApi.retrofitService)
@@ -22,18 +21,14 @@ class GdgListViewModel: ViewModel() {
     private val _regionList = MutableLiveData<List<String>>()
     private val _showNeedLocation = MutableLiveData<Boolean>()
 
-    // The external LiveData interface to the property is immutable, so only this class can modify
     val gdgList: LiveData< List<GdgChapter>>
         get() = _gdgList
-
     val regionList: LiveData<List<String>>
         get() = _regionList
-
     val showNeedLocation: LiveData<Boolean>
         get() = _showNeedLocation
 
     init {
-        // process the initial filter
         onQueryChanged()
 
         viewModelScope.launch {
