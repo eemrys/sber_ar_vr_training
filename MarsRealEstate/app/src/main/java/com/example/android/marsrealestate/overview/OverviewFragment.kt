@@ -37,7 +37,7 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
         ViewModelProvider(this).get(OverviewViewModel::class.java)
     }
 
-    private val adapter by lazy {
+    private val photoGridAdapter by lazy {
         PhotoGridAdapter(GridClickListener { viewModel.onItemClicked(it) })
     }
 
@@ -50,8 +50,10 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         val manager = GridLayoutManager(this.activity, 2)
-        recyclervPhotos.layoutManager = manager
-        recyclervPhotos.adapter = adapter
+        recyclervPhotos.apply {
+            layoutManager = manager
+            adapter = photoGridAdapter
+        }
         addObserver()
     }
 
@@ -74,7 +76,7 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
     private fun addObserver() {
         viewModel.apply{
             properties.observe(viewLifecycleOwner, Observer {
-                adapter.submitList(it)
+                photoGridAdapter.submitList(it)
             })
             status.observe(viewLifecycleOwner, Observer {
                 setImageStatus(it)
@@ -89,22 +91,20 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
     }
 
     private fun setImageStatus(status: MarsApiStatus) {
-        imgvStatus.apply {
-            when(status) {
-                MarsApiStatus.LOADING -> {
-                    visibility = View.VISIBLE
-                    setImageResource(R.drawable.loading_animation)
-                }
-                MarsApiStatus.ERROR -> {
-                    visibility = View.VISIBLE
-                    setImageResource(R.drawable.ic_connection_error)
-                }
-                MarsApiStatus.DONE -> {
-                    visibility = View.GONE
-                }
-            }
+        when(status) {
+            MarsApiStatus.LOADING -> setVisibilityAndImage(View.VISIBLE, R.drawable.loading_animation)
+            MarsApiStatus.ERROR -> setVisibilityAndImage(View.VISIBLE, R.drawable.ic_connection_error)
+            MarsApiStatus.DONE -> setVisibilityAndImage(View.GONE, null)
         }
     }
+
+    private fun setVisibilityAndImage(visibility: Int, drawable: Int?) {
+        imgvStatus.visibility = visibility
+        drawable?.apply {
+            imgvStatus.setImageResource(this)
+        }
+    }
+
     private fun navigateToDetailFragment(property: MarsProperty) {
         val bundle = bundleOf("selectedProperty" to property)
         findNavController().navigate(R.id.fragmentDetail, bundle, navOptions)
