@@ -19,31 +19,22 @@ package com.example.android.devbyteviewer.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.example.android.devbyteviewer.domain.Video
-import com.example.android.devbyteviewer.network.Network
-import com.example.android.devbyteviewer.network.asDomainModel
+import com.example.android.devbyteviewer.database.VideosDatabase.Companion.getInstance
+import com.example.android.devbyteviewer.repository.VideosRepository
 import kotlinx.coroutines.launch
-import java.io.IOException
 
 class DevByteViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _playlist = MutableLiveData<List<Video>>()
-    val playlist: LiveData<List<Video>>
-        get() = _playlist
+    private val database = getInstance(application)
+    private val videosRepository = VideosRepository(database)
 
     init {
-        refreshDataFromNetwork()
-    }
-
-    private fun refreshDataFromNetwork() = viewModelScope.launch {
-        try {
-            val playlist = Network.devbytes.getPlaylistAsync().await()
-            _playlist.postValue(playlist.asDomainModel())
-        } catch (networkError: IOException) {
-            // Show an infinite loading spinner if the request fails
-            // challenge exercise: show an error to the user if the network request fails
+        viewModelScope.launch {
+            videosRepository.refreshVideos()
         }
     }
+
+    val playlist = videosRepository.videos
 
     class Factory(private val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {

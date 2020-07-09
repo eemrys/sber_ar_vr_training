@@ -39,20 +39,8 @@ class DevByteFragment : Fragment(R.layout.fragment_dev_byte) {
                 .get(DevByteViewModel::class.java)
     }
 
-    private var viewModelAdapter: DevByteAdapter? = null
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel.playlist.observe(viewLifecycleOwner, Observer<List<Video>> { videos ->
-            videos?.apply {
-                viewModelAdapter?.videos = videos
-            }
-        })
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModelAdapter = DevByteAdapter(VideoClick {
+    private val viewModelAdapter by lazy {
+        DevByteAdapter(VideoClick {
             val packageManager = context?.packageManager ?: return@VideoClick
             var intent = Intent(Intent.ACTION_VIEW, it.launchUri)
             if(intent.resolveActivity(packageManager) == null) {
@@ -60,6 +48,19 @@ class DevByteFragment : Fragment(R.layout.fragment_dev_byte) {
             }
             startActivity(intent)
         })
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel.playlist.observe(viewLifecycleOwner, Observer<List<Video>> { videos ->
+            videos?.apply {
+                viewModelAdapter.videos = videos
+            }
+        })
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         recyclervDevByte.apply {
             layoutManager = LinearLayoutManager(context)
