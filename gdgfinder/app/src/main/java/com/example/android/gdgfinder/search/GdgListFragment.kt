@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import com.example.android.gdgfinder.showOnlyWhenEmpty
 import com.google.android.gms.location.*
 import com.google.android.material.snackbar.Snackbar
 import com.example.android.gdgfinder.R
+import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.fragment_gdg_list.*
 
 private const val LOCATION_PERMISSION_REQUEST = 1
@@ -71,6 +73,24 @@ class GdgListFragment : Fragment(R.layout.fragment_gdg_list) {
             gdgList.observe(viewLifecycleOwner, Observer {
                 adapter.submitList(it)
                 txtvList.showOnlyWhenEmpty(it)
+            })
+            regionList.observe(viewLifecycleOwner, Observer { list ->
+                list ?: return@Observer
+                val chipGroup = chipGroupRegion
+                val inflater = LayoutInflater.from(chipGroup.context)
+                val children = list.map { regionName ->
+                    val chip = inflater.inflate(R.layout.region, chipGroup, false) as Chip
+                    chip.text = regionName
+                    chip.tag = regionName
+                    chip.setOnCheckedChangeListener { button, isChecked ->
+                        viewModel.onFilterChanged(button.tag as String, isChecked)
+                    }
+                    chip
+                }
+                chipGroup.removeAllViews()
+                children.forEach {
+                    chipGroup.addView(it)
+                }
             })
         }
     }
