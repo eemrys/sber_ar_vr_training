@@ -15,7 +15,7 @@
  *
  */
 
-package com.example.android.devbyteviewer.viewmodels
+package com.example.android.devbyteviewer.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.*
@@ -35,14 +35,4 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
     }
 
     val playlist = videosRepository.videos
-
-    class Factory(private val app: Application) : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(DevByteViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
-                return DevByteViewModel(app) as T
-            }
-            throw IllegalArgumentException("Unable to construct viewmodel")
-        }
-    }
 }

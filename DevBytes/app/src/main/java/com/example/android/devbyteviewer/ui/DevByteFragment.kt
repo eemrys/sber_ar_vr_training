@@ -26,36 +26,30 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android.devbyteviewer.R
+import com.example.android.devbyteviewer.adapter.DevByteAdapter
+import com.example.android.devbyteviewer.adapter.VideoClick
 import com.example.android.devbyteviewer.domain.Video
 import com.example.android.devbyteviewer.util.goneIfNotNull
-import com.example.android.devbyteviewer.viewmodels.DevByteViewModel
+import com.example.android.devbyteviewer.viewmodel.DevByteViewModel
+import com.example.android.devbyteviewer.viewmodel.Factory
 import kotlinx.android.synthetic.main.fragment_dev_byte.*
 
 class DevByteFragment : Fragment(R.layout.fragment_dev_byte) {
 
     private val viewModel: DevByteViewModel by lazy {
         val application = requireNotNull(this.activity).application
-        ViewModelProvider(this, DevByteViewModel.Factory(application))
+        ViewModelProvider(this, Factory(application))
                 .get(DevByteViewModel::class.java)
     }
 
     private val viewModelAdapter by lazy {
         DevByteAdapter(VideoClick {
-            val packageManager = context?.packageManager ?: return@VideoClick
+            val packageManager = requireContext().packageManager ?: return@VideoClick
             var intent = Intent(Intent.ACTION_VIEW, it.launchUri)
-            if(intent.resolveActivity(packageManager) == null) {
+            if (intent.resolveActivity(packageManager) == null) {
                 intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.url))
             }
             startActivity(intent)
-        })
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel.playlist.observe(viewLifecycleOwner, Observer<List<Video>> { videos ->
-            videos?.apply {
-                viewModelAdapter.videos = videos
-            }
         })
     }
 
@@ -73,6 +67,9 @@ class DevByteFragment : Fragment(R.layout.fragment_dev_byte) {
     private fun setObserver() {
         viewModel.playlist.observe(viewLifecycleOwner, Observer {
             goneIfNotNull(progbarSpinner, it)
+            it.apply {
+                viewModelAdapter.videos = it
+            }
         })
     }
 

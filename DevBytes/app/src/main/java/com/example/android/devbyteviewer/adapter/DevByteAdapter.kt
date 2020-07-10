@@ -1,4 +1,4 @@
-package com.example.android.devbyteviewer.ui
+package com.example.android.devbyteviewer.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -30,13 +30,13 @@ class DevByteAdapter(private val callback: VideoClick) : RecyclerView.Adapter<De
     override fun getItemCount() = videos.size
 
     override fun onBindViewHolder(holder: DevByteViewHolder, position: Int) {
-        holder.bind(callback, videos[position])
+        holder.bind(videos[position])
     }
 
     inner class DevByteViewHolder(override val containerView: View) :
             RecyclerView.ViewHolder(containerView), LayoutContainer {
 
-        fun bind(callback: VideoClick, video: Video) {
+        fun bind(video: Video) {
             txtvTitle.text = video.title
             txtvDescription.text = video.shortDescription
             setImageUrl(imgvVideoThumbnail, video.thumbnail)
