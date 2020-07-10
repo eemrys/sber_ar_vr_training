@@ -31,7 +31,7 @@ class GdgListAdapter(private val clickListener: GdgClickListener):
     }
 
     override fun onBindViewHolder(holder: GdgListViewHolder, position: Int) {
-        holder.bind(clickListener, getItem(position))
+        holder.bind(getItem(position))
     }
 
     private fun from(parent: ViewGroup): GdgListViewHolder {
@@ -43,15 +43,11 @@ class GdgListAdapter(private val clickListener: GdgClickListener):
     inner class GdgListViewHolder(override val containerView: View) :
         RecyclerView.ViewHolder(containerView), LayoutContainer {
 
-        fun bind(listener: GdgClickListener, gdgChapter: GdgChapter) {
+        fun bind(gdgChapter: GdgChapter) {
             txtvChapterName.text = gdgChapter.name
             containerView.setOnClickListener {
-                listener.onClick(gdgChapter)
+                clickListener.onClick(gdgChapter)
             }
         }
     }
-}
-
-class GdgClickListener(val clickListener: (chapter: GdgChapter) -> Unit) {
-    fun onClick(chapter: GdgChapter) = clickListener(chapter)
 }

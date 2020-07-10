@@ -22,14 +22,4 @@
         android:name="com.example.android.gdgfinder.add.AddGdgFragment"
         android:label="Apply"
         tools:layout="@layout/fragment_add_gdg"/>
-
-    <!--<fragment-->
-            <!--android:id="@+id/gdgDetailFragment"-->
-            <!--android:name="com.example.android.gdg.gdgdetail.GdgDetailFragment"-->
-            <!--android:label="fragment_overview"-->
-            <!--tools:layout="@layout/fragment_gdg_detail" >-->
-        <!--<argument-->
-        <!--android:name="selectedChapter"-->
-        <!--app:argType="com.example.android.gdg.network.GdgChapter"/>-->
-    <!--</fragment>-->
 </navigation>

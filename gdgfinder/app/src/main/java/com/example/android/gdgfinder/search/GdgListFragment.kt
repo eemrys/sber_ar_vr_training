@@ -72,6 +72,7 @@ class GdgListFragment : Fragment(R.layout.fragment_gdg_list) {
             })
             gdgList.observe(viewLifecycleOwner, Observer {
                 adapter.submitList(it)
+                recyclervChapterList.scrollToPosition(0)
                 txtvList.showOnlyWhenEmpty(it)
             })
             regionList.observe(viewLifecycleOwner, Observer { list ->
