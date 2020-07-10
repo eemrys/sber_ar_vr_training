@@ -13,7 +13,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="16dp"
+            android:paddingBottom="@dimen/spacing_normal"
             android:clipToPadding="true"
             tools:context=".home.HomeFragment">
 
@@ -34,7 +34,7 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/spacing_normal"
                 android:text="@string/about_google_developer_groups"
                 app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
                 app:layout_constraintStart_toStartOf="@+id/guidelineStart"
@@ -52,6 +52,7 @@
 
             <TextView
                 android:id="@+id/txtvSubtitle"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/gdgs_are"
@@ -75,7 +76,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:scaleType="centerCrop"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/spacing_normal"
                 app:srcCompat="@drawable/wtm"
                 app:layout_constraintTop_toBottomOf="@id/txtvDescription"
                 app:layout_constraintStart_toStartOf="parent"
@@ -88,7 +89,7 @@
                 android:id="@+id/guidelineStart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintGuide_begin="16dp"
+                app:layout_constraintGuide_begin="@dimen/spacing_normal"
                 android:orientation="vertical"/>
 
             <androidx.constraintlayout.widget.Guideline
@@ -96,7 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_end="16dp"/>
+                app:layout_constraintGuide_end="@dimen/spacing_normal"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
@@ -105,6 +106,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/spacing_normal"
         app:srcCompat="@drawable/ic_gdg" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
