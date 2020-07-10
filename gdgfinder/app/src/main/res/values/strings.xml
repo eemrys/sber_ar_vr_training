@@ -34,13 +34,8 @@
     <string name="city_label">city</string>
     <string name="country_label">country</string>
     <string name="region_label">region</string>
-    <string name="enter_motivation">Please enter your motivation in 1-2 sentences</string>
+    <string name="enter_motivation">Please enter your motivation in 1–2 sentences</string>
     <string name="submitted">Submitted, no need to submit again</string>
     <string name="done">Done</string>
     <string name="submit">Submit</string>
-    <string name="gdg_image">GDG image</string>
-    <string name="start_image">Start Image</string>
-    <string name="end_image">End Image</string>
-    <string name="ok">Ok</string>
-    <string name="top_page_image">Top page image</string>
 </resources>
