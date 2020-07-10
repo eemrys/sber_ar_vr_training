@@ -4,6 +4,7 @@ import android.location.Location
 import androidx.lifecycle.*
 import com.example.android.gdgfinder.network.GdgApi
 import com.example.android.gdgfinder.network.GdgChapter
+import com.example.android.gdgfinder.repository.GdgChapterRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -11,7 +12,8 @@ import java.io.IOException
 
 class GdgListViewModel: ViewModel() {
 
-    private val repository = GdgChapterRepository(GdgApi.retrofitService)
+    private val repository =
+        GdgChapterRepository(GdgApi.retrofitService)
 
     private var filter = FilterHolder()
 
