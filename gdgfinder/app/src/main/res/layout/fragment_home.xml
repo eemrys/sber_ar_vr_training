@@ -31,7 +31,7 @@
 
             <TextView
                 android:id="@+id/txtvTitle"
-                style="@style/TextAppearance.Title"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -52,7 +52,6 @@
 
             <TextView
                 android:id="@+id/txtvSubtitle"
-                style="@style/TextAppearance.Subtitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/gdgs_are"
