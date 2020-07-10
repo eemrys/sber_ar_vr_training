@@ -26,13 +26,14 @@
 
         <TextView
             android:id="@+id/txtvTitle"
+            style="@style/TextAppearance.Title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/about_google_developer_groups"
             android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/imgvStart"
+            android:text="@string/about_google_developer_groups"
             app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
-            app:layout_constraintStart_toStartOf="@+id/guidelineStart"/>
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/imgvStart" />
 
         <TextView
             android:id="@+id/txtvIntro"
@@ -46,6 +47,7 @@
 
         <TextView
             android:id="@+id/txtvSubtitle"
+            style="@style/TextAppearance.Subtitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/gdgs_are"
