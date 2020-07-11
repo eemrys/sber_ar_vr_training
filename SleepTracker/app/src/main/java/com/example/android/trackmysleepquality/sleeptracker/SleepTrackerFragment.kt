@@ -46,12 +46,13 @@ class SleepTrackerFragment : Fragment(R.layout.fragment_sleep_tracker) {
         ViewModelProvider(this, viewModelFactory)
                 .get(SleepTrackerViewModel::class.java)
     }
-    private val adapter by lazy {
+    private val sleepNightAdapter by lazy {
         SleepNightAdapter(SleepNightListener { sleepTrackerViewModel.onSleepNightClicked(it) })
     }
 
     private val navOptions by lazy {
-        NavOptions.Builder().setEnterAnim(R.anim.slide_in_right).setPopEnterAnim(R.anim.slide_in_right).build()
+        NavOptions.Builder().setEnterAnim(R.anim.slide_in_right)
+                .setPopEnterAnim(R.anim.slide_in_right).build()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -59,8 +60,10 @@ class SleepTrackerFragment : Fragment(R.layout.fragment_sleep_tracker) {
         setOnClick()
         setObserver()
 
-        recyclervSleepList.layoutManager = getGridManager()
-        recyclervSleepList.adapter = adapter
+        recyclervSleepList.apply {
+            layoutManager = getGridManager()
+            adapter = sleepNightAdapter
+        }
     }
 
     private fun setOnClick() {
@@ -81,9 +84,7 @@ class SleepTrackerFragment : Fragment(R.layout.fragment_sleep_tracker) {
             stopButtonVisible.observe(viewLifecycleOwner, Observer { setEnabled(btnStop, it) })
             clearButtonVisible.observe(viewLifecycleOwner, Observer { setEnabled(btnClear, it) })
             allNights.observe(viewLifecycleOwner, Observer {
-                it?.apply {
-                    adapter.addHeaderAndSubmitList(it)
-                }
+                sleepNightAdapter.addHeaderAndSubmitList(it)
             })
             navigateToSleepQuality.observe(viewLifecycleOwner, Observer {
                 it?.apply {

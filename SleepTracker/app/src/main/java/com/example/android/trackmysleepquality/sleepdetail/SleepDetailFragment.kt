@@ -18,10 +18,8 @@ import kotlinx.coroutines.Dispatchers
 
 class SleepDetailFragment : Fragment(R.layout.fragment_sleep_detail) {
 
-    private val application by lazy {
-        requireNotNull(this.activity).application
-    }
     private val dataSource by lazy (Dispatchers.IO) {
+        val application = requireNotNull(this.activity).application
         SleepDatabase.getInstance(application).sleepDatabaseDao
     }
     private val viewModelFactory by lazy {
@@ -47,7 +45,11 @@ class SleepDetailFragment : Fragment(R.layout.fragment_sleep_detail) {
 
     private fun setObserver() {
         sleepDetailViewModel.apply {
-            currentNight.observe(viewLifecycleOwner, Observer { updateViews(it)} )
+            currentNight.observe(viewLifecycleOwner, Observer {
+                it?.apply {
+                    updateViews(it)
+                }
+            })
             navigateToSleepTracker.observe(viewLifecycleOwner,  Observer {
                 if (it) {
                     navigateToSleepTrackerFragment()

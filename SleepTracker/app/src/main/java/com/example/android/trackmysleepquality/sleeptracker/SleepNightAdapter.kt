@@ -41,7 +41,7 @@ class SleepNightAdapter(private val clickListener: SleepNightListener)
         when (holder) {
             is ConstraintLayoutViewHolder -> {
                 val nightItem = getItem(position) as DataItem.SleepNightItem
-                holder.bind(clickListener, nightItem.sleepNight)
+                holder.bind(nightItem.sleepNight)
             }
         }
     }
@@ -61,10 +61,10 @@ class SleepNightAdapter(private val clickListener: SleepNightListener)
         }
     }
 
-    fun addHeaderAndSubmitList(list: List<SleepNight>?) {
+    fun addHeaderAndSubmitList(list: List<SleepNight>) {
         adapterScope.launch {
-            val items = when (list) {
-                null -> listOf(DataItem.Header)
+            val items = when (list.isEmpty()) {
+                true -> listOf(DataItem.Header)
                 else -> listOf(DataItem.Header) + list.map{
                     DataItem.SleepNightItem(it)
                 }
@@ -78,7 +78,7 @@ class SleepNightAdapter(private val clickListener: SleepNightListener)
     inner class ConstraintLayoutViewHolder (override val containerView: View):
             RecyclerView.ViewHolder(containerView), LayoutContainer {
 
-        fun bind(clickListener: SleepNightListener, item: SleepNight) {
+        fun bind(item: SleepNight) {
             val res: Resources = containerView.context.resources
             containerView.setOnClickListener{ clickListener.onClick(item) }
             txtvQuality.text = convertNumericQualityToString(item.sleepQuality, res)

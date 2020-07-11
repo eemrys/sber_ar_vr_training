@@ -30,10 +30,8 @@ import kotlinx.coroutines.Dispatchers
 
 class SleepQualityFragment : Fragment(R.layout.fragment_sleep_quality) {
 
-    private val application by lazy {
-        requireNotNull(this.activity).application
-    }
     private val dataSource by lazy (Dispatchers.IO) {
+        val application = requireNotNull(this.activity).application
         SleepDatabase.getInstance(application).sleepDatabaseDao
     }
     private val viewModelFactory by lazy {

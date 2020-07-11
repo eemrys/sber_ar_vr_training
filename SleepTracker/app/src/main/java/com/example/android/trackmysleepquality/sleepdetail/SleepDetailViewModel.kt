@@ -9,8 +9,8 @@ class SleepDetailViewModel(
         private val sleepNightKey: Long = 0L,
         val database: SleepDatabaseDao) : ViewModel() {
 
-    private val _currentNight = MutableLiveData<SleepNight>()
-    val currentNight: LiveData<SleepNight>
+    private val _currentNight = MutableLiveData<SleepNight?>()
+    val currentNight: LiveData<SleepNight?>
         get() = _currentNight
 
     private val _navigateToSleepTracker = MutableLiveData<Boolean>()
