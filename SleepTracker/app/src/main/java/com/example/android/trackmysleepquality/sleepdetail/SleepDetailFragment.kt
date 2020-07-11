@@ -6,6 +6,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.android.trackmysleepquality.R
 import com.example.android.trackmysleepquality.convertDurationToFormatted
@@ -29,6 +30,10 @@ class SleepDetailFragment : Fragment(R.layout.fragment_sleep_detail) {
     private val sleepDetailViewModel by lazy {
         ViewModelProvider(this, viewModelFactory)
                 .get(SleepDetailViewModel::class.java)
+    }
+    private val navOptions by lazy {
+        NavOptions.Builder().setPopUpTo(R.id.fragmentSleepTracker, true)
+                .setLaunchSingleTop(false).build()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -67,6 +72,6 @@ class SleepDetailFragment : Fragment(R.layout.fragment_sleep_detail) {
     }
 
     private fun navigateToSleepTrackerFragment() {
-        findNavController().navigate(R.id.fragmentSleepTracker)
+        findNavController().navigate(R.id.fragmentSleepTracker, null, navOptions)
     }
 }
