@@ -67,8 +67,7 @@ class SleepTrackerViewModel(
         viewModelScope.launch {
             val newNight = SleepNight()
             database.insert(newNight)
-            val night = database.getTonight()
-            currentNight.value = if (night?.endTimeMilli != night?.startTimeMilli) null else night
+            currentNight.value = database.getTonight()
         }
     }
 
