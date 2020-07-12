@@ -22,7 +22,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(entities = [SleepNight::class], version = 1, exportSchema = false)
-abstract class SleepDatabase : RoomDatabase() { // why not object??
+abstract class SleepDatabase : RoomDatabase() {
 
     abstract val sleepDatabaseDao: SleepDatabaseDao
 
@@ -33,7 +33,7 @@ abstract class SleepDatabase : RoomDatabase() { // why not object??
 
         fun getInstance(context: Context): SleepDatabase {
             synchronized(this) {
-                var instance = INSTANCE // ?
+                var instance = INSTANCE
 
                 if (instance == null) {
                     instance = Room.databaseBuilder(
@@ -45,7 +45,7 @@ abstract class SleepDatabase : RoomDatabase() { // why not object??
                             .build()
                     INSTANCE = instance
                 }
-                return instance // ?
+                return instance
             }
         }
     }

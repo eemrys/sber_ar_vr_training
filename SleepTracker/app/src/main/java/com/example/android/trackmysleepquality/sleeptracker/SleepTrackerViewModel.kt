@@ -33,10 +33,10 @@ class SleepTrackerViewModel(
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main +  viewModelJob)
     private val allNights = database.getAllNights()
-    private var currentNight = MutableLiveData<SleepNight?>() // ?
+    private var currentNight = MutableLiveData<SleepNight?>()
 
-    private val _navigateToSleepQuality = MutableLiveData<SleepNight>()
-    val navigateToSleepQuality: LiveData<SleepNight>
+    private val _navigateToSleepQuality = MutableLiveData<SleepNight?>()
+    val navigateToSleepQuality: LiveData<SleepNight?>
         get() = _navigateToSleepQuality
 
     private var _showSnackbarEvent = MutableLiveData<Boolean>()
@@ -57,7 +57,9 @@ class SleepTrackerViewModel(
     }
 
     init {
-        initializeTonight()
+        uiScope.launch {
+            currentNight.value = getTonightFromDatabase()
+        }
     }
 
     override fun onCleared() {
@@ -65,17 +67,10 @@ class SleepTrackerViewModel(
         viewModelJob.cancel()
     }
 
-    private fun initializeTonight() {
-        uiScope.launch {
-            currentNight.value = getTonightFromDatabase()
-        }
-    }
-
     private suspend fun getTonightFromDatabase():  SleepNight? {
         return withContext(Dispatchers.IO) {
-            var night = database.getTonight()
-            if (night?.endTimeMilli != night?.startTimeMilli) { night = null }
-            night
+            val night = database.getTonight()
+            if (night?.endTimeMilli != night?.startTimeMilli) null else night
         }
     }
 

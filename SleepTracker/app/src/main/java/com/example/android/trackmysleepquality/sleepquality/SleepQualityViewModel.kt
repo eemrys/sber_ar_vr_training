@@ -28,26 +28,27 @@ class SleepQualityViewModel(
 
     private val viewModelJob = Job()
     private val uiScope =  CoroutineScope(Dispatchers.Main + viewModelJob)
-    private val _navigateToSleepTracker =  MutableLiveData<Boolean?>()
-    val navigateToSleepTracker: LiveData<Boolean?>
+    private val _navigateToSleepTracker =  MutableLiveData<Boolean>()
+    val navigateToSleepTracker: LiveData<Boolean>
         get() = _navigateToSleepTracker
 
     override fun onCleared() {
         super.onCleared()
-
         viewModelJob.cancel()
     }
 
     fun doneNavigating() {
-        _navigateToSleepTracker.value = null
+        _navigateToSleepTracker.value = false
     }
 
     fun onSetSleepQuality(quality: Int) {
         uiScope.launch {
             withContext(Dispatchers.IO) {
                 val tonight = database.get(sleepNightKey) ?: return@withContext
-                tonight.sleepQuality = quality
-                database.update(tonight)
+                tonight.apply{
+                    sleepQuality = quality
+                    database.update(this)
+                }
             }
             _navigateToSleepTracker.value = true
         }

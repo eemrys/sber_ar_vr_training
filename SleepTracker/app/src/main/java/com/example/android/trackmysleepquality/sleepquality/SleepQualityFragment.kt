@@ -18,20 +18,22 @@ package com.example.android.trackmysleepquality.sleepquality
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.example.android.trackmysleepquality.R
 import com.example.android.trackmysleepquality.database.SleepDatabase
 import kotlinx.android.synthetic.main.fragment_sleep_quality.*
+import kotlinx.coroutines.Dispatchers
 
 class SleepQualityFragment : Fragment(R.layout.fragment_sleep_quality) {
 
     private val application by lazy {
         requireNotNull(this.activity).application
     }
-    private val dataSource by lazy {
+    private val dataSource by lazy (Dispatchers.IO) {
         SleepDatabase.getInstance(application).sleepDatabaseDao
     }
     private val viewModelFactory by lazy {
@@ -50,29 +52,21 @@ class SleepQualityFragment : Fragment(R.layout.fragment_sleep_quality) {
     }
 
     private fun setOnClick() {
-        imgvQualityZero.setOnClickListener {
-            sleepQualityViewModel.onSetSleepQuality(0)
+        val list = listOfImages()
+        list.forEachIndexed { index, imageView ->
+            imageView.setOnClickListener {
+                sleepQualityViewModel.onSetSleepQuality(index)
+            }
         }
-        imgvQualityOne.setOnClickListener {
-            sleepQualityViewModel.onSetSleepQuality(1)
-        }
-        imgvQualityTwo.setOnClickListener {
-            sleepQualityViewModel.onSetSleepQuality(2)
-        }
-        imgvQualityThree.setOnClickListener {
-            sleepQualityViewModel.onSetSleepQuality(3)
-        }
-        imgvQualityFour.setOnClickListener {
-            sleepQualityViewModel.onSetSleepQuality(4)
-        }
-        imgvQualityFive.setOnClickListener {
-            sleepQualityViewModel.onSetSleepQuality(5)
-        }
+    }
+
+    private fun listOfImages(): List<ImageView> {
+        return listOf(imgvQualityZero, imgvQualityOne, imgvQualityTwo, imgvQualityThree, imgvQualityFour, imgvQualityFive)
     }
 
     private fun setObserver() {
         sleepQualityViewModel.navigateToSleepTracker.observe(viewLifecycleOwner,  Observer {
-            if (it == true) {
+            if (it) {
                 navigateToSleepTrackerFragment()
                 sleepQualityViewModel.doneNavigating()
             }
@@ -80,7 +74,6 @@ class SleepQualityFragment : Fragment(R.layout.fragment_sleep_quality) {
     }
 
     private fun navigateToSleepTrackerFragment() {
-        val action = SleepQualityFragmentDirections.actionSleepQualityFragmentToSleepTrackerFragment()
-        NavHostFragment.findNavController(this).navigate(action)
+        findNavController().navigate(R.id.fragmentSleepTracker)
     }
 }
