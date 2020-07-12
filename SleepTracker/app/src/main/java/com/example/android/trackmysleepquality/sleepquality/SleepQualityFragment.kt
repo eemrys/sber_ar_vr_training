@@ -22,6 +22,7 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.android.trackmysleepquality.R
 import com.example.android.trackmysleepquality.database.SleepDatabase
@@ -30,10 +31,8 @@ import kotlinx.coroutines.Dispatchers
 
 class SleepQualityFragment : Fragment(R.layout.fragment_sleep_quality) {
 
-    private val application by lazy {
-        requireNotNull(this.activity).application
-    }
     private val dataSource by lazy (Dispatchers.IO) {
+        val application = requireNotNull(this.activity).application
         SleepDatabase.getInstance(application).sleepDatabaseDao
     }
     private val viewModelFactory by lazy {
@@ -43,6 +42,10 @@ class SleepQualityFragment : Fragment(R.layout.fragment_sleep_quality) {
     private val sleepQualityViewModel by lazy {
         ViewModelProvider(this, viewModelFactory)
                 .get(SleepQualityViewModel::class.java)
+    }
+    private val navOptions by lazy {
+        NavOptions.Builder().setPopUpTo(R.id.fragmentSleepTracker, true)
+                .setLaunchSingleTop(false).build()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -74,6 +77,6 @@ class SleepQualityFragment : Fragment(R.layout.fragment_sleep_quality) {
     }
 
     private fun navigateToSleepTrackerFragment() {
-        findNavController().navigate(R.id.fragmentSleepTracker)
+        findNavController().navigate(R.id.fragmentSleepTracker, null, navOptions)
     }
 }
