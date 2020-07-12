@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Exercise1</string>
     <string name="welcome_to_android_academy">Welcome to Android Academy!</string>
+    <string name="go_to_wiki">Go to Wiki</string>
 </resources>
