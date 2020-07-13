@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.list_item_view.*
 
-class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
-
-    var data = listOf<Movie>()
+class MoviesAdapter(private val data: List<Movie>,
+                    private val clickListener: (movie: Movie) -> Unit) :
+    RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -29,6 +29,9 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
         RecyclerView.ViewHolder(containerView), LayoutContainer {
 
         fun bind(movie: Movie) {
+            containerView.setOnClickListener {
+                clickListener(movie)
+            }
             txtvTitle.text = movie.title
             txtvSummary.text = movie.summary
             imgvPoster.setMoviePoster(movie.posterId)

@@ -10,13 +10,13 @@
         android:id="@+id/imgvPoster"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:contentDescription="@string/movie_poster"
         android:scaleType="centerCrop"
-        app:layout_constraintDimensionRatio="2"
+        app:layout_constraintDimensionRatio="1.5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/poster_0"
-        android:contentDescription="@string/movie_poster" />
+        app:srcCompat="@drawable/poster_0" />
 
     <ScrollView
         android:layout_width="0dp"
