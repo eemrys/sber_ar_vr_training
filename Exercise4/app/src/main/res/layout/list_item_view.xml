@@ -4,47 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp">
+    android:layout_marginBottom="@dimen/spacing_normal">
 
     <ImageView
         android:id="@+id/imgvPoster"
         android:layout_width="100dp"
         android:layout_height="0dp"
-        android:adjustViewBounds="true"
+        android:contentDescription="@string/movie_poster"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars"
-        android:contentDescription="@string/movie_poster" />
+        tools:srcCompat="@drawable/poster_4" />
 
     <TextView
         android:id="@+id/txtvTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginStart="@dimen/spacing_normal"
+        android:layout_marginEnd="@dimen/spacing_normal"
+        android:ellipsize="end"
         android:fontFamily="sans-serif-condensed-light"
-        android:textColor="#B2000000"
+        android:maxLines="1"
+        android:textColor="@color/text_color"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/txtvSummary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/imgvPoster"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Black Panther" />
+        tools:text="@string/sample_title" />
 
     <TextView
         android:id="@+id/txtvSummary"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="8dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_normal"
+        android:layout_marginTop="@dimen/spacing_normal"
+        android:layout_marginEnd="@dimen/spacing_normal"
         android:ellipsize="end"
-        android:fontFamily="sans-serif-condensed"
+        android:fontFamily="sans-serif"
         android:maxLines="3"
-        android:textColor="#B2000000"
+        android:textColor="@color/text_color"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/imgvPoster"
         app:layout_constraintTop_toBottomOf="@id/txtvTitle"
-        tools:text="After the death of his father, the King of Wakanda, T\'Challa returns home to the isolated, technologically advanced African nation to succeed to the throne and take his rightful place as king." />
+        tools:text="@string/sample_summary" />
 </androidx.constraintlayout.widget.ConstraintLayout>
