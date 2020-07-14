@@ -8,7 +8,7 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.list_item_view.*
 
 class MoviesAdapter(private val data: List<Movie>,
-                    private val clickListener: (movie: Movie) -> Unit) :
+                    private val clickListener: MovieClickListener) :
     RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
     inner class MovieViewHolder (override val containerView: View):
@@ -16,7 +16,7 @@ class MoviesAdapter(private val data: List<Movie>,
 
         fun bind(movie: Movie) {
             containerView.setOnClickListener {
-                clickListener(movie)
+                clickListener.onClick(movie)
             }
             txtvTitle.text = movie.title
             txtvSummary.text = movie.summary

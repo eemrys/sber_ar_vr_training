@@ -1,10 +1,16 @@
 package com.example.exercise4
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class MoviesViewModel : ViewModel() {
 
     val data = createMovieList()
+
+    private val _navigateToDetail = MutableLiveData<Movie?>()
+    val navigateToDetail: LiveData<Movie?>
+        get() = _navigateToDetail
 
     private fun createMovieList(): List<Movie> {
         return listOf(
@@ -18,5 +24,13 @@ class MoviesViewModel : ViewModel() {
             Movie("Black Swan", "Nina, a ballerina, gets the chance to play the White Swan, Princess Odette. But she finds herself slipping into madness when Thomas, the artistic director, decides that Lily might fit the role better.", 7),
             Movie("Gravity", "Dr Ryan Stone, an engineer, and Matt Kowalski, an astronaut, are on a space mission together. However, when they are hit by high-speed space debris, they must find a way to return to Earth.", 8)
         )
+    }
+
+    fun onMovieClicked(movie: Movie) {
+        _navigateToDetail.value = movie
+    }
+
+    fun onDetailsNavigated() {
+        _navigateToDetail.value = null
     }
 }

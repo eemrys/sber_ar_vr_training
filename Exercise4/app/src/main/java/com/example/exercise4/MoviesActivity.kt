@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_movies.*
 
@@ -13,19 +14,30 @@ class MoviesActivity : AppCompatActivity(R.layout.activity_movies) {
         ViewModelProvider(this).get(MoviesViewModel::class.java)
     }
 
-    private val clickListenerIntent: (movie: Movie) -> Unit = {
-        val intent = Intent(this, DetailsActivity::class.java)
-            .putExtra("selected movie", it)
-        startActivity(intent)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val moviesAdapter = MoviesAdapter(viewModel.data, clickListenerIntent)
+        setObserver()
+
         recyclervMovies.apply {
-            adapter = moviesAdapter
+            adapter = MoviesAdapter( viewModel.data,
+                MovieClickListener { viewModel.onMovieClicked(it) } )
             layoutManager = LinearLayoutManager(this@MoviesActivity)
         }
+    }
+
+    private fun setObserver() {
+        viewModel.navigateToDetail.observe(this, Observer {
+            it?.apply {
+                navigateToDetailScreen(it)
+                viewModel.onDetailsNavigated()
+            }
+        })
+    }
+
+    private fun navigateToDetailScreen(movie: Movie) {
+        val intent = Intent(this, DetailsActivity::class.java)
+            .putExtra("selected movie", movie)
+        startActivity(intent)
     }
 }
