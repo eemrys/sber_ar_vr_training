@@ -14,24 +14,33 @@ class MoviesActivity : AppCompatActivity(R.layout.activity_movies) {
         ViewModelProvider(this).get(MoviesViewModel::class.java)
     }
 
+    private val adapterMovies by lazy {
+        MoviesAdapter { viewModel.onMovieClicked(it) }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setObserver()
 
         recyclervMovies.apply {
-            adapter = MoviesAdapter( viewModel.data) { viewModel.onMovieClicked(it) }
+            adapter = adapterMovies
             layoutManager = LinearLayoutManager(this@MoviesActivity)
         }
     }
 
     private fun setObserver() {
-        viewModel.navigateToDetail.observe(this, Observer {
-            it?.apply {
-                navigateToDetailScreen(it)
-                viewModel.onDetailsNavigated()
-            }
-        })
+        viewModel.apply {
+            navigateToDetail.observe(this@MoviesActivity, Observer {
+                it?.apply {
+                    navigateToDetailScreen(it)
+                    viewModel.onDetailsNavigated()
+                }
+            })
+            listMovies.observe(this@MoviesActivity, Observer {
+                adapterMovies.data = it
+            })
+        }
     }
 
     private fun navigateToDetailScreen(movie: Movie) {

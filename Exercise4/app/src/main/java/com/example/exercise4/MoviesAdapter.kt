@@ -7,11 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.list_item_view.*
 
-class MoviesAdapter(private val data: List<Movie>,
-                    private val clickListener: (movie: Movie) -> Unit) :
+class MoviesAdapter(private val clickListener: (movie: Movie) -> Unit) :
     RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
-    inner class MovieViewHolder (override val containerView: View):
+    var data = emptyList<Movie>()
+
+    class MovieViewHolder (private val clickListener: (movie: Movie) -> Unit,
+                                 override val containerView: View):
         RecyclerView.ViewHolder(containerView), LayoutContainer {
 
         fun bind(movie: Movie) {
@@ -20,14 +22,14 @@ class MoviesAdapter(private val data: List<Movie>,
             }
             txtvTitle.text = movie.title
             txtvSummary.text = movie.summary
-            imgvPoster.setMoviePoster(movie.posterId)
+            imgvPoster.setImageResource(movie.poster)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(R.layout.list_item_view, parent, false)
-        return MovieViewHolder(view)
+        return MovieViewHolder(clickListener, view)
     }
 
     override fun getItemCount() = data.size

@@ -38,10 +38,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/spacing_normal"
                 android:fontFamily="sans-serif-condensed-medium"
-                tools:text="@string/sample_title"
                 android:textAlignment="viewStart"
                 android:textColor="@color/text_color"
-                android:textSize="20sp" />
+                android:textSize="24sp"
+                tools:text="@string/sample_title" />
+
+            <Button
+                android:id="@+id/btnTrailer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_normal"
+                android:text="@string/watch_trailer"
+                android:textColor="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/txtvSummary"

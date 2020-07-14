@@ -1,9 +1,11 @@
 package com.example.exercise4
 
 import android.os.Parcelable
+import androidx.annotation.DrawableRes
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Movie(val title: String,
                  val summary: String,
-                 val posterId: Int) : Parcelable
+                 @DrawableRes val poster: Int,
+                 val trailerUrl: String) : Parcelable
