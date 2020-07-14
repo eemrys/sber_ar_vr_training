@@ -20,8 +20,7 @@ class MoviesActivity : AppCompatActivity(R.layout.activity_movies) {
         setObserver()
 
         recyclervMovies.apply {
-            adapter = MoviesAdapter( viewModel.data,
-                MovieClickListener { viewModel.onMovieClicked(it) } )
+            adapter = MoviesAdapter( viewModel.data) { viewModel.onMovieClicked(it) }
             layoutManager = LinearLayoutManager(this@MoviesActivity)
         }
     }
