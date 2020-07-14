@@ -11,20 +11,6 @@ class MoviesAdapter(private val data: List<Movie>,
                     private val clickListener: (movie: Movie) -> Unit) :
     RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        val view = layoutInflater.inflate(R.layout.list_item_view, parent, false)
-        return MovieViewHolder(view)
-    }
-
-    override fun getItemCount(): Int {
-        return data.size
-    }
-
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(data[position])
-    }
-
     inner class MovieViewHolder (override val containerView: View):
         RecyclerView.ViewHolder(containerView), LayoutContainer {
 
@@ -36,5 +22,17 @@ class MoviesAdapter(private val data: List<Movie>,
             txtvSummary.text = movie.summary
             imgvPoster.setMoviePoster(movie.posterId)
         }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val view = layoutInflater.inflate(R.layout.list_item_view, parent, false)
+        return MovieViewHolder(view)
+    }
+
+    override fun getItemCount() = data.size
+
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+        holder.bind(data[position])
     }
 }
