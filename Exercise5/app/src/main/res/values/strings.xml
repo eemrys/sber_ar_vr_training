@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Exercise5</string>
+    <string name="sample_summary">After the death of his father, the King of Wakanda, T\'Challa returns home to the isolated, technologically advanced African nation to succeed to the throne and take his rightful place as king.</string>
+    <string name="sample_title">Black Panther</string>
+    <string name="watch_trailer">Watch Trailer</string>
+    <string name="movie_poster">Movie Poster</string>
 </resources>
