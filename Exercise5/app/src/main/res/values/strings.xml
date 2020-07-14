@@ -4,4 +4,6 @@
     <string name="sample_title">Black Panther</string>
     <string name="watch_trailer">Watch Trailer</string>
     <string name="movie_poster">Movie Poster</string>
+    <string name="released">Released:</string>
+    <string name="overview">Overview:</string>
 </resources>

@@ -69,7 +69,7 @@
                 app:layout_constraintEnd_toStartOf="@id/txtvDate"
                 app:layout_constraintStart_toEndOf="@id/imgvPoster"
                 app:layout_constraintTop_toBottomOf="@id/txtvTitle"
-                tools:text="Released:" />
+                android:text="@string/released" />
 
             <TextView
                 android:id="@+id/txtvDate"
@@ -105,7 +105,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imgvPoster"
-                tools:text="Overview:" />
+                android:text="@string/overview" />
 
             <TextView
                 android:id="@+id/txtvSummary"
