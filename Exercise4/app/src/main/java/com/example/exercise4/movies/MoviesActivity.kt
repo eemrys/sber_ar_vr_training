@@ -1,4 +1,4 @@
-package com.example.exercise4
+package com.example.exercise4.movies
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,9 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.exercise4.*
+import com.example.exercise4.data.Movie
+import com.example.exercise4.details.DetailsActivity
 import kotlinx.android.synthetic.main.activity_movies.*
 
 class MoviesActivity : AppCompatActivity(R.layout.activity_movies) {

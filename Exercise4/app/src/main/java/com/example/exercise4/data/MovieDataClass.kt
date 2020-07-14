@@ -1,4 +1,4 @@
-package com.example.exercise4
+package com.example.exercise4.data
 
 import android.os.Parcelable
 import androidx.annotation.DrawableRes
