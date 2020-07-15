@@ -11,12 +11,12 @@
         tools:layout="@layout/fragment_movies" />
 
     <fragment
-        android:id="@+id/fragmentDetails"
-        android:name="com.example.exercise5.details.DetailsFragment"
-        tools:layout="@layout/fragment_details">
+        android:id="@+id/fragmentGallery"
+        android:name="com.example.exercise5.gallery.GalleryFragment"
+        tools:layout="@layout/fragment_gallery">
         <argument
-            android:name="selectedMovie"
-            app:argType="com.example.exercise5.data.Movie"/>
+            android:name="position"
+            app:argType="integer"/>
     </fragment>
 
 </navigation>

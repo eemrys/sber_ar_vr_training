@@ -8,20 +8,12 @@ import com.example.exercise5.data.Movie
 
 class MoviesViewModel : ViewModel() {
 
-    private val _listMovies = MutableLiveData<List<Movie>>()
-    val listMovies: LiveData<List<Movie>>
-        get() = _listMovies
-
-    private val _navigateToDetail = MutableLiveData<Movie?>()
-    val navigateToDetail: LiveData<Movie?>
+    private val _navigateToDetail = MutableLiveData<Int?>()
+    val navigateToDetail: LiveData<Int?>
         get() = _navigateToDetail
 
-    init {
-        _listMovies.value = DataStorage.getMoviesList()
-    }
-
-    fun onMovieClicked(movie: Movie) {
-        _navigateToDetail.value = movie
+    fun onMovieClicked(position: Int) {
+        _navigateToDetail.value = position
     }
 
     fun onDetailsNavigated() {

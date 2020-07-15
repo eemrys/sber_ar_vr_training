@@ -9,12 +9,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.exercise5.Communicator
 import com.example.exercise5.R
 import com.example.exercise5.data.Movie
 import kotlinx.android.synthetic.main.fragment_movies.*
 
 class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
+    private val sharedViewModel by lazy {
+        ViewModelProvider(this).get(Communicator::class.java)
+    }
     private val viewModel by lazy {
         ViewModelProvider(this).get(MoviesViewModel::class.java)
     }
@@ -40,21 +44,19 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
     }
 
     private fun setObserver() {
-        viewModel.apply {
-            navigateToDetail.observe(viewLifecycleOwner, Observer {
+        viewModel.navigateToDetail.observe(viewLifecycleOwner, Observer {
                 it?.apply {
-                    navigateToDetailScreen(it)
+                    navigateToDetailGallery(it)
                     viewModel.onDetailsNavigated()
                 }
             })
-            listMovies.observe(viewLifecycleOwner, Observer {
-                adapterMovies.data = it
-            })
-        }
+        sharedViewModel.listMovies.observe(viewLifecycleOwner, Observer {
+            adapterMovies.data = it
+        })
     }
 
-    private fun navigateToDetailScreen(movie: Movie) {
-        val bundle = bundleOf("selectedMovie" to movie)
-        findNavController().navigate(R.id.fragmentDetails, bundle, navOptions)
+    private fun navigateToDetailGallery(position: Int) {
+        val bundle = bundleOf("position" to position)
+        findNavController().navigate(R.id.fragmentGallery, bundle, navOptions)
     }
 }
