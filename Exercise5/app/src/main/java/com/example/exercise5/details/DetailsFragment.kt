@@ -8,13 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.exercise5.R
+import com.example.exercise5.data.Movie
 import kotlinx.android.synthetic.main.fragment_details.*
 
 class DetailsFragment : Fragment(R.layout.fragment_details) {
 
     private val viewModelFactory by lazy {
-        val arguments = DetailsFragmentArgs.fromBundle(requireArguments())
-        DetailsViewModelFactory(arguments.selectedMovie)
+        val arguments: Movie = requireArguments().get("selectedMovie") as Movie
+        DetailsViewModelFactory(arguments)
     }
     private val viewModel by lazy {
         ViewModelProvider(this, viewModelFactory)
@@ -28,17 +29,21 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     }
 
     private fun addObserver() {
-        viewModel.selectedMovie.observe(viewLifecycleOwner, Observer {
-            imgvWidePoster.setImageResource(it.posterWide)
-            imgvPoster.setImageResource(it.poster)
-            txtvTitle.text = it.title
-            txtvDate.text = it.releaseDate
-            txtvSummary.text = it.summary
-            val url = it.trailerUrl
+        viewModel.selectedMovie.observe(viewLifecycleOwner, Observer { setViewsData(it) })
+    }
+
+    private fun setViewsData(movie: Movie) {
+        movie.apply {
+            imgvWidePoster.setImageResource(posterWide)
+            imgvPoster.setImageResource(poster)
+            txtvTitle.text = title
+            txtvDate.text = releaseDate
+            txtvSummary.text = summary
+
             btnTrailer.setOnClickListener {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(trailerUrl))
                 startActivity(intent)
             }
-        })
+        }
     }
 }

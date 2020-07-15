@@ -9,19 +9,22 @@ import com.example.exercise5.data.Movie
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.list_item_view.*
 
-class MoviesAdapter(private val clickListener: (movie: Movie) -> Unit) :
+class MoviesAdapter(private val clickListener: (position: Int) -> Unit) :
     RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
     var data = emptyList<Movie>()
 
-    class MovieViewHolder (private val clickListener: (movie: Movie) -> Unit,
+    class MovieViewHolder (private val clickListener: (position: Int) -> Unit,
                            override val containerView: View):
 
         RecyclerView.ViewHolder(containerView), LayoutContainer {
 
         fun bind(movie: Movie) {
             containerView.setOnClickListener {
-                clickListener(movie)
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    clickListener(position)
+                }
             }
             txtvTitle.text = movie.title
             txtvSummary.text = movie.summary
