@@ -19,22 +19,22 @@ class MoviesAdapter(private val clickListener: (movie: Movie) -> Unit) :
         RecyclerView.ViewHolder(containerView), LayoutContainer {
 
         fun bind(movie: Movie) {
-            containerView.setOnClickListener {
-                clickListener(movie)
+            movie.apply {
+                txtvTitle.text = title
+                txtvSummary.text = summary
+                imgvPoster.setImageResource(poster)
+
+                containerView.setOnClickListener {
+                    clickListener(this)
+                }
             }
-            txtvTitle.text = movie.title
-            txtvSummary.text = movie.summary
-            imgvPoster.setImageResource(movie.poster)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(R.layout.list_item_view, parent, false)
-        return MovieViewHolder(
-            clickListener,
-            view
-        )
+        return MovieViewHolder(clickListener, view)
     }
 
     override fun getItemCount() = data.size
