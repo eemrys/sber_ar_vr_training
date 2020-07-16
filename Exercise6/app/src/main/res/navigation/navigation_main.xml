@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_main"
+    app:startDestination="@id/fragmentMovies">
+
+    <fragment
+        android:id="@+id/fragmentMovies"
+        android:name="com.example.exercise6.movieslist.MoviesFragment"
+        tools:layout="@layout/fragment_movies" />
+
+    <fragment
+        android:id="@+id/fragmentGallery"
+        android:name="com.example.exercise6.gallery.GalleryFragment"
+        tools:layout="@layout/fragment_gallery">
+        <argument
+            android:name="position"
+            app:argType="integer"/>
+    </fragment>
+
+</navigation>
