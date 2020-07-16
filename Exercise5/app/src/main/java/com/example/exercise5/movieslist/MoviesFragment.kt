@@ -9,15 +9,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.exercise5.Communicator
+import com.example.exercise5.MainViewModel
 import com.example.exercise5.R
-import com.example.exercise5.data.Movie
 import kotlinx.android.synthetic.main.fragment_movies.*
 
 class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
     private val sharedViewModel by lazy {
-        ViewModelProvider(this).get(Communicator::class.java)
+        ViewModelProvider(this).get(MainViewModel::class.java)
     }
     private val viewModel by lazy {
         ViewModelProvider(this).get(MoviesViewModel::class.java)
