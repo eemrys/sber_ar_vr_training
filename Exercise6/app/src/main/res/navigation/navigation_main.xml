@@ -21,12 +21,12 @@
 
     <fragment
         android:id="@+id/fragmentCoroutines"
-        android:name="com.example.exercise6.multithreading.CoroutinesFragment"
+        android:name="com.example.exercise6.coroutines.CoroutinesFragment"
         tools:layout="@layout/fragment_coroutines" />
 
     <fragment
         android:id="@+id/fragmentThreadsHandler"
-        android:name="com.example.exercise6.multithreading.ThreadsHandlerFragment"
+        android:name="com.example.exercise6.threads.ThreadsHandlerFragment"
         tools:layout="@layout/fragment_threads_handler" />
 
 </navigation>

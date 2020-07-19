@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.exercise6.MainViewModel
 import com.example.exercise6.R
+import com.example.exercise6.gallery.GalleryFragmentArgs
 import kotlinx.android.synthetic.main.fragment_movies.*
 
 class MoviesFragment : Fragment(R.layout.fragment_movies) {
@@ -70,7 +71,7 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
     }
 
     private fun navigateToDetailGallery(position: Int) {
-        val bundle = bundleOf("position" to position)
-        findNavController().navigate(R.id.fragmentGallery, bundle, navOptions)
+        val args = GalleryFragmentArgs.Builder(position).build().toBundle()
+        findNavController().navigate(R.id.fragmentGallery, args, navOptions)
     }
 }

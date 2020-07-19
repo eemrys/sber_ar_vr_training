@@ -1,4 +1,4 @@
-package com.example.exercise6.multithreading
+package com.example.exercise6.threads
 
 import androidx.fragment.app.Fragment
 import com.example.exercise6.R

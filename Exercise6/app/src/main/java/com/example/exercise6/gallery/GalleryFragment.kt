@@ -28,8 +28,8 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery) {
     private fun setObserver() {
         sharedViewModel.listMovies.observe(viewLifecycleOwner, Observer {
             pagerAdapter.movies = it
-            val arguments = GalleryFragmentArgs.fromBundle(requireArguments())
-            vpagerGallery.setCurrentItem(arguments.position, false)
+            val arguments = GalleryFragmentArgs.fromBundle(requireArguments()).position
+            vpagerGallery.setCurrentItem(arguments, false)
         })
     }
 }
