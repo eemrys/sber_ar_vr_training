@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.exercise6.R
+import com.example.exercise6.TaskEventContract
 import kotlinx.android.synthetic.main.fragment_coroutines.*
 
 class CoroutinesFragment : Fragment(R.layout.fragment_coroutines),

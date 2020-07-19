@@ -1,4 +1,4 @@
-package com.example.exercise6.coroutines
+package com.example.exercise6
 
 interface TaskEventContract {
     fun onPreExecute()

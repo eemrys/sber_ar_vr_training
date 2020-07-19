@@ -1,5 +1,6 @@
 package com.example.exercise6.coroutines
 
+import com.example.exercise6.TaskEventContract
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
