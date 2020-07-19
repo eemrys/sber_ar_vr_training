@@ -5,16 +5,19 @@ import android.os.Looper
 import android.os.SystemClock
 import com.example.exercise6.TaskEventContract
 
-class CounterAsyncTask(private val listener: TaskEventContract) {
+class CounterAsyncTask(private val listener: TaskEventContract, var currentPoint: Int) {
 
     @Volatile
     var isCancelled = false
         private set
     private var backgroundThread: Thread? = null
 
+    init {
+        runOnUiThread(Runnable { listener.onPreExecute() })
+    }
+
     fun execute() {
         runOnUiThread(Runnable {
-            listener.onPreExecute()
             backgroundThread = object : Thread("Handler_executor_thread") {
                 override fun run() {
                     doInBackground()
@@ -30,11 +33,14 @@ class CounterAsyncTask(private val listener: TaskEventContract) {
     }
 
     private fun doInBackground() {
-        for (i in 0..10) {
+        val start = currentPoint
+        for (i in start..10) {
             if (isCancelled) { return }
             publishProgress(i)
             SystemClock.sleep(500)
+            currentPoint = i
         }
+        currentPoint = 0
     }
 
     private fun publishProgress(progress: Int) {

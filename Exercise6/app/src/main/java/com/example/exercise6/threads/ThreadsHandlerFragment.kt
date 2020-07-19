@@ -12,7 +12,9 @@ class ThreadsHandlerFragment : Fragment(R.layout.fragment_threads_handler), Task
     private var asyncTask: CounterAsyncTask? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setOnClick()
+        val currentPoint = savedInstanceState?.getInt("CURRENT_VAL") ?: 0
+        //txtvTitle.text = savedInstanceState?.getString("CURRENT_TEXT")
+        setOnClick(currentPoint)
     }
 
     override fun onDestroy() {
@@ -36,9 +38,14 @@ class ThreadsHandlerFragment : Fragment(R.layout.fragment_threads_handler), Task
         txtvTitle.text = progress.toString()
     }
 
-    private fun setOnClick() {
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putInt("CURRENT_VAL", asyncTask?.currentPoint ?: 0)
+        //outState.putString("CURRENT_TEXT", txtvTitle.text as String?)
+    }
+
+    private fun setOnClick(currentPoint: Int) {
         btnCreate.setOnClickListener {
-            asyncTask = CounterAsyncTask(this)
+            asyncTask = CounterAsyncTask(this, currentPoint)
         }
         btnStart.setOnClickListener { asyncTask?.execute() }
         btnCancel.setOnClickListener { asyncTask?.cancel() }

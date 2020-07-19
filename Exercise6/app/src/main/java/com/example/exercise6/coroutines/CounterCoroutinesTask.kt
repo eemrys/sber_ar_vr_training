@@ -4,7 +4,7 @@ import com.example.exercise6.TaskEventContract
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-class CoroutineTask(private val listener: TaskEventContract) : CoroutineScope {
+class CoroutineTask(private val listener: TaskEventContract, var currentPoint: Int) : CoroutineScope {
 
     override val coroutineContext: CoroutineContext
         get() = SupervisorJob()
@@ -13,12 +13,15 @@ class CoroutineTask(private val listener: TaskEventContract) : CoroutineScope {
 
     fun createTask() {
         newJob = launch(Dispatchers.IO, CoroutineStart.LAZY) {
-            repeat(10) { counter ->
+            val start = currentPoint
+            for (i in start..10) {
                 launch(Dispatchers.Main) {
-                    listener.onProgressUpdate(counter)
+                    listener.onProgressUpdate(i)
                 }
                 delay(500)
+                currentPoint = i
             }
+            currentPoint = 0
             launch(Dispatchers.Main) {
                 listener.onPostExecute()
             }

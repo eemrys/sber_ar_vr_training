@@ -13,7 +13,8 @@ class CoroutinesFragment : Fragment(R.layout.fragment_coroutines),
     private var coroutineTask: CoroutineTask? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setOnClick()
+        val currentPoint = savedInstanceState?.getInt("CURRENT_VAL") ?: 0
+        setOnClick(currentPoint)
     }
 
     override fun onDestroy() {
@@ -33,10 +34,15 @@ class CoroutinesFragment : Fragment(R.layout.fragment_coroutines),
         txtvTitle.text = progress.toString()
     }
 
-    private fun setOnClick() {
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putInt("CURRENT_VAL", coroutineTask?.currentPoint ?: 0)
+    }
+
+    private fun setOnClick(currentPoint: Int) {
         btnCreate.setOnClickListener {
-            coroutineTask = CoroutineTask(this)
+            coroutineTask = CoroutineTask(this, currentPoint)
                 .apply { createTask() }
+
         }
         btnStart.setOnClickListener { coroutineTask?.startTask() }
         btnCancel.setOnClickListener { coroutineTask?.cancelTask() }
