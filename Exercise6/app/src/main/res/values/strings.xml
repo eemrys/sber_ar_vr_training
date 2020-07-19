@@ -6,4 +6,9 @@
     <string name="movie_poster">Movie Poster</string>
     <string name="released">Released:</string>
     <string name="overview">Overview:</string>
+    <string name="coroutines_activity">Coroutines Fragment</string>
+    <string name="threads_handler_activity">Threads Handler Fragment</string>
+    <string name="create">Create</string>
+    <string name="start">Start</string>
+    <string name="cancel">Cancel</string>
 </resources>
