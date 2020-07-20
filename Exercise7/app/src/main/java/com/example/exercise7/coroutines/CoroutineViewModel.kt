@@ -8,9 +8,7 @@ import com.example.exercise7.R
 
 class CoroutineViewModel(private val context: Context) : ViewModel(), TaskEventContract {
 
-    private val task by lazy {
-        CoroutineTask(this)
-    }
+    private var task: CoroutineTask? = null
 
     private val _currentText = MutableLiveData<String>()
     val currentText: LiveData<String>
@@ -30,16 +28,24 @@ class CoroutineViewModel(private val context: Context) : ViewModel(), TaskEventC
 
     override fun onCleared() {
         super.onCleared()
-        task.cancelTask()
+        task?.cancelTask()
     }
 
     fun onCreateClicked() {
-        task.createTask()
+        task =  CoroutineTask(this).apply {
+            createTask()
+        }
     }
     fun onStartClicked() {
-        task.startTask()
+        task?.startTask()
+        if (task == null) {
+            _currentText.value = context.getString(R.string.click_create)
+        }
     }
     fun onCancelClicked() {
-        task.cancelTask()
+        task?.cancelTask()
+        if (task == null) {
+            _currentText.value = context.getString(R.string.no_task)
+        }
     }
 }
