@@ -10,6 +10,7 @@ class CounterAsyncTask(private val listener: TaskEventContract) {
     @Volatile
     var isCancelled = false
         private set
+    var savedPoint: Int? = null
     private var backgroundThread: Thread? = null
     private val handler =  Handler(Looper.getMainLooper())
     private val runnable = Runnable {
@@ -30,7 +31,8 @@ class CounterAsyncTask(private val listener: TaskEventContract) {
     }
 
     private fun doInBackground() {
-        for (i in 0..10) {
+        val start = savedPoint ?: 0
+        for (i in start..10) {
             if (isCancelled) { return }
             publishProgress(i)
             SystemClock.sleep(500)
@@ -46,9 +48,12 @@ class CounterAsyncTask(private val listener: TaskEventContract) {
         handler.post(runnable)
     }
 
-    fun cancel() {
+    fun cancel(destroy: Boolean = false) {
         handler.removeCallbacks(runnable)
         isCancelled = true
         backgroundThread?.interrupt()
+        if (!destroy) {
+            listener.onCancelled()
+        }
     }
 }
