@@ -12,7 +12,7 @@ class CoroutineTask(private val listener: TaskEventContract) : CoroutineScope {
 
     fun createTask() {
         newJob = launch(Dispatchers.IO, CoroutineStart.LAZY) {
-            for (i in 0..10) {
+            for (i in 0..20) {
                 launch(Dispatchers.Main) {
                     listener.onProgressUpdate(i)
                 }

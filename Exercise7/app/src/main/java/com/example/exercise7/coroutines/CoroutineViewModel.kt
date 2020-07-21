@@ -36,15 +36,17 @@ class CoroutineViewModel(private val context: Context) : ViewModel(), TaskEventC
             createTask()
         }
     }
+
     fun onStartClicked() {
-        task?.startTask()
-        if (task == null) {
+        val started = task?.startTask()
+        if (started == null) {
             _currentText.value = context.getString(R.string.click_create)
         }
     }
+
     fun onCancelClicked() {
-        task?.cancelTask()
-        if (task == null) {
+        val canceled = task?.cancelTask()
+        if (canceled == null) {
             _currentText.value = context.getString(R.string.no_task)
         }
     }
