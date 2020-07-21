@@ -34,6 +34,10 @@ class ThreadsHandlerFragment : Fragment(R.layout.fragment_threads_handler), Task
         txtvTitle.text = progress.toString()
     }
 
+    override fun onCancelled() {
+        TODO("Not yet implemented")
+    }
+
     private fun setOnClick() {
         btnCreate.setOnClickListener {
             asyncTask = CounterAsyncTask(this)

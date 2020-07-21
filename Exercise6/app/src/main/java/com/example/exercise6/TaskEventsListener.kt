@@ -4,4 +4,5 @@ interface TaskEventContract {
     fun onPreExecute()
     fun onPostExecute()
     fun onProgressUpdate(progress: Int)
+    fun onCancelled()
 }

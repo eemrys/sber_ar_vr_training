@@ -4,37 +4,39 @@ import com.example.exercise6.TaskEventContract
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-class CoroutineTask(private val listener: TaskEventContract, var currentPoint: Int) : CoroutineScope {
+class CoroutineTask(private val listener: TaskEventContract) : CoroutineScope {
 
     override val coroutineContext: CoroutineContext
         get() = SupervisorJob()
 
-    private var newJob: Job? = null
+    var savedPoint: Int? = null
+
+    private val newJob = launch(Dispatchers.IO, CoroutineStart.LAZY) {
+        val start = savedPoint ?: 0
+        for (i in start..10) {
+            launch(Dispatchers.Main) {
+                listener.onProgressUpdate(i)
+            }
+            delay(500)
+        }
+        launch(Dispatchers.Main) {
+            listener.onPostExecute()
+        }
+    }
 
     fun createTask() {
-        newJob = launch(Dispatchers.IO, CoroutineStart.LAZY) {
-            val start = currentPoint
-            for (i in start..10) {
-                launch(Dispatchers.Main) {
-                    listener.onProgressUpdate(i)
-                }
-                delay(500)
-                currentPoint = i
-            }
-            currentPoint = 0
-            launch(Dispatchers.Main) {
-                listener.onPostExecute()
-            }
-        }
         listener.onPreExecute()
     }
 
     fun startTask() {
-        newJob?.start()
+        newJob.start()
     }
 
-    fun cancelTask() {
-        newJob?.cancel()
+    fun cancelTask(destroy: Boolean = false) {
+        if (!destroy) {
+            listener.onCancelled()
+        }
+        newJob.cancel()
         coroutineContext.cancel()
     }
 }

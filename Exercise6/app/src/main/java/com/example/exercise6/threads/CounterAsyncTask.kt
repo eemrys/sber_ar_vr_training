@@ -29,10 +29,6 @@ class CounterAsyncTask(private val listener: TaskEventContract) {
         runOnUiThread(runnable)
     }
 
-    private fun runOnUiThread(runnable: Runnable) {
-       handler.post(runnable)
-    }
-
     private fun doInBackground() {
         for (i in 0..10) {
             if (isCancelled) { return }
@@ -44,6 +40,10 @@ class CounterAsyncTask(private val listener: TaskEventContract) {
 
     private fun publishProgress(progress: Int) {
         runOnUiThread(Runnable { listener.onProgressUpdate(progress) })
+    }
+
+    private fun runOnUiThread(runnable: Runnable) {
+        handler.post(runnable)
     }
 
     fun cancel() {
