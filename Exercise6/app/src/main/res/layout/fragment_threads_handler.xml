@@ -36,7 +36,7 @@
 
     <TextView
         android:id="@+id/txtvTitle"
-        tools:text="@string/threads_handler_activity"
+        android:text="@string/threads_handler_activity"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
