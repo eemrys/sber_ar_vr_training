@@ -12,7 +12,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.exercise8.MainViewModel
-import com.example.exercise8.MovieApiStatus
+import com.example.exercise8.network.MovieApiStatus
 import com.example.exercise8.R
 import com.example.exercise8.gallery.GalleryFragmentArgs
 import kotlinx.android.synthetic.main.fragment_movies.*

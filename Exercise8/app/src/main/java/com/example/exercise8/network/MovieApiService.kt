@@ -17,7 +17,7 @@ interface MovieApiService {
 
     @GET("movie/{movieId}/videos")
     fun getMovieTrailerAsync(
-        @Path("movieId") movieId: Int,
+        @Path("movieId") movieId: String,
         @Query("api_key") apiKey: String = API_KEY):
             Deferred<TrailerList>
 }

@@ -6,10 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.exercise8.network.MovieApi
 import com.example.exercise8.data.MovieItem
+import com.example.exercise8.network.MovieApiStatus
 import com.example.exercise8.network.MovieMapper
 import kotlinx.coroutines.launch
-
-enum class MovieApiStatus { LOADING, ERROR, DONE }
 
 class MainViewModel : ViewModel() {
 
@@ -30,10 +29,10 @@ class MainViewModel : ViewModel() {
 
     private fun getMovieList() {
         viewModelScope.launch {
-            val getPropertiesDeferred = MovieApi.retrofitService.getMovieListAsync()
+            val getMovieListDeferred = MovieApi.retrofitService.getMovieListAsync()
             try {
                 _status.value = MovieApiStatus.LOADING
-                val listResult = getPropertiesDeferred.await()
+                val listResult = getMovieListDeferred.await()
                 listResult.apply {
                     _listMovies.value = mapper.mapToMovies(this)
                 }
