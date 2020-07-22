@@ -4,7 +4,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.exercise8.details.DetailsFragment
-import com.example.exercise8.network.MovieItem
+import com.example.exercise8.data.MovieItem
 
 class GalleryPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 

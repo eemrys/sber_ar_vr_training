@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.exercise8.network.MovieApi
-import com.example.exercise8.network.MovieItem
+import com.example.exercise8.data.MovieItem
 import com.example.exercise8.network.MovieMapper
 import kotlinx.coroutines.launch
 

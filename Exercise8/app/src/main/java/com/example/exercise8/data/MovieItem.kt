@@ -1,10 +1,12 @@
-package com.example.exercise8.network
+package com.example.exercise8.data
 
 import android.os.Parcelable
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
+@JsonClass(generateAdapter = true)
 data class MovieItem (
     @Json(name = "id") val id: String,
     @Json(name = "title") val title: String,

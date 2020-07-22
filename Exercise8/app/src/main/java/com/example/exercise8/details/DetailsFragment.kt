@@ -1,14 +1,12 @@
 package com.example.exercise8.details
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.exercise8.R
-import com.example.exercise8.network.MovieItem
+import com.example.exercise8.data.MovieItem
 import kotlinx.android.synthetic.main.fragment_details.*
 import coil.api.load
 
