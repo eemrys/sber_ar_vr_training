@@ -3,7 +3,7 @@ package com.example.exercise8.gallery
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.exercise8.data.Movie
+import com.example.exercise8.network.Movie
 import com.example.exercise8.details.DetailsFragment
 
 class GalleryPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {

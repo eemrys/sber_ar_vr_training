@@ -3,7 +3,7 @@ package com.example.exercise8.details
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.exercise8.data.Movie
+import com.example.exercise8.network.Movie
 
 class DetailsViewModel(movie: Movie) : ViewModel() {
 

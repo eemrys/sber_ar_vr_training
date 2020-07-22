@@ -2,7 +2,7 @@ package com.example.exercise8.details
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.exercise8.data.Movie
+import com.example.exercise8.network.Movie
 
 class DetailsViewModelFactory(
     private val movie: Movie

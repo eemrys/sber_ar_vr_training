@@ -3,8 +3,7 @@ package com.example.exercise8
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.exercise8.data.DataStorage
-import com.example.exercise8.data.Movie
+import com.example.exercise8.network.Movie
 
 class MainViewModel : ViewModel() {
     private val _listMovies = MutableLiveData<List<Movie>>()
@@ -12,6 +11,6 @@ class MainViewModel : ViewModel() {
         get() = _listMovies
 
     init {
-        _listMovies.value = DataStorage.getMoviesList()
+        // _listMovies.value = DataStorage.getMoviesList()
     }
 }
