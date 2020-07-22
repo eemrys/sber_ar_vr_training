@@ -3,12 +3,12 @@ package com.example.exercise8.gallery
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.exercise8.network.Movie
 import com.example.exercise8.details.DetailsFragment
+import com.example.exercise8.network.MovieItem
 
 class GalleryPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
-    var movies = emptyList<Movie>()
+    var movies = emptyList<MovieItem>()
 
     override fun getItemCount(): Int = movies.size
 

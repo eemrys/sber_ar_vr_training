@@ -3,12 +3,12 @@ package com.example.exercise8.details
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.exercise8.network.Movie
+import com.example.exercise8.network.MovieItem
 
-class DetailsViewModel(movie: Movie) : ViewModel() {
+class DetailsViewModel(movie: MovieItem) : ViewModel() {
 
-    private val _selectedMovie = MutableLiveData<Movie>()
-    val selectedMovie: LiveData<Movie>
+    private val _selectedMovie = MutableLiveData<MovieItem>()
+    val selectedMovie: LiveData<MovieItem>
         get() = _selectedMovie
 
     init {

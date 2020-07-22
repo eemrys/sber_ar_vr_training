@@ -8,13 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.exercise8.R
-import com.example.exercise8.network.Movie
+import com.example.exercise8.network.MovieItem
 import kotlinx.android.synthetic.main.fragment_details.*
 
 class DetailsFragment : Fragment(R.layout.fragment_details) {
 
     private val viewModelFactory by lazy {
-        val arguments: Movie = requireArguments().get("selectedMovie") as Movie
+        val arguments: MovieItem = requireArguments().get("selectedMovie") as MovieItem
         DetailsViewModelFactory(arguments)
     }
     private val viewModel by lazy {
@@ -32,18 +32,18 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         viewModel.selectedMovie.observe(viewLifecycleOwner, Observer { setViewsData(it) })
     }
 
-    private fun setViewsData(movie: Movie) {
+    private fun setViewsData(movie: MovieItem) {
         movie.apply {
-            imgvWidePoster.setImageResource(posterWide)
-            imgvPoster.setImageResource(poster)
+            //imgvWidePoster.setImageResource(posterWide)
+            //imgvPoster.setImageResource(poster)
             txtvTitle.text = title
             txtvDate.text = releaseDate
             txtvSummary.text = summary
 
-            btnTrailer.setOnClickListener {
+            /*btnTrailer.setOnClickListener {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(trailerUrl))
                 startActivity(intent)
-            }
+            }*/
         }
     }
 }

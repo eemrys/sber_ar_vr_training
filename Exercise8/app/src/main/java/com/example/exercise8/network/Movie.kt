@@ -1,18 +1,8 @@
 package com.example.exercise8.network
 
 import android.os.Parcelable
-import androidx.annotation.DrawableRes
 import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
-
-@Parcelize
-data class Movie(
-    val title: String,
-    @DrawableRes val poster: Int,
-    @DrawableRes val posterWide: Int,
-    val summary: String,
-    val releaseDate: String,
-    val trailerUrl: String) : Parcelable
 
 @Parcelize
 data class MovieItem (
