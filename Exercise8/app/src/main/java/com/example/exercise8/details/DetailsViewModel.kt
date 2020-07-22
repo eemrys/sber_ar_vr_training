@@ -30,6 +30,7 @@ class DetailsViewModel(movie: MovieItem) : ViewModel() {
 
     init {
         _selectedMovie.value = movie
+        getMovieTrailer(movie)
     }
 
     private fun getMovieTrailer(movieItem: MovieItem) {

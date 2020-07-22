@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_normal"
                 android:layout_marginTop="@dimen/spacing_normal"
-                android:text="@string/watch_trailer"
+                tools:text="@string/watch_trailer"
                 android:textColor="@color/colorPrimary"
                 app:layout_constraintStart_toEndOf="@id/imgvPoster"
                 app:layout_constraintTop_toBottomOf="@id/txtvRelease" />
