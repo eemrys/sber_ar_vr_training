@@ -9,5 +9,5 @@ private const val API_KEY = "7895bd2bbb4dbd1f990a316ebf4db876"
 interface MovieApiService {
     @GET("movie/popular")
     fun getMovieListAsync(@Query("api_key" ) apiKey: String = API_KEY):
-            Deferred<List<MovieItem>>
+            Deferred<MovieList>
 }

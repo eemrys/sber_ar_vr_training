@@ -31,8 +31,8 @@ class MainViewModel : ViewModel() {
                 _status.value = MovieApiStatus.LOADING
                 val listResult = getPropertiesDeferred.await()
                 _status.value = MovieApiStatus.DONE
-                if (listResult.isNotEmpty()) {
-                    _listMovies.value = listResult
+                listResult.results.apply {
+                    _listMovies.value = this
                 }
             } catch (e: Exception) {
                 _status.value = MovieApiStatus.ERROR

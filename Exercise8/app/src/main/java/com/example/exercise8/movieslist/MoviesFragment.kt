@@ -12,6 +12,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.exercise8.MainViewModel
+import com.example.exercise8.MovieApiStatus
 import com.example.exercise8.R
 import com.example.exercise8.gallery.GalleryFragmentArgs
 import kotlinx.android.synthetic.main.fragment_movies.*
@@ -64,9 +65,29 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
                     viewModel.onDetailsNavigated()
                 }
             })
-        sharedViewModel.listMovies.observe(viewLifecycleOwner, Observer {
-            adapterMovies.data = it
-        })
+        sharedViewModel.apply {
+            listMovies.observe(viewLifecycleOwner, Observer {
+                adapterMovies.data = it
+            })
+            status.observe(viewLifecycleOwner, Observer {
+                setImageStatus(it)
+            })
+        }
+    }
+
+    private fun setImageStatus(status: MovieApiStatus) {
+        when(status) {
+            MovieApiStatus.LOADING -> setVisibilityAndImage(View.VISIBLE, R.drawable.loading_animation)
+            MovieApiStatus.ERROR -> setVisibilityAndImage(View.VISIBLE, R.drawable.ic_connection_error)
+            MovieApiStatus.DONE -> setVisibilityAndImage(View.GONE, null)
+        }
+    }
+
+    private fun setVisibilityAndImage(visibility: Int, drawable: Int?) {
+        imgvStatus.visibility = visibility
+        drawable?.apply {
+            imgvStatus.setImageResource(this)
+        }
     }
 
     private fun navigateToDetailGallery(position: Int) {

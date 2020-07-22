@@ -15,4 +15,5 @@
     <string name="task_created">Task Created</string>
     <string name="click_create">must click \'create\' first</string>
     <string name="no_task">there is no task running</string>
+    <string name="status_image">Status image</string>
 </resources>
