@@ -8,6 +8,7 @@ import com.example.exercise8.R
 import com.example.exercise8.network.MovieItem
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.list_item_view.*
+import coil.api.load
 
 class MoviesAdapter(private val clickListener: (position: Int) -> Unit) :
     RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
@@ -29,8 +30,11 @@ class MoviesAdapter(private val clickListener: (position: Int) -> Unit) :
             movie.apply {
                 txtvTitle.text = title
                 txtvSummary.text = summary
+                imgvPoster.load(poster) {
+                    placeholder(R.drawable.loading_animation)
+                    error(R.drawable.ic_broken_image)
+                }
             }
-            //imgvPoster.setImageResource(movie.poster)
         }
     }
 

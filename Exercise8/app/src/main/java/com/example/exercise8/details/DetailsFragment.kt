@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.exercise8.R
 import com.example.exercise8.network.MovieItem
 import kotlinx.android.synthetic.main.fragment_details.*
+import coil.api.load
 
 class DetailsFragment : Fragment(R.layout.fragment_details) {
 
@@ -34,12 +35,17 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
 
     private fun setViewsData(movie: MovieItem) {
         movie.apply {
-            //imgvWidePoster.setImageResource(posterWide)
-            //imgvPoster.setImageResource(poster)
             txtvTitle.text = title
             txtvDate.text = releaseDate
             txtvSummary.text = summary
-
+            imgvPoster.load(poster) {
+                placeholder(R.drawable.loading_animation)
+                error(R.drawable.ic_broken_image)
+            }
+            imgvWidePoster.load(posterWide) {
+                placeholder(R.drawable.loading_animation)
+                error(R.drawable.ic_broken_image)
+            }
             /*btnTrailer.setOnClickListener {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(trailerUrl))
                 startActivity(intent)
