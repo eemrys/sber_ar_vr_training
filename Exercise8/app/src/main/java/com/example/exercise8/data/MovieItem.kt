@@ -14,3 +14,9 @@ data class MovieItem (
     @Json(name = "backdrop_path") val posterWide: String,
     @Json(name = "overview") val summary: String,
     @Json(name = "release_date") val releaseDate: String) : Parcelable
+
+@JsonClass(generateAdapter = true)
+data class MovieList (
+    @Json(name = "results")
+    val results: List<MovieItem>
+)

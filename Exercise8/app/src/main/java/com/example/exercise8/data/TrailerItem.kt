@@ -8,3 +8,9 @@ data class TrailerItem(
     @Json(name = "key")
     val url: String
 )
+
+@JsonClass(generateAdapter = true)
+data class TrailerList(
+    @Json(name = "results")
+    val results: List<TrailerItem>
+)
