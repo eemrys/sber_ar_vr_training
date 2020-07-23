@@ -8,7 +8,11 @@ import com.example.exercise8.data.MovieItem
 
 class GalleryPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
-    var movies = emptyList<MovieItem>()
+    var movies = listOf<MovieItem>()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun getItemCount(): Int = movies.size
 

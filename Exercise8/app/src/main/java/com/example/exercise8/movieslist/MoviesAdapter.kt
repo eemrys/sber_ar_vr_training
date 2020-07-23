@@ -13,7 +13,11 @@ import coil.api.load
 class MoviesAdapter(private val clickListener: (position: Int) -> Unit) :
     RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
-    var data = emptyList<MovieItem>()
+    var data = listOf<MovieItem>()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     class MovieViewHolder (private val clickListener: (position: Int) -> Unit,
                            override val containerView: View):
