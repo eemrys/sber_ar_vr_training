@@ -1,7 +1,7 @@
 package com.example.exercise9.network
 
-import com.example.exercise9.data.MovieList
-import com.example.exercise9.data.TrailerList
+import com.example.exercise9.network.dto.MovieList
+import com.example.exercise9.network.dto.TrailerList
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Path

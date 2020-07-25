@@ -1,8 +1,10 @@
 package com.example.exercise9.network
 
-import com.example.exercise9.data.MovieItem
-import com.example.exercise9.data.MovieList
-import com.example.exercise9.data.TrailerItem
+import com.example.exercise9.domain.Movie
+import com.example.exercise9.domain.Trailer
+import com.example.exercise9.network.dto.MovieDto
+import com.example.exercise9.network.dto.MovieList
+import com.example.exercise9.network.dto.TrailerDto
 
 class MovieMapper {
     companion object {
@@ -11,12 +13,12 @@ class MovieMapper {
         private const val YOUTUBE_BASE_URL = "https://www.youtube.com/watch?v="
     }
 
-    fun mapToMovies(movieList: MovieList): List<MovieItem> {
+    fun mapToMovies(movieList: MovieList): List<Movie> {
         return movieList.results.map { mapperUtil(it) }
     }
 
-    private fun mapperUtil(movie: MovieItem): MovieItem {
-        return MovieItem(
+    private fun mapperUtil(movie: MovieDto): Movie {
+        return Movie(
             id = movie.id,
             title = movie.title,
             poster = POSTER_BASE_URL + movie.poster,
@@ -26,7 +28,9 @@ class MovieMapper {
         )
     }
 
-    fun mapTrailerUrl(trailerItem: TrailerItem): String {
-        return YOUTUBE_BASE_URL + trailerItem.url
+    fun mapTrailerUrl(trailerItem: TrailerDto): Trailer {
+        return Trailer(
+            url = YOUTUBE_BASE_URL + trailerItem.url
+        )
     }
 }

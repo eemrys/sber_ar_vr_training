@@ -8,15 +8,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.exercise9.R
-import com.example.exercise9.data.MovieItem
 import kotlinx.android.synthetic.main.fragment_details.*
 import coil.api.load
+import com.example.exercise9.domain.Movie
 import com.example.exercise9.network.MovieApiStatus
 
 class DetailsFragment : Fragment(R.layout.fragment_details) {
 
     private val viewModelFactory by lazy {
-        val arguments: MovieItem = requireArguments().get("selectedMovie") as MovieItem
+        val arguments: Movie = requireArguments().get("selectedMovie") as Movie
         DetailsViewModelFactory(arguments)
     }
     private val viewModel by lazy {
@@ -42,7 +42,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         }
     }
 
-    private fun setViewsData(movie: MovieItem) {
+    private fun setViewsData(movie: Movie) {
         movie.apply {
             txtvTitle.text = title
             txtvDate.text = releaseDate

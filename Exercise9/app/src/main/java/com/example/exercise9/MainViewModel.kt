@@ -4,8 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.exercise9.domain.Movie
 import com.example.exercise9.network.MovieApi
-import com.example.exercise9.data.MovieItem
+import com.example.exercise9.network.dto.MovieDto
 import com.example.exercise9.network.MovieApiStatus
 import com.example.exercise9.network.MovieMapper
 import kotlinx.coroutines.launch
@@ -15,8 +16,8 @@ class MainViewModel : ViewModel() {
     private val mapper by lazy {
         MovieMapper()
     }
-    private val _listMovies = MutableLiveData<List<MovieItem>>()
-    val listMovies: LiveData<List<MovieItem>>
+    private val _listMovies = MutableLiveData<List<Movie>>()
+    val listMovies: LiveData<List<Movie>>
         get() = _listMovies
 
     private val _status = MutableLiveData<MovieApiStatus>()

@@ -4,11 +4,11 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.exercise9.details.DetailsFragment
-import com.example.exercise9.data.MovieItem
+import com.example.exercise9.domain.Movie
 
 class GalleryPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
-    var movies = listOf<MovieItem>()
+    var movies = listOf<Movie>()
         set(value) {
             field = value
             notifyDataSetChanged()

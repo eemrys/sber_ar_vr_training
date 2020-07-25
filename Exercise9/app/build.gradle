@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: "androidx.navigation.safeargs"
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 30
@@ -61,5 +62,9 @@ dependencies {
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
 
     implementation "io.coil-kt:coil:0.8.0"
+
+    implementation	"android.arch.persistence.room:runtime:2.2.1"
+    kapt 			"android.arch.persistence.room:compiler:2.2.1"
+
 
 }

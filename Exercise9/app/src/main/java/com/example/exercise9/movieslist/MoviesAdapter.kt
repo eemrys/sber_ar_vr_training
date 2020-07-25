@@ -5,15 +5,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.exercise9.R
-import com.example.exercise9.data.MovieItem
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.list_item_view.*
 import coil.api.load
+import com.example.exercise9.domain.Movie
 
 class MoviesAdapter(private val clickListener: (position: Int) -> Unit) :
     RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
-    var data = listOf<MovieItem>()
+    var data = listOf<Movie>()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -24,7 +24,7 @@ class MoviesAdapter(private val clickListener: (position: Int) -> Unit) :
 
         RecyclerView.ViewHolder(containerView), LayoutContainer {
 
-        fun bind(movie: MovieItem) {
+        fun bind(movie: Movie) {
             containerView.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
