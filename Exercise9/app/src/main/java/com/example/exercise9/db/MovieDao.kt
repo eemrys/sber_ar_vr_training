@@ -14,8 +14,5 @@ interface MovieDao {
     fun getAll(): LiveData<List<Movie>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(movies: List<Movie>)
-
-    @Query("DELETE FROM Movie")
-    fun deleteAll()
+    fun insertAll(vararg movies: Movie)
 }

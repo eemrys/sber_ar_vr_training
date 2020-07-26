@@ -12,8 +12,8 @@ class MovieMapper {
         private const val YOUTUBE_BASE_URL = "https://www.youtube.com/watch?v="
     }
 
-    fun mapToMovies(movieList: MovieList): List<Movie> {
-        return movieList.results.map { mapperUtil(it) }
+    fun mapToMovies(movieList: MovieList): Array<Movie> {
+        return movieList.results.map { mapperUtil(it) }.toTypedArray()
     }
 
     private fun mapperUtil(movie: MovieDto): Movie {
