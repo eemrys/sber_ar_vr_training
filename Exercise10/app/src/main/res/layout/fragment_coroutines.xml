@@ -36,7 +36,7 @@
 
     <TextView
         android:id="@+id/txtvTitle"
-        android:text="@string/coroutines_activity"
+        android:text="@string/coroutines_fragment"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

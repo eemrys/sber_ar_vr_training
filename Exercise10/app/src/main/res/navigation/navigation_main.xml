@@ -24,4 +24,9 @@
         android:name="com.example.exercise10.coroutines.CoroutinesFragment"
         tools:layout="@layout/fragment_coroutines" />
 
+    <fragment
+        android:id="@+id/fragmentBackgroundService"
+        android:name="com.example.exercise10.work.BackgroundServiceFragment"
+        tools:layout="@layout/fragment_background_service" />
+
 </navigation>
