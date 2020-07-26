@@ -1,4 +1,4 @@
-package com.example.exercise9.movieslist
+package com.example.exercise9.list
 
 import android.os.Bundle
 import android.view.Menu

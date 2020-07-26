@@ -1,4 +1,4 @@
-package com.example.exercise9.movieslist
+package com.example.exercise9.list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

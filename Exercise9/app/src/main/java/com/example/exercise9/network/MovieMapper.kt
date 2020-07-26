@@ -24,7 +24,8 @@ class MovieMapper {
             poster = POSTER_BASE_URL + movie.poster,
             posterWide = BACKDROP_BASE_URL + movie.posterWide,
             summary = movie.summary,
-            releaseDate = movie.releaseDate
+            releaseDate = movie.releaseDate,
+            popularity = movie.popularity
         )
     }
 
