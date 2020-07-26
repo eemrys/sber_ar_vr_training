@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.exercise9.db.AppDatabase
 import com.example.exercise9.domain.Movie
 import com.example.exercise9.domain.Trailer
-import com.example.exercise9.network.MovieApiStatus
 import com.example.exercise9.network.MovieApi
 import com.example.exercise9.network.MovieMapper
 import kotlinx.coroutines.Dispatchers
@@ -27,26 +26,12 @@ class DetailsViewModel(application: Application, movie: Movie) : ViewModel() {
     val selectedMovie: LiveData<Movie>
         get() = _selectedMovie
 
-    private val _trailerStatus = MutableLiveData<MovieApiStatus>()
-    val trailerStatus: LiveData<MovieApiStatus>
-        get() = _trailerStatus
-
     val movieTrailer = database.trailerDao.getTrailerById(movie.id)
 
     init {
         _selectedMovie.value = movie
-        getMovieTrailer(movie)
-    }
-
-    private fun getMovieTrailer(movieItem: Movie) {
         viewModelScope.launch {
-            try {
-                _trailerStatus.value = MovieApiStatus.LOADING
-                refreshTrailer(movieItem.id)
-                _trailerStatus.value = MovieApiStatus.DONE
-            } catch (e: Exception) {
-                _trailerStatus.value = MovieApiStatus.ERROR
-            }
+            refreshTrailer(movie.id)
         }
     }
 

@@ -11,7 +11,6 @@ import com.example.exercise9.R
 import kotlinx.android.synthetic.main.fragment_details.*
 import coil.api.load
 import com.example.exercise9.domain.Movie
-import com.example.exercise9.network.MovieApiStatus
 
 class DetailsFragment : Fragment(R.layout.fragment_details) {
 
@@ -31,7 +30,6 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     private fun addObserver() {
         viewModel.apply {
             selectedMovie.observe(viewLifecycleOwner, Observer { setViewsData(it) })
-            trailerStatus.observe(viewLifecycleOwner, Observer { setStatus(it) })
             movieTrailer.observe(viewLifecycleOwner, Observer {
                 it?.apply {
                     setOnClick(url)
@@ -53,14 +51,6 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                 placeholder(R.drawable.loading_animation)
                 error(R.drawable.ic_broken_image)
             }
-        }
-    }
-
-    private fun setStatus(status: MovieApiStatus) {
-        btnTrailer.text = when(status) {
-            MovieApiStatus.LOADING -> getString(R.string.loading)
-            MovieApiStatus.ERROR -> getString(R.string.error)
-            else -> getString(R.string.watch_trailer)
         }
     }
 

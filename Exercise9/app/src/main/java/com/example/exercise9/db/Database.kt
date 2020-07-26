@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.exercise9.domain.Movie
 import com.example.exercise9.domain.Trailer
 
-@Database(entities = [Movie::class, Trailer::class], version = 1)
+@Database(entities = [Movie::class, Trailer::class], version = 2)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract val movieDao: MovieDao

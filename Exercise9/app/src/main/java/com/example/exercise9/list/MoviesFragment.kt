@@ -13,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.exercise9.MainViewModel
 import com.example.exercise9.MainViewModelFactory
-import com.example.exercise9.network.MovieApiStatus
 import com.example.exercise9.R
 import com.example.exercise9.gallery.GalleryFragmentArgs
 import kotlinx.android.synthetic.main.fragment_movies.*
@@ -73,24 +72,6 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
             listMovies.observe(viewLifecycleOwner, Observer {
                 adapterMovies.data = it
             })
-            status.observe(viewLifecycleOwner, Observer {
-                setImageStatus(it)
-            })
-        }
-    }
-
-    private fun setImageStatus(status: MovieApiStatus) {
-        when(status) {
-            MovieApiStatus.LOADING -> setVisibilityAndImage(View.VISIBLE, R.drawable.loading_animation)
-            MovieApiStatus.ERROR -> setVisibilityAndImage(View.VISIBLE, R.drawable.ic_connection_error)
-            MovieApiStatus.DONE -> setVisibilityAndImage(View.GONE, null)
-        }
-    }
-
-    private fun setVisibilityAndImage(visibility: Int, drawable: Int?) {
-        imgvStatus.visibility = visibility
-        drawable?.apply {
-            imgvStatus.setImageResource(this)
         }
     }
 
