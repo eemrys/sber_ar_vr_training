@@ -15,4 +15,4 @@ data class Movie (
     val posterWide: String,
     val summary: String,
     val releaseDate: String,
-    val popularity: Int) : Parcelable
+    val popularity: Double) : Parcelable

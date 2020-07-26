@@ -11,7 +11,7 @@ import com.example.exercise9.domain.Trailer
 abstract class AppDatabase : RoomDatabase() {
 
     abstract val movieDao: MovieDao
-    abstract val videoDao: TrailerDao
+    abstract val trailerDao: TrailerDao
 
     companion object {
 

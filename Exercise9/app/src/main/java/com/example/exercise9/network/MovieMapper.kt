@@ -1,7 +1,6 @@
 package com.example.exercise9.network
 
 import com.example.exercise9.domain.Movie
-import com.example.exercise9.domain.Trailer
 import com.example.exercise9.network.dto.MovieDto
 import com.example.exercise9.network.dto.MovieList
 import com.example.exercise9.network.dto.TrailerDto
@@ -29,9 +28,7 @@ class MovieMapper {
         )
     }
 
-    fun mapTrailerUrl(trailerItem: TrailerDto): Trailer {
-        return Trailer(
-            url = YOUTUBE_BASE_URL + trailerItem.url
-        )
+    fun mapTrailerUrl(trailerItem: TrailerDto): String {
+        return YOUTUBE_BASE_URL + trailerItem.url
     }
 }

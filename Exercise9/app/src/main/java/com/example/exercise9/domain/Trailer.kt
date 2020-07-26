@@ -6,6 +6,6 @@ import androidx.room.PrimaryKey
 @Entity
 data class Trailer (
     @PrimaryKey
-    val movieId: Int,
+    val movieId: String,
     val url: String
 )

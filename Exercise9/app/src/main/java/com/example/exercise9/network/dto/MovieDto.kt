@@ -11,7 +11,7 @@ data class MovieDto (
     @Json(name = "backdrop_path") val posterWide: String,
     @Json(name = "overview") val summary: String,
     @Json(name = "release_date") val releaseDate: String,
-    @Json(name = "popularity") val popularity: Int)
+    @Json(name = "popularity") val popularity: Double)
 
 @JsonClass(generateAdapter = true)
 data class MovieList (

@@ -11,7 +11,7 @@ import com.example.exercise9.domain.Trailer
 interface TrailerDao {
 
     @Query("SELECT * FROM Trailer WHERE movieId = :movieId")
-    fun getVideoByMovieId(movieId: Int): LiveData<Trailer?>
+    fun getTrailerById(movieId: String): LiveData<Trailer?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(video: Trailer)
