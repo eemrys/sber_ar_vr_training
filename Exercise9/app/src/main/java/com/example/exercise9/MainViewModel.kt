@@ -1,5 +1,6 @@
 package com.example.exercise9
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,7 +12,7 @@ import com.example.exercise9.network.MovieApiStatus
 import com.example.exercise9.network.MovieMapper
 import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel() {
+class MainViewModel(application: Application) : ViewModel() {
 
     private val mapper by lazy {
         MovieMapper()

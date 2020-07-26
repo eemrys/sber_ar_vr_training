@@ -12,6 +12,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.exercise9.MainViewModel
+import com.example.exercise9.MainViewModelFactory
 import com.example.exercise9.network.MovieApiStatus
 import com.example.exercise9.R
 import com.example.exercise9.gallery.GalleryFragmentArgs
@@ -19,11 +20,14 @@ import kotlinx.android.synthetic.main.fragment_movies.*
 
 class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
-    private val sharedViewModel by lazy {
-        ViewModelProvider(this).get(MainViewModel::class.java)
-    }
     private val viewModel by lazy {
         ViewModelProvider(this).get(MoviesViewModel::class.java)
+    }
+
+    private val sharedViewModel: MainViewModel by lazy {
+        val application = requireNotNull(this.activity).application
+        ViewModelProvider(this, MainViewModelFactory(application))
+            .get(MainViewModel::class.java)
     }
 
     private val adapterMovies by lazy {
