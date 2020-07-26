@@ -15,12 +15,10 @@ import com.example.exercise9.network.MovieApiStatus
 
 class DetailsFragment : Fragment(R.layout.fragment_details) {
 
-    private val viewModelFactory by lazy {
-        val arguments: Movie = requireArguments().get("selectedMovie") as Movie
-        DetailsViewModelFactory(arguments)
-    }
     private val viewModel by lazy {
-        ViewModelProvider(this, viewModelFactory)
+        val arguments: Movie = requireArguments().get("selectedMovie") as Movie
+        val application = requireNotNull(this.activity).application
+        ViewModelProvider(this, DetailsViewModelFactory(application, arguments))
             .get(DetailsViewModel::class.java)
     }
 
