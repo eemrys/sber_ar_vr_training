@@ -15,7 +15,4 @@ interface TrailerDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(video: Trailer)
-
-    @Query("DELETE FROM Trailer")
-    fun deleteAll()
 }
