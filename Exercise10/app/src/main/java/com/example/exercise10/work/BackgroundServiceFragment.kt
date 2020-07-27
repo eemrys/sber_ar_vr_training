@@ -4,13 +4,11 @@ import android.content.*
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.example.exercise10.R
 import com.example.exercise10.work.services.BackgroundJobIntentService
 import com.example.exercise10.work.services.BackgroundService
 import kotlinx.android.synthetic.main.fragment_background_service.*
-
-const val PROGRESS_UPDATE_ACTION = "PROGRESS_UPDATE_ACTION"
-const val PROGRESS_VALUE_KEY = "PROGRESS_VALUE_KEY"
 
 class BackgroundServiceFragment : Fragment(R.layout.fragment_background_service) {
 
@@ -18,16 +16,10 @@ class BackgroundServiceFragment : Fragment(R.layout.fragment_background_service)
         BackgroundProgressReceiver()
     }
 
-    inner class BackgroundProgressReceiver : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            val progress = intent.getIntExtra(PROGRESS_VALUE_KEY, -1)
-            setProgress(progress)
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setListeners()
+        setObserver()
     }
 
     override fun onResume() {
@@ -53,8 +45,10 @@ class BackgroundServiceFragment : Fragment(R.layout.fragment_background_service)
         }
     }
 
-    private fun setProgress(progress: Int) {
-        txtvProgress.text = progress.toString()
+    private fun setObserver() {
+        backgroundProgressReceiver.progress.observe(viewLifecycleOwner, Observer {
+            txtvProgress.text = it.toString()
+        })
     }
 
     private fun subscribeForProgressUpdates() {
