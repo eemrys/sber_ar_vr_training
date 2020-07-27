@@ -5,22 +5,22 @@ import android.content.Intent
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
+import android.os.SystemClock
 import com.example.exercise10.work.PROGRESS_UPDATE_ACTION
 import com.example.exercise10.work.PROGRESS_VALUE_KEY
 
 class BackgroundService : Service() {
 
-    private var counter = 0
-    private val maxProgress: Int = 100
-    private val handler: Handler = Handler(Looper.getMainLooper())
+    private var isCancelled = false
+    private var backgroundThread: Thread? = null
+    private val handler =  Handler(Looper.getMainLooper())
     private val runnable = Runnable {
-        showProgressNumber(
-            if (counter < maxProgress) {
-                counter++
-            } else {
-                counter
+        backgroundThread = object : Thread("Handler_executor_thread") {
+            override fun run() {
+                doInBackground()
             }
-        )
+        }
+        backgroundThread!!.start()
     }
 
     override fun onBind(intent: Intent?): IBinder? {
@@ -28,20 +28,28 @@ class BackgroundService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        counter = 0
-        handler.postDelayed(runnable, 1000)
+        handler.post(runnable)
         return START_STICKY
     }
 
     override fun onDestroy() {
         super.onDestroy()
         handler.removeCallbacks(runnable)
+        isCancelled = true
+        backgroundThread?.interrupt()
+    }
+
+    private fun doInBackground() {
+        for (i in 0..100) {
+            if (isCancelled) { return }
+            showProgressNumber(i)
+            SystemClock.sleep(100)
+        }
     }
 
     private fun showProgressNumber(progress: Int) {
         val broadcastIntent = Intent(PROGRESS_UPDATE_ACTION)
         broadcastIntent.putExtra(PROGRESS_VALUE_KEY, progress)
         sendBroadcast(broadcastIntent)
-        handler.postDelayed(runnable, 1000)
     }
 }
