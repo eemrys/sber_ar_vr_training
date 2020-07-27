@@ -9,6 +9,7 @@ import android.os.IBinder
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.exercise10.R
+import com.example.exercise10.work.services.BackgroundJobIntentService
 import com.example.exercise10.work.services.BackgroundService
 import kotlinx.android.synthetic.main.fragment_background_service.*
 
@@ -33,6 +34,11 @@ class BackgroundServiceFragment : Fragment(R.layout.fragment_background_service)
         btnService.setOnClickListener {
             it.isEnabled = false
             val intent = Intent(context, BackgroundService::class.java)
+            bindService(intent, this, Context.BIND_AUTO_CREATE)
+        }
+        btnIntent.setOnClickListener {
+            it.isEnabled = false
+            val intent = Intent(context, BackgroundJobIntentService::class.java)
             bindService(intent, this, Context.BIND_AUTO_CREATE)
         }
     }
