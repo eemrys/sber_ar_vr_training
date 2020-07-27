@@ -2,14 +2,14 @@ package com.example.exercise10.work.services
 
 import android.app.Service
 import android.content.Intent
-import android.os.Binder
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
+import com.example.exercise10.work.PROGRESS_UPDATE_ACTION
+import com.example.exercise10.work.PROGRESS_VALUE_KEY
 
 class BackgroundService : Service() {
 
-    private val binder = ServiceBinder()
     private var counter = 0
     private val maxProgress: Int = 100
     private val handler: Handler = Handler(Looper.getMainLooper())
@@ -23,13 +23,8 @@ class BackgroundService : Service() {
         )
     }
 
-    inner class ServiceBinder : Binder() {
-        val service: BackgroundService
-            get() = this@BackgroundService
-    }
-
     override fun onBind(intent: Intent?): IBinder? {
-        return binder
+        return null
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -44,7 +39,9 @@ class BackgroundService : Service() {
     }
 
     private fun showProgressNumber(progress: Int) {
-        //AndroidServiceDelegate.setProgressToService(progress)//to do inject
+        val broadcastIntent = Intent(PROGRESS_UPDATE_ACTION)
+        broadcastIntent.putExtra(PROGRESS_VALUE_KEY, progress)
+        sendBroadcast(broadcastIntent)
         handler.postDelayed(runnable, 1000)
     }
 }

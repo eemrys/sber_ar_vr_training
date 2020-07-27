@@ -1,11 +1,7 @@
 package com.example.exercise10.work
 
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
-import android.content.ServiceConnection
+import android.content.*
 import android.os.Bundle
-import android.os.IBinder
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.exercise10.R
@@ -13,47 +9,56 @@ import com.example.exercise10.work.services.BackgroundJobIntentService
 import com.example.exercise10.work.services.BackgroundService
 import kotlinx.android.synthetic.main.fragment_background_service.*
 
-class BackgroundServiceFragment : Fragment(R.layout.fragment_background_service),
-    ServiceConnection {
+const val PROGRESS_UPDATE_ACTION = "PROGRESS_UPDATE_ACTION"
+const val PROGRESS_VALUE_KEY = "PROGRESS_VALUE_KEY"
 
-    var service: BackgroundService? = null
-    var isConnected = false
+class BackgroundServiceFragment : Fragment(R.layout.fragment_background_service) {
+
+    private val backgroundProgressReceiver by lazy {
+        BackgroundProgressReceiver()
+    }
+
+    inner class BackgroundProgressReceiver : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val progress = intent.getIntExtra(PROGRESS_VALUE_KEY, -1)
+            setProgress(progress)
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setListeners()
     }
 
-    override fun onStop() {
-        super.onStop()
-        // TODO unbind serivces
+    override fun onResume() {
+        subscribeForProgressUpdates()
+        super.onResume()
+    }
+
+    override fun onPause() {
+        context?.unregisterReceiver(backgroundProgressReceiver)
+        super.onPause()
     }
 
     private fun setListeners() {
         btnService.setOnClickListener {
             it.isEnabled = false
             val intent = Intent(context, BackgroundService::class.java)
-            bindService(intent, this, Context.BIND_AUTO_CREATE)
+            activity?.startService(intent)
         }
         btnIntent.setOnClickListener {
             it.isEnabled = false
             val intent = Intent(context, BackgroundJobIntentService::class.java)
-            bindService(intent, this, Context.BIND_AUTO_CREATE)
+            activity?.startService(intent)
         }
     }
 
-    override fun onServiceDisconnected(name: ComponentName?) {
-        isConnected = false
-        service = null
+    private fun setProgress(progress: Int) {
+        txtvProgress.text = progress.toString()
     }
 
-    override fun onServiceConnected(name: ComponentName?, binder: IBinder?) {
-        isConnected = true
-        service = (binder as BackgroundService.ServiceBinder).service
-    }
-
-    private fun bindService (intent: Intent, conn: ServiceConnection, lags: Int): Boolean {
-        return true
+    private fun subscribeForProgressUpdates() {
+        val progressUpdateActionFilter = IntentFilter(PROGRESS_UPDATE_ACTION)
+        context?.registerReceiver(backgroundProgressReceiver, progressUpdateActionFilter)
     }
 }
