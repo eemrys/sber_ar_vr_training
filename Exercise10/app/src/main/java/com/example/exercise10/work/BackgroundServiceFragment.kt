@@ -28,7 +28,7 @@ class BackgroundServiceFragment : Fragment(R.layout.fragment_background_service)
     }
 
     override fun onPause() {
-        context?.unregisterReceiver(backgroundProgressReceiver)
+        requireContext().unregisterReceiver(backgroundProgressReceiver)
         super.onPause()
     }
 
@@ -36,12 +36,12 @@ class BackgroundServiceFragment : Fragment(R.layout.fragment_background_service)
         btnService.setOnClickListener {
             it.isEnabled = false
             val intent = Intent(context, BackgroundService::class.java)
-            activity?.startService(intent)
+            requireActivity().startService(intent)
         }
         btnIntent.setOnClickListener {
             it.isEnabled = false
             val intent = Intent(context, BackgroundJobIntentService::class.java)
-            activity?.startService(intent)
+            requireActivity().startService(intent)
         }
     }
 
@@ -51,7 +51,7 @@ class BackgroundServiceFragment : Fragment(R.layout.fragment_background_service)
                 txtvProgressService.text = getString(R.string.percent, it)
                 if (it == MAX_VALUE) {
                     val intent = Intent(context, BackgroundService::class.java)
-                    activity?.stopService(intent)
+                    requireActivity().stopService(intent)
                     btnService.isEnabled = true
                 }
             })
@@ -59,7 +59,7 @@ class BackgroundServiceFragment : Fragment(R.layout.fragment_background_service)
                 txtvProgressIntent.text = getString(R.string.percent, it)
                 if (it == MAX_VALUE) {
                     val intent = Intent(context, BackgroundJobIntentService::class.java)
-                    activity?.stopService(intent)
+                    requireActivity().stopService(intent)
                     btnIntent.isEnabled = true
                 }
             })
@@ -70,6 +70,6 @@ class BackgroundServiceFragment : Fragment(R.layout.fragment_background_service)
         val filter = IntentFilter()
         filter.addAction(PROGRESS_UPDATE_SERVICE)
         filter.addAction(PROGRESS_UPDATE_INTENT)
-        context?.registerReceiver(backgroundProgressReceiver, filter)
+        requireContext().registerReceiver(backgroundProgressReceiver, filter)
     }
 }
