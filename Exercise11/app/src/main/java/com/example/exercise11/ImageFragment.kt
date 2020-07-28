@@ -3,6 +3,7 @@ package com.example.exercise11
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import kotlinx.android.synthetic.main.fragment_image.*
 
 class ImageFragment : Fragment(R.layout.fragment_image) {
 
@@ -12,6 +13,8 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
     }
 
     private fun setListener() {
-        TODO("Not yet implemented")
+        btnFab.setOnClickListener {
+            // start work
+        }
     }
 }
