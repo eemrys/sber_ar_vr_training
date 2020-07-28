@@ -1,6 +1,7 @@
 package com.example.exercise11
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_image.*
 
+const val URL = "URL"
 private const val PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE
 private const val PERMISSIONS_REQUEST_CODE = 1
 
@@ -40,7 +42,11 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
                 PackageManager.PERMISSION_GRANTED
 
     private fun startDownloadService() {
-        TODO("Not yet implemented")
+        val url = ""
+        val intent = Intent(activity, DownloadService::class.java)
+        intent.putExtra(URL, url)
+        requireActivity().startService(intent)
+
     }
 
     private fun requestPermission() {
