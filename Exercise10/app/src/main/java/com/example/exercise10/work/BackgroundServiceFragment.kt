@@ -48,7 +48,7 @@ class BackgroundServiceFragment : Fragment(R.layout.fragment_background_service)
     private fun setObserver() {
         backgroundProgressReceiver.apply {
             progressService.observe(viewLifecycleOwner, Observer {
-                txtvProgress.text = it.toString()
+                txtvProgressService.text = getString(R.string.percent, it)
                 if (it == MAX_VALUE) {
                     val intent = Intent(context, BackgroundService::class.java)
                     activity?.stopService(intent)
@@ -56,7 +56,7 @@ class BackgroundServiceFragment : Fragment(R.layout.fragment_background_service)
                 }
             })
             progressIntent.observe(viewLifecycleOwner, Observer {
-                txtvProgress.text = it.toString()
+                txtvProgressIntent.text = getString(R.string.percent, it)
                 if (it == MAX_VALUE) {
                     val intent = Intent(context, BackgroundJobIntentService::class.java)
                     activity?.stopService(intent)
@@ -67,7 +67,9 @@ class BackgroundServiceFragment : Fragment(R.layout.fragment_background_service)
     }
 
     private fun subscribeForProgressUpdates() {
-        val progressUpdateActionFilter = IntentFilter(PROGRESS_UPDATE_ACTION)
-        context?.registerReceiver(backgroundProgressReceiver, progressUpdateActionFilter)
+        val filter = IntentFilter()
+        filter.addAction(PROGRESS_UPDATE_SERVICE)
+        filter.addAction(PROGRESS_UPDATE_INTENT)
+        context?.registerReceiver(backgroundProgressReceiver, filter)
     }
 }

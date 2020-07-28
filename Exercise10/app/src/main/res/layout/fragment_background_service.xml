@@ -16,22 +16,35 @@
         android:textAllCaps="true"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/txtvProgress"
+        app:layout_constraintBottom_toTopOf="@+id/txtvProgressService"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/txtvProgress"
-        android:layout_width="wrap_content"
+        android:id="@+id/txtvProgressIntent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="200dp"
+        android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="18sp"
+        android:layout_marginBottom="100dp"
         app:layout_constraintBottom_toTopOf="@+id/btnIntent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/txtvProgressService"
         app:layout_constraintStart_toStartOf="parent"
+        tools:text="50%" />
+
+    <TextView
+        android:id="@+id/txtvProgressService"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/txtvProgressIntent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/txtvProgressIntent"
         tools:text="40%" />
 
     <Button
@@ -40,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="200dp"
         android:text="@string/start_intent_service"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnService"

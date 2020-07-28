@@ -17,7 +17,9 @@ class BackgroundProgressReceiver : BroadcastReceiver() {
         get() = _progressIntent
 
     override fun onReceive(context: Context, intent: Intent) {
-        _progressService.value = intent.getIntExtra(PROGRESS_KEY_SERVICE, -1)
-        _progressIntent.value = intent.getIntExtra(PROGRESS_KEY_INTENT, -1)
+        when (intent.action) {
+            PROGRESS_UPDATE_SERVICE -> _progressService.value = intent.getIntExtra(PROGRESS_KEY_SERVICE, -1)
+            else ->  _progressIntent.value = intent.getIntExtra(PROGRESS_KEY_INTENT, -1)
+        }
     }
 }

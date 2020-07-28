@@ -7,7 +7,7 @@ import android.os.IBinder
 import android.os.Looper
 import android.os.SystemClock
 import com.example.exercise10.work.MAX_VALUE
-import com.example.exercise10.work.PROGRESS_UPDATE_ACTION
+import com.example.exercise10.work.PROGRESS_UPDATE_SERVICE
 import com.example.exercise10.work.PROGRESS_KEY_SERVICE
 
 class BackgroundService : Service() {
@@ -49,7 +49,7 @@ class BackgroundService : Service() {
     }
 
     private fun showProgressNumber(progress: Int) {
-        val broadcastIntent = Intent(PROGRESS_UPDATE_ACTION)
+        val broadcastIntent = Intent(PROGRESS_UPDATE_SERVICE)
         broadcastIntent.putExtra(PROGRESS_KEY_SERVICE, progress)
         sendBroadcast(broadcastIntent)
     }

@@ -7,7 +7,7 @@ import android.os.SystemClock
 import androidx.core.app.JobIntentService
 import com.example.exercise10.work.MAX_VALUE
 import com.example.exercise10.work.PROGRESS_KEY_INTENT
-import com.example.exercise10.work.PROGRESS_UPDATE_ACTION
+import com.example.exercise10.work.PROGRESS_UPDATE_INTENT
 
 class BackgroundJobIntentService : JobIntentService() {
 
@@ -43,7 +43,7 @@ class BackgroundJobIntentService : JobIntentService() {
     }
 
     private fun showProgressNumber(progress: Int) {
-        val broadcastIntent = Intent(PROGRESS_UPDATE_ACTION)
+        val broadcastIntent = Intent(PROGRESS_UPDATE_INTENT)
         broadcastIntent.putExtra(PROGRESS_KEY_INTENT, progress)
         sendBroadcast(broadcastIntent)
     }
