@@ -4,4 +4,8 @@
     <string name="dialog_title">Permission needed</string>
     <string name="dialog_message">To be able to download requested image the application needs access to your files.</string>
     <string name="dialog_ok">OK</string>
+    <string name="notification_title">Downloading… %1$d%%</string>
+    <string name="notification_message">In progress</string>
+    <string name="channel_name">Default channel</string>
+    <string name="channel_description">This is a channel for default notifications</string>
 </resources>
