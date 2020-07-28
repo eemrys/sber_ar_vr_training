@@ -10,8 +10,10 @@
 
     <EditText
         android:id="@+id/eTxtUrl"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:fontFamily="sans-serif-condensed-light"
         android:hint="@string/enter_an_image_url"
         android:inputType="textUri"

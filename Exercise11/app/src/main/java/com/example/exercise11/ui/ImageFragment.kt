@@ -13,8 +13,10 @@ import java.io.File
 class ImageFragment : Fragment(R.layout.fragment_image) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val posterPath = requireActivity().intent?.getStringExtra(PATH)
-        if (posterPath == null) {
+        val posterPath = ImageFragmentArgs.fromBundle(requireArguments()).path
+        try {
+            imgvMain.load(File(posterPath))
+        } catch (e: Exception) {
             AlertDialog.Builder(requireContext())
                 .setMessage(R.string.generic_error)
                 .setPositiveButton(R.string.dialog_ok) { _, _ ->
@@ -22,8 +24,6 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
                 }
                 .create()
                 .show()
-            return
         }
-        imgvMain.load(File(posterPath))
     }
 }

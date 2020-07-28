@@ -2,6 +2,7 @@ package com.example.exercise11.ui
 
 import android.Manifest
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Environment
@@ -10,11 +11,15 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.example.exercise11.R
+import com.example.exercise11.service.DownloadReceiver
 import com.example.exercise11.service.DownloadService
 import kotlinx.android.synthetic.main.fragment_main.*
 import java.io.File
 
+const val IMAGE_PROGRESS = "IMAGE_PROGRESS"
 const val IMAGE_URL = "URL"
 const val PATH = "PATH"
 private const val PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -22,15 +27,42 @@ private const val PERMISSIONS_REQUEST_CODE = 1
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 
+    private val downloadReceiver by lazy {
+        DownloadReceiver()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setListener()
+        setObserver()
+    }
+
+    override fun onResume() {
+        subscribeForProgressUpdates()
+        super.onResume()
+    }
+
+    override fun onPause() {
+        requireContext().unregisterReceiver(downloadReceiver)
+        super.onPause()
     }
 
     private fun setListener() {
         btnFab.setOnClickListener {
             onFabClick()
         }
+    }
+
+    private fun setObserver() {
+        downloadReceiver.filePath.observe(viewLifecycleOwner, Observer {
+            navigateToImageFragment(it)
+        })
+    }
+
+    private fun subscribeForProgressUpdates() {
+        val filter = IntentFilter()
+        filter.addAction(IMAGE_PROGRESS)
+        requireContext().registerReceiver(downloadReceiver, filter)
     }
 
     private fun onFabClick() {
@@ -41,21 +73,23 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
     }
 
+    private fun navigateToImageFragment(path: String) {
+        val args = ImageFragmentArgs.Builder(path).build().toBundle()
+        findNavController().navigate(R.id.fragmentImage, args)
+    }
+
     private fun isPermissionGranted(): Boolean =
-        ContextCompat.checkSelfPermission(requireContext(),
-            PERMISSION
-        ) ==
+        ContextCompat.checkSelfPermission(requireContext(), PERMISSION) ==
                 PackageManager.PERMISSION_GRANTED
 
     private fun startDownloadService() {
-        val url = eTxtUrl.text
+        val url = eTxtUrl.text.toString()
         val intent = Intent(activity, DownloadService::class.java)
         val path: File? = requireContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
         path?.apply {
             intent.putExtra(PATH, this.absolutePath)
             intent.putExtra(IMAGE_URL, url)
             requireActivity().startService(intent)
-            //activity?.onBackPressed()
         }
     }
 

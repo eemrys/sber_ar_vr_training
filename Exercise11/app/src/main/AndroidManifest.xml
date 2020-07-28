@@ -3,7 +3,7 @@
     package="com.example.exercise11">
 
     <uses-permission android:name="android.permission.INTERNET"/>
-
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
@@ -21,11 +21,7 @@
             </intent-filter>
         </activity>
         <service android:name=".service.DownloadService"/>
-        <receiver android:name=".service.DownloadReceiver">
-            <intent-filter>
-                <action android:name="com.example.exercise11.DOWNLOAD_COMPLETE"/>
-            </intent-filter>
-        </receiver>
+        <receiver android:name=".service.DownloadReceiver"/>
     </application>
 
 </manifest>

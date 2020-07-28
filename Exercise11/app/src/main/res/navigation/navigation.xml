@@ -11,4 +11,13 @@
         tools:layout="@layout/fragment_main">
     </fragment>
 
+    <fragment
+        android:id="@+id/fragmentImage"
+        android:name="com.example.exercise11.ui.ImageFragment"
+        tools:layout="@layout/fragment_image">
+        <argument
+            android:name="path"
+            app:argType="string"/>
+    </fragment>
+
 </navigation>
