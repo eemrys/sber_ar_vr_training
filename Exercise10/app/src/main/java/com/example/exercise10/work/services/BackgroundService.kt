@@ -6,8 +6,9 @@ import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
 import android.os.SystemClock
+import com.example.exercise10.work.MAX_VALUE
 import com.example.exercise10.work.PROGRESS_UPDATE_ACTION
-import com.example.exercise10.work.PROGRESS_VALUE_KEY
+import com.example.exercise10.work.PROGRESS_KEY_SERVICE
 
 class BackgroundService : Service() {
 
@@ -40,7 +41,7 @@ class BackgroundService : Service() {
     }
 
     private fun doInBackground() {
-        for (i in 0..100) {
+        for (i in 0..MAX_VALUE) {
             if (isCancelled) { return }
             showProgressNumber(i)
             SystemClock.sleep(100)
@@ -49,7 +50,7 @@ class BackgroundService : Service() {
 
     private fun showProgressNumber(progress: Int) {
         val broadcastIntent = Intent(PROGRESS_UPDATE_ACTION)
-        broadcastIntent.putExtra(PROGRESS_VALUE_KEY, progress)
+        broadcastIntent.putExtra(PROGRESS_KEY_SERVICE, progress)
         sendBroadcast(broadcastIntent)
     }
 }

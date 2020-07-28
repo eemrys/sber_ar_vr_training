@@ -46,9 +46,24 @@ class BackgroundServiceFragment : Fragment(R.layout.fragment_background_service)
     }
 
     private fun setObserver() {
-        backgroundProgressReceiver.progress.observe(viewLifecycleOwner, Observer {
-            txtvProgress.text = it.toString()
-        })
+        backgroundProgressReceiver.apply {
+            progressService.observe(viewLifecycleOwner, Observer {
+                txtvProgress.text = it.toString()
+                if (it == MAX_VALUE) {
+                    val intent = Intent(context, BackgroundService::class.java)
+                    activity?.stopService(intent)
+                    btnService.isEnabled = true
+                }
+            })
+            progressIntent.observe(viewLifecycleOwner, Observer {
+                txtvProgress.text = it.toString()
+                if (it == MAX_VALUE) {
+                    val intent = Intent(context, BackgroundJobIntentService::class.java)
+                    activity?.stopService(intent)
+                    btnIntent.isEnabled = true
+                }
+            })
+        }
     }
 
     private fun subscribeForProgressUpdates() {

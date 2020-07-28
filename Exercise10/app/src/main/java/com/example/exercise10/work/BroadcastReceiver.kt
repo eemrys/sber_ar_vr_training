@@ -8,11 +8,16 @@ import androidx.lifecycle.MutableLiveData
 
 class BackgroundProgressReceiver : BroadcastReceiver() {
 
-    private val _progress = MutableLiveData<Int>()
-    val progress: LiveData<Int>
-        get() = _progress
+    private val _progressService = MutableLiveData<Int>()
+    val progressService: LiveData<Int>
+        get() = _progressService
+
+    private val _progressIntent = MutableLiveData<Int>()
+    val progressIntent: LiveData<Int>
+        get() = _progressIntent
 
     override fun onReceive(context: Context, intent: Intent) {
-        _progress.value = intent.getIntExtra(PROGRESS_VALUE_KEY, -1)
+        _progressService.value = intent.getIntExtra(PROGRESS_KEY_SERVICE, -1)
+        _progressIntent.value = intent.getIntExtra(PROGRESS_KEY_INTENT, -1)
     }
 }
