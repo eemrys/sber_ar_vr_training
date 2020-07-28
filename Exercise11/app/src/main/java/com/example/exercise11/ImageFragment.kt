@@ -42,7 +42,7 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
                 PackageManager.PERMISSION_GRANTED
 
     private fun startDownloadService() {
-        val url = ""
+        val url = eTxtUrl.text
         val intent = Intent(activity, DownloadService::class.java)
         intent.putExtra(URL, url)
         requireActivity().startService(intent)

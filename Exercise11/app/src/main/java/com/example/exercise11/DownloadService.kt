@@ -29,6 +29,23 @@ class DownloadService : Service() {
         return START_STICKY
     }
 
+    private fun startDownload(posterUrl: String) {
+        DownloadThread(posterUrl, object : DownloadThread.DownloadCallBack {
+            override fun onProgressUpdate(percent: Int) {
+
+            }
+
+            override fun onDownloadFinished(filePath: String?) {
+
+            }
+
+            override fun onError(error: String?) {
+
+            }
+        }).start()
+
+    }
+
     private fun createNotification(progress: Int): Notification {
         val notificationIntent = Intent(this, ImageFragment::class.java)
         val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
