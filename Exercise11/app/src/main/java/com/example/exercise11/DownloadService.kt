@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import java.io.File
 
 private const val ONGOING_NOTIFICATION_ID = 987
@@ -14,8 +15,7 @@ private const val CHANNEL_DEFAULT_IMPORTANCE = "01_Channel"
 class DownloadService : Service() {
 
     private val notificationManager by lazy {
-        //NotificationManagerCompat
-        //createNotificationChannel
+        NotificationManagerCompat.from(applicationContext)
     }
 
     override fun onBind(p0: Intent?): IBinder? {
@@ -25,13 +25,20 @@ class DownloadService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val url = intent?.getStringExtra(IMAGE_URL)
         val path = intent?.getStringExtra(PATH)
+        startForeground()
         if (url != null && path != null) {
             val filePath = File(path)
             startDownload(url, filePath)
+        } else {
+            return START_NOT_STICKY
         }
-        //startForeground(ONGOING_NOTIFICATION_ID, createNotification())
-        stopSelf()
         return START_STICKY
+    }
+
+    private fun startForeground() {
+        createNotificationChannel()
+        val notification = createNotification(0)
+        startForeground(ONGOING_NOTIFICATION_ID, notification)
     }
 
     private fun startDownload(posterUrl: String, path: File) {
@@ -60,6 +67,11 @@ class DownloadService : Service() {
             .setSmallIcon(R.drawable.ic_stat_download)
             .setContentIntent(pendingIntent)
             .build()
+    }
+
+    private fun updateNotification(progress: Int) {
+        val notification = createNotification(progress)
+        notificationManager.notify(ONGOING_NOTIFICATION_ID, notification)
     }
 
     private fun createNotificationChannel() : NotificationChannel? {

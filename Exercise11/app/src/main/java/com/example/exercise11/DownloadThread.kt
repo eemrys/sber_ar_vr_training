@@ -1,20 +1,19 @@
 package com.example.exercise11
 
-import java.io.BufferedInputStream
-import java.io.File
-import java.io.FileOutputStream
-import java.io.InputStream
+import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.net.ssl.HttpsURLConnection
 
-open class DownloadThread(
-    private val url: String,
-    private val downloadCallBack: DownloadCallBack,
-    private val path: File
-) : Thread() {
+open class DownloadThread(private val url: String,
+                          private val downloadCallBack: DownloadCallBack,
+                          private val path: File) : Thread() {
+
+    private var progress = 0
+    private var lastUpdateTime: Long = 0
+
     override fun run() {
         val file = createFile()
         if (file == null) {
@@ -37,7 +36,7 @@ open class DownloadThread(
         val data = ByteArray(1024)
         while (inputStream.read(data).also { next = it } != -1) {
             fos.write(data, 0, next)
-            //updateProgress(fos, fileLength)
+            updateProgress(fos, fileLength)
         }
 
         downloadCallBack.onDownloadFinished(file.path)
@@ -51,6 +50,18 @@ open class DownloadThread(
         }
         val imageName = createImageFileName() + ".jpg"
         return File(dir.path + File.separator + imageName)
+    }
+
+    @Throws(IOException::class)
+    private fun updateProgress(fos: FileOutputStream, fileLength: Int) {
+        if (lastUpdateTime == 0L || System.currentTimeMillis() > lastUpdateTime + 500) {
+            val count = fos.channel.size().toInt() * 100 / fileLength
+            if (count > progress) {
+                progress = count
+                lastUpdateTime = System.currentTimeMillis()
+                downloadCallBack.onProgressUpdate(progress)
+            }
+        }
     }
 
     private fun createImageFileName(): String {
