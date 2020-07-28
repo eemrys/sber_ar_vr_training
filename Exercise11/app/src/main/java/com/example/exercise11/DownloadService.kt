@@ -1,6 +1,7 @@
 package com.example.exercise11
 
 import android.app.*
+import android.app.DownloadManager.ACTION_DOWNLOAD_COMPLETE
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
@@ -92,5 +93,15 @@ class DownloadService : Service() {
             }
         }
         return null
+    }
+
+    private fun sendBroadcastMsgDownloadComplete(posterPath: String) {
+        val intent: Intent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Intent(this, DownloadReceiver::class.java)
+        } else {
+            Intent(ACTION_DOWNLOAD_COMPLETE)
+        }
+        intent.putExtra(PATH, posterPath)
+        sendBroadcast(intent)
     }
 }

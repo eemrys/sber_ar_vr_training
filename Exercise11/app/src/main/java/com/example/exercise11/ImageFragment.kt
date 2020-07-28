@@ -51,6 +51,7 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
             intent.putExtra(PATH, this.absolutePath)
             intent.putExtra(IMAGE_URL, url)
             requireActivity().startService(intent)
+            //activity?.onBackPressed()
         }
     }
 

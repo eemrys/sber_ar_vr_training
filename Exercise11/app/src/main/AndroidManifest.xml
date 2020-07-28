@@ -21,6 +21,11 @@
             </intent-filter>
         </activity>
         <service android:name=".DownloadService"/>
+        <receiver android:name=".DownloadReceiver">
+            <intent-filter>
+                <action android:name="com.example.exercise11.DOWNLOAD_COMPLETE"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
