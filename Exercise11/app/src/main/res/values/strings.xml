@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Exercise11</string>
+    <string name="app_name">Image Downloader</string>
+    <string name="main_image">Main Image</string>
 </resources>
