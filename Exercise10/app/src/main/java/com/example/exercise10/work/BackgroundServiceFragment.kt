@@ -40,8 +40,8 @@ class BackgroundServiceFragment : Fragment(R.layout.fragment_background_service)
         }
         btnIntent.setOnClickListener {
             it.isEnabled = false
-            val intent = Intent(context, BackgroundJobIntentService::class.java)
-            requireActivity().startService(intent)
+            val intent = Intent()
+            BackgroundJobIntentService.enqueueWork(requireContext(), intent)
         }
     }
 
@@ -58,8 +58,6 @@ class BackgroundServiceFragment : Fragment(R.layout.fragment_background_service)
             progressIntent.observe(viewLifecycleOwner, Observer {
                 txtvProgressIntent.text = getString(R.string.percent, it)
                 if (it == MAX_VALUE) {
-                    val intent = Intent(context, BackgroundJobIntentService::class.java)
-                    requireActivity().stopService(intent)
                     btnIntent.isEnabled = true
                 }
             })
