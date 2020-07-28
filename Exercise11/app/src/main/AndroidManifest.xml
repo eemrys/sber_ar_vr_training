@@ -20,8 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".DownloadService"/>
-        <receiver android:name=".DownloadReceiver">
+        <service android:name=".service.DownloadService"/>
+        <receiver android:name=".service.DownloadReceiver">
             <intent-filter>
                 <action android:name="com.example.exercise11.DOWNLOAD_COMPLETE"/>
             </intent-filter>

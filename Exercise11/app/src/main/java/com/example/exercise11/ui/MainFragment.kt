@@ -1,4 +1,4 @@
-package com.example.exercise11
+package com.example.exercise11.ui
 
 import android.Manifest
 import android.content.Intent
@@ -10,6 +10,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.example.exercise11.R
+import com.example.exercise11.service.DownloadService
 import kotlinx.android.synthetic.main.fragment_main.*
 import java.io.File
 
@@ -40,7 +42,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun isPermissionGranted(): Boolean =
-        ContextCompat.checkSelfPermission(requireContext(), PERMISSION) ==
+        ContextCompat.checkSelfPermission(requireContext(),
+            PERMISSION
+        ) ==
                 PackageManager.PERMISSION_GRANTED
 
     private fun startDownloadService() {
@@ -56,11 +60,15 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun requestPermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), PERMISSION)) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(),
+                PERMISSION
+            )) {
             showExplainingRationaleDialog()
         } else {
             ActivityCompat.requestPermissions(
-                requireActivity(), arrayOf(PERMISSION), PERMISSIONS_REQUEST_CODE)
+                requireActivity(), arrayOf(PERMISSION),
+                PERMISSIONS_REQUEST_CODE
+            )
         }
     }
 
@@ -68,9 +76,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         AlertDialog.Builder(requireContext())
             .setTitle(R.string.dialog_title)
             .setMessage(R.string.dialog_message)
-            .setPositiveButton(R.string.dialog_ok) {_, _ ->
+            .setPositiveButton(R.string.dialog_ok) { _, _ ->
                 ActivityCompat.requestPermissions(
-                    requireActivity(), arrayOf(PERMISSION), PERMISSIONS_REQUEST_CODE)
+                    requireActivity(), arrayOf(PERMISSION),
+                    PERMISSIONS_REQUEST_CODE
+                )
             }
             .create()
             .show()

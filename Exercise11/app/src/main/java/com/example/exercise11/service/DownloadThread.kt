@@ -1,4 +1,4 @@
-package com.example.exercise11
+package com.example.exercise11.service
 
 import java.io.*
 import java.net.HttpURLConnection

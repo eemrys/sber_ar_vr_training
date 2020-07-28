@@ -1,4 +1,4 @@
-package com.example.exercise11
+package com.example.exercise11.service
 
 import android.app.*
 import android.app.DownloadManager.ACTION_DOWNLOAD_COMPLETE
@@ -8,6 +8,10 @@ import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.example.exercise11.*
+import com.example.exercise11.ui.IMAGE_URL
+import com.example.exercise11.ui.MainFragment
+import com.example.exercise11.ui.PATH
 import java.io.File
 
 private const val ONGOING_NOTIFICATION_ID = 987
@@ -44,29 +48,41 @@ class DownloadService : Service() {
     }
 
     private fun startDownload(posterUrl: String, path: File) {
-        DownloadThread(posterUrl, object : DownloadThread.DownloadCallBack {
-            override fun onProgressUpdate(percent: Int) {
-                updateNotification(percent)
-            }
-            override fun onDownloadFinished(filePath: String?) {
-                filePath?.apply {
-                    sendBroadcastMsgDownloadComplete(this)
+        DownloadThread(
+            posterUrl,
+            object :
+                DownloadThread.DownloadCallBack {
+                override fun onProgressUpdate(percent: Int) {
+                    updateNotification(percent)
                 }
-                stopSelf()
-            }
-            override fun onError(error: String?) {
-                notificationManager.notify(ERROR_NOTIFICATION_ID, createErrorNotification())
-                notificationManager.cancel(ONGOING_NOTIFICATION_ID)
-                stopSelf()
-            }
-        }, path).start()
+
+                override fun onDownloadFinished(filePath: String?) {
+                    filePath?.apply {
+                        sendBroadcastMsgDownloadComplete(this)
+                    }
+                    stopSelf()
+                }
+
+                override fun onError(error: String?) {
+                    notificationManager.notify(
+                        ERROR_NOTIFICATION_ID,
+                        createErrorNotification()
+                    )
+                    notificationManager.cancel(ONGOING_NOTIFICATION_ID)
+                    stopSelf()
+                }
+            },
+            path
+        ).start()
 
     }
 
     private fun createNotification(progress: Int): Notification {
         val notificationIntent = Intent(this, MainFragment::class.java)
         val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
-        return NotificationCompat.Builder(this, CHANNEL_DEFAULT_IMPORTANCE)
+        return NotificationCompat.Builder(this,
+            CHANNEL_DEFAULT_IMPORTANCE
+        )
             .setContentTitle(getString(R.string.notification_title, progress))
             .setContentText(getText(R.string.notification_message))
             .setSmallIcon(R.drawable.ic_stat_download)
@@ -80,7 +96,9 @@ class DownloadService : Service() {
     }
 
     private fun createErrorNotification(): Notification {
-        return NotificationCompat.Builder(this, CHANNEL_DEFAULT_IMPORTANCE)
+        return NotificationCompat.Builder(this,
+            CHANNEL_DEFAULT_IMPORTANCE
+        )
             .setContentTitle(getText(R.string.notification_error_title))
             .setContentText(getText(R.string.notification_error_message))
             .setSmallIcon(R.drawable.ic_stat_download)
