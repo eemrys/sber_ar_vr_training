@@ -12,6 +12,7 @@ import java.io.File
 
 private const val ONGOING_NOTIFICATION_ID = 987
 private const val CHANNEL_DEFAULT_IMPORTANCE = "01_Channel"
+private const val ERROR_NOTIFICATION_ID = 1024
 
 class DownloadService : Service() {
 
@@ -45,15 +46,18 @@ class DownloadService : Service() {
     private fun startDownload(posterUrl: String, path: File) {
         DownloadThread(posterUrl, object : DownloadThread.DownloadCallBack {
             override fun onProgressUpdate(percent: Int) {
-
+                updateNotification(percent)
             }
-
             override fun onDownloadFinished(filePath: String?) {
-
+                filePath?.apply {
+                    sendBroadcastMsgDownloadComplete(this)
+                }
+                stopSelf()
             }
-
             override fun onError(error: String?) {
-
+                notificationManager.notify(ERROR_NOTIFICATION_ID, createErrorNotification())
+                notificationManager.cancel(ONGOING_NOTIFICATION_ID)
+                stopSelf()
             }
         }, path).start()
 
@@ -73,6 +77,14 @@ class DownloadService : Service() {
     private fun updateNotification(progress: Int) {
         val notification = createNotification(progress)
         notificationManager.notify(ONGOING_NOTIFICATION_ID, notification)
+    }
+
+    private fun createErrorNotification(): Notification {
+        return NotificationCompat.Builder(this, CHANNEL_DEFAULT_IMPORTANCE)
+            .setContentTitle(getText(R.string.notification_error_title))
+            .setContentText(getText(R.string.notification_error_message))
+            .setSmallIcon(R.drawable.ic_stat_download)
+            .build()
     }
 
     private fun createNotificationChannel() : NotificationChannel? {
