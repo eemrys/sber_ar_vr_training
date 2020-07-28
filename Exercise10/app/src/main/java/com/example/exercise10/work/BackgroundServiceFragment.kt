@@ -5,8 +5,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.WorkRequest
 import com.example.exercise10.R
 import com.example.exercise10.work.services.BackgroundJobIntentService
+import com.example.exercise10.work.services.BackgroundProgressReceiver
 import com.example.exercise10.work.services.BackgroundService
 import kotlinx.android.synthetic.main.fragment_background_service.*
 
@@ -69,5 +73,14 @@ class BackgroundServiceFragment : Fragment(R.layout.fragment_background_service)
         filter.addAction(PROGRESS_UPDATE_SERVICE)
         filter.addAction(PROGRESS_UPDATE_INTENT)
         requireContext().registerReceiver(backgroundProgressReceiver, filter)
+    }
+
+    private fun createWorkRequest() {
+        val workRequest: WorkRequest =
+            OneTimeWorkRequestBuilder<BackgroundWorker>()
+                .build()
+        WorkManager
+            .getInstance(requireContext())
+            .enqueue(workRequest)
     }
 }

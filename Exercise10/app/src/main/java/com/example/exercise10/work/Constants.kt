@@ -6,3 +6,4 @@ const val PROGRESS_KEY_SERVICE = "PROGRESS_KEY_SERVICE"
 const val PROGRESS_KEY_INTENT = "PROGRESS_KEY_INTENT"
 const val MAX_VALUE = 100
 const val JOB_ID = 10
+const val DELAY_VALUE: Long = 100

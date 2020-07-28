@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
-import android.os.SystemClock
+import com.example.exercise10.work.DELAY_VALUE
 import com.example.exercise10.work.MAX_VALUE
 import com.example.exercise10.work.PROGRESS_UPDATE_SERVICE
 import com.example.exercise10.work.PROGRESS_KEY_SERVICE
@@ -44,7 +44,7 @@ class BackgroundService : Service() {
         for (i in 0..MAX_VALUE) {
             if (isCancelled) { return }
             showProgressNumber(i)
-            SystemClock.sleep(100)
+            Thread.sleep(DELAY_VALUE)
         }
     }
 

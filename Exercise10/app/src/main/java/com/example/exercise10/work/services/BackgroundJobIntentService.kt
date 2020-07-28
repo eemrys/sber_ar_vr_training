@@ -3,10 +3,7 @@ package com.example.exercise10.work.services
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.JobIntentService
-import com.example.exercise10.work.JOB_ID
-import com.example.exercise10.work.MAX_VALUE
-import com.example.exercise10.work.PROGRESS_KEY_INTENT
-import com.example.exercise10.work.PROGRESS_UPDATE_INTENT
+import com.example.exercise10.work.*
 
 class BackgroundJobIntentService : JobIntentService() {
 
@@ -19,7 +16,7 @@ class BackgroundJobIntentService : JobIntentService() {
     override fun onHandleWork(intent: Intent) {
         for (i in 0..MAX_VALUE) {
             showProgressNumber(i)
-            Thread.sleep(100)
+            Thread.sleep(DELAY_VALUE)
         }
     }
 
