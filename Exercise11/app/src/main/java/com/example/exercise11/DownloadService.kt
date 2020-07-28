@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import java.io.File
 
 private const val ONGOING_NOTIFICATION_ID = 987
@@ -24,7 +23,7 @@ class DownloadService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val url = intent?.getStringExtra(URL)
+        val url = intent?.getStringExtra(IMAGE_URL)
         val path = intent?.getStringExtra(PATH)
         if (url != null && path != null) {
             val filePath = File(path)

@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_image.*
 import java.io.File
 
-const val URL = "URL"
+const val IMAGE_URL = "URL"
 const val PATH = "PATH"
 private const val PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE
 private const val PERMISSIONS_REQUEST_CODE = 1
@@ -49,7 +49,7 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
         val path: File? = requireContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
         path?.apply {
             intent.putExtra(PATH, this.absolutePath)
-            intent.putExtra(URL, url)
+            intent.putExtra(IMAGE_URL, url)
             requireActivity().startService(intent)
         }
     }
