@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import java.io.File
 
 private const val ONGOING_NOTIFICATION_ID = 987
 private const val CHANNEL_DEFAULT_IMPORTANCE = "01_Channel"
@@ -24,12 +25,17 @@ class DownloadService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val url = intent?.getStringExtra(URL)
+        val path = intent?.getStringExtra(PATH)
+        if (url != null && path != null) {
+            val filePath = File(path)
+            startDownload(url, filePath)
+        }
         //startForeground(ONGOING_NOTIFICATION_ID, createNotification())
         stopSelf()
         return START_STICKY
     }
 
-    private fun startDownload(posterUrl: String) {
+    private fun startDownload(posterUrl: String, path: File) {
         DownloadThread(posterUrl, object : DownloadThread.DownloadCallBack {
             override fun onProgressUpdate(percent: Int) {
 
@@ -42,7 +48,7 @@ class DownloadService : Service() {
             override fun onError(error: String?) {
 
             }
-        }).start()
+        }, path).start()
 
     }
 

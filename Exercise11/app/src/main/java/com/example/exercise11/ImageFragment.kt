@@ -4,14 +4,17 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Environment
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_image.*
+import java.io.File
 
 const val URL = "URL"
+const val PATH = "PATH"
 private const val PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE
 private const val PERMISSIONS_REQUEST_CODE = 1
 
@@ -21,7 +24,6 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
         super.onViewCreated(view, savedInstanceState)
         setListener()
     }
-
 
     private fun setListener() {
         btnFab.setOnClickListener {
@@ -44,9 +46,12 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
     private fun startDownloadService() {
         val url = eTxtUrl.text
         val intent = Intent(activity, DownloadService::class.java)
-        intent.putExtra(URL, url)
-        requireActivity().startService(intent)
-
+        val path: File? = requireContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
+        path?.apply {
+            intent.putExtra(PATH, this.absolutePath)
+            intent.putExtra(URL, url)
+            requireActivity().startService(intent)
+        }
     }
 
     private fun requestPermission() {
@@ -56,7 +61,6 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
             ActivityCompat.requestPermissions(
                 requireActivity(), arrayOf(PERMISSION), PERMISSIONS_REQUEST_CODE)
         }
-
     }
 
     private fun showExplainingRationaleDialog() {
