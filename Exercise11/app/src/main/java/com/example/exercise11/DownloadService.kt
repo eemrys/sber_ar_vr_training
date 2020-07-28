@@ -60,7 +60,7 @@ class DownloadService : Service() {
     }
 
     private fun createNotification(progress: Int): Notification {
-        val notificationIntent = Intent(this, ImageFragment::class.java)
+        val notificationIntent = Intent(this, MainFragment::class.java)
         val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
         return NotificationCompat.Builder(this, CHANNEL_DEFAULT_IMPORTANCE)
             .setContentTitle(getString(R.string.notification_title, progress))

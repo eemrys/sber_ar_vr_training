@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Image Downloader</string>
-    <string name="main_image">Main Image</string>
     <string name="dialog_title">Permission needed</string>
     <string name="dialog_message">To be able to download requested image the application needs access to your files.</string>
     <string name="dialog_ok">OK</string>
@@ -9,4 +8,6 @@
     <string name="channel_name">Default channel</string>
     <string name="channel_description">This is a channel for default notifications</string>
     <string name="enter_an_image_url">Enter an image url</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="main_image">Main Image</string>
 </resources>

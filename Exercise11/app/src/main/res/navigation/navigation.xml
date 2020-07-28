@@ -3,13 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragmentImage">
+    app:startDestination="@id/fragmentMain">
 
     <fragment
-        android:id="@+id/fragmentImage"
-        android:name="com.example.exercise11.ImageFragment"
-        android:label="Image Fragment"
-        tools:layout="@layout/fragment_image">
+        android:id="@+id/fragmentMain"
+        android:name="com.example.exercise11.MainFragment"
+        tools:layout="@layout/fragment_main">
     </fragment>
 
 </navigation>
