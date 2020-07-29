@@ -13,15 +13,15 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.example.exercise11.IMAGE_PROGRESS
+import com.example.exercise11.IMAGE_URL
+import com.example.exercise11.PATH
 import com.example.exercise11.R
 import com.example.exercise11.service.DownloadReceiver
 import com.example.exercise11.service.DownloadService
 import kotlinx.android.synthetic.main.fragment_main.*
 import java.io.File
 
-const val IMAGE_PROGRESS = "IMAGE_PROGRESS"
-const val IMAGE_URL = "URL"
-const val PATH = "PATH"
 private const val PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE
 private const val PERMISSIONS_REQUEST_CODE = 1
 
@@ -83,14 +83,12 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 PackageManager.PERMISSION_GRANTED
 
     private fun startDownloadService() {
-        val url = eTxtUrl.text.toString()
         val intent = Intent(activity, DownloadService::class.java)
-        val path: File? = requireContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
-        path?.apply {
-            intent.putExtra(PATH, this.absolutePath)
-            intent.putExtra(IMAGE_URL, url)
-            requireActivity().startService(intent)
-        }
+        val url = eTxtUrl.text.toString()
+        val path: File = requireContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) ?: return
+        intent.putExtra(PATH, path.absolutePath)
+        intent.putExtra(IMAGE_URL, url)
+        requireActivity().startService(intent)
     }
 
     private fun requestPermission() {

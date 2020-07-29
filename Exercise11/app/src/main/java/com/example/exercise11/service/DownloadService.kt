@@ -8,10 +8,10 @@ import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.exercise11.*
-import com.example.exercise11.ui.IMAGE_PROGRESS
-import com.example.exercise11.ui.IMAGE_URL
+import com.example.exercise11.IMAGE_PROGRESS
+import com.example.exercise11.IMAGE_URL
 import com.example.exercise11.ui.MainFragment
-import com.example.exercise11.ui.PATH
+import com.example.exercise11.PATH
 import java.io.File
 
 private const val ONGOING_NOTIFICATION_ID = 987

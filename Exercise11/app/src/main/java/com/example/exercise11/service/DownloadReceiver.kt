@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.exercise11.ui.PATH
+import com.example.exercise11.PATH
 
 class DownloadReceiver : BroadcastReceiver() {
 
