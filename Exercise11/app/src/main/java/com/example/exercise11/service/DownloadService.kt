@@ -44,14 +44,14 @@ class DownloadService : Service() {
 
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name: CharSequence = getString(R.string.channel_name)
-            val description = getString(R.string.channel_description)
-            val importance = NotificationManager.IMPORTANCE_HIGH
-            val channel = NotificationChannel(CHANNEL_DEFAULT_IMPORTANCE, name, importance)
+            val channel = NotificationChannel(
+                CHANNEL_DEFAULT_IMPORTANCE,
+                getString(R.string.channel_name),
+                NotificationManager.IMPORTANCE_HIGH)
             channel.apply {
-                this.description = description
-                this.lightColor = Color.RED
-                this.vibrationPattern = longArrayOf(100, 200, 300, 400, 500, 400, 300, 200, 400)
+                description = getString(R.string.channel_description)
+                lightColor = Color.RED
+                vibrationPattern = longArrayOf(100, 200, 300, 400, 500, 400, 300, 200, 400)
                 enableLights(true)
                 enableVibration(true)
             }
@@ -74,7 +74,7 @@ class DownloadService : Service() {
         DownloadThread(posterUrl, callback, path).start()
     }
 
-    val callback = object : DownloadCallBack {
+    private val callback = object : DownloadCallBack {
         override fun onProgressUpdate(percent: Int) {
             updateNotification(percent)
         }

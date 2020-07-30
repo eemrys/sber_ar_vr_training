@@ -15,7 +15,11 @@ open class DownloadThread(private val url: String,
     private var lastUpdateTime: Long = 0
 
     override fun run() {
-        val file = createFile() ?: return
+        val file = createFile()
+        requireNotNull(file) {
+            downloadCallBack.onError("Can't create file")
+            return
+        }
         val url = URL(url)
 
         val connection = getConnection(url) ?: return
@@ -27,8 +31,8 @@ open class DownloadThread(private val url: String,
 
     private fun createFile(): File? {
         val dir = path
-        if (!dir.exists()) {
-            if (!dir.mkdirs()) { return null }
+        require(dir.exists() && dir.mkdirs()) {
+            return null
         }
         val imageName = createImageFileName() + ".jpg"
         return File(dir.path + File.separator + imageName)
