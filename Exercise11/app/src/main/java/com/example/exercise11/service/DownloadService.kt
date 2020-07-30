@@ -24,20 +24,15 @@ class DownloadService : Service() {
         NotificationManagerCompat.from(applicationContext)
     }
 
-    override fun onBind(p0: Intent?): IBinder? {
+    override fun onBind(intent: Intent?): IBinder? {
         return null
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val url = intent?.getStringExtra(IMAGE_URL)
-        val path = intent?.getStringExtra(PATH)
+        val url = intent?.getStringExtra(IMAGE_URL) ?: return START_NOT_STICKY
+        val path = intent.getStringExtra(PATH) ?: return START_NOT_STICKY
         startForeground()
-        if (url != null && path != null) {
-            val filePath = File(path)
-            startDownload(url, filePath)
-        } else {
-            return START_NOT_STICKY
-        }
+        startDownload(url, File(path))
         return START_STICKY
     }
 
@@ -45,60 +40,6 @@ class DownloadService : Service() {
         createNotificationChannel()
         val notification = createNotification(0)
         startForeground(ONGOING_NOTIFICATION_ID, notification)
-    }
-
-    private fun startDownload(posterUrl: String, path: File) {
-        DownloadThread(
-            posterUrl,
-            object :
-                DownloadThread.DownloadCallBack {
-                override fun onProgressUpdate(percent: Int) {
-                    updateNotification(percent)
-                }
-
-                override fun onDownloadFinished(filePath: String?) {
-                    filePath?.apply {
-                        sendBroadcastMsgDownloadComplete(this)
-                    }
-                    stopSelf()
-                }
-
-                override fun onError(error: String?) {
-                    notificationManager.notify(
-                        ERROR_NOTIFICATION_ID,
-                        createErrorNotification()
-                    )
-                    notificationManager.cancel(ONGOING_NOTIFICATION_ID)
-                    stopSelf()
-                }
-            },
-            path
-        ).start()
-
-    }
-
-    private fun createNotification(progress: Int): Notification {
-        val notificationIntent = Intent(this, MainFragment::class.java)
-        val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
-        return NotificationCompat.Builder(this, CHANNEL_DEFAULT_IMPORTANCE)
-            .setContentTitle(getString(R.string.notification_title, progress))
-            .setContentText(getText(R.string.notification_message))
-            .setSmallIcon(R.drawable.ic_stat_download)
-            .setContentIntent(pendingIntent)
-            .build()
-    }
-
-    private fun updateNotification(progress: Int) {
-        val notification = createNotification(progress)
-        notificationManager.notify(ONGOING_NOTIFICATION_ID, notification)
-    }
-
-    private fun createErrorNotification(): Notification {
-        return NotificationCompat.Builder(this, CHANNEL_DEFAULT_IMPORTANCE)
-            .setContentTitle(getText(R.string.notification_error_title))
-            .setContentText(getText(R.string.notification_error_message))
-            .setSmallIcon(R.drawable.ic_stat_download)
-            .build()
     }
 
     private fun createNotificationChannel() {
@@ -118,9 +59,54 @@ class DownloadService : Service() {
         }
     }
 
+    private fun createNotification(progress: Int): Notification {
+        val notificationIntent = Intent(this, MainFragment::class.java)
+        val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
+        return NotificationCompat.Builder(this, CHANNEL_DEFAULT_IMPORTANCE)
+            .setContentTitle(getString(R.string.notification_title, progress))
+            .setContentText(getText(R.string.notification_message))
+            .setSmallIcon(R.drawable.ic_stat_download)
+            .setContentIntent(pendingIntent)
+            .build()
+    }
+    
+    private fun startDownload(posterUrl: String, path: File) {
+        DownloadThread(posterUrl, callback, path).start()
+    }
+
+    val callback = object : DownloadCallBack {
+        override fun onProgressUpdate(percent: Int) {
+            updateNotification(percent)
+        }
+        override fun onDownloadFinished(filePath: String?) {
+            filePath?.apply {
+                sendBroadcastMsgDownloadComplete(this)
+            }
+            stopSelf()
+        }
+        override fun onError(error: String?) {
+            notificationManager.notify(ERROR_NOTIFICATION_ID, createErrorNotification())
+            notificationManager.cancel(ONGOING_NOTIFICATION_ID)
+            stopSelf()
+        }
+    }
+
+    private fun updateNotification(progress: Int) {
+        val notification = createNotification(progress)
+        notificationManager.notify(ONGOING_NOTIFICATION_ID, notification)
+    }
+
     private fun sendBroadcastMsgDownloadComplete(posterPath: String) {
         val broadcastIntent = Intent(IMAGE_PROGRESS)
         broadcastIntent.putExtra(PATH, posterPath)
         sendBroadcast(broadcastIntent)
+    }
+
+    private fun createErrorNotification(): Notification {
+        return NotificationCompat.Builder(this, CHANNEL_DEFAULT_IMPORTANCE)
+            .setContentTitle(getText(R.string.notification_error_title))
+            .setContentText(getText(R.string.notification_error_message))
+            .setSmallIcon(R.drawable.ic_stat_download)
+            .build()
     }
 }

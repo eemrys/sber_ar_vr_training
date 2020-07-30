@@ -38,12 +38,8 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
     private fun setOnBackPressed() {
         requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                navigateBack()
+                findNavController().navigate(R.id.fragmentMain)
             }
         })
-    }
-
-    private fun navigateBack() {
-        findNavController().navigate(R.id.fragmentMain)
     }
 }

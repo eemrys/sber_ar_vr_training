@@ -53,29 +53,12 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
     }
 
-    private fun setObserver() {
-        downloadReceiver.filePath.observe(viewLifecycleOwner, Observer {
-            navigateToImageFragment(it)
-        })
-    }
-
-    private fun subscribeForProgressUpdates() {
-        val filter = IntentFilter()
-        filter.addAction(IMAGE_PROGRESS)
-        requireContext().registerReceiver(downloadReceiver, filter)
-    }
-
     private fun onFabClick() {
         if (isPermissionGranted()) {
             startDownloadService()
         } else {
             requestPermission()
         }
-    }
-
-    private fun navigateToImageFragment(path: String) {
-        val args = ImageFragmentArgs.Builder(path).build().toBundle()
-        findNavController().navigate(R.id.fragmentImage, args)
     }
 
     private fun isPermissionGranted(): Boolean =
@@ -116,5 +99,22 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             }
             .create()
             .show()
+    }
+
+    private fun setObserver() {
+        downloadReceiver.filePath.observe(viewLifecycleOwner, Observer {
+            navigateToImageFragment(it)
+        })
+    }
+
+    private fun navigateToImageFragment(path: String) {
+        val args = ImageFragmentArgs.Builder(path).build().toBundle()
+        findNavController().navigate(R.id.fragmentImage, args)
+    }
+
+    private fun subscribeForProgressUpdates() {
+        val filter = IntentFilter()
+        filter.addAction(IMAGE_PROGRESS)
+        requireContext().registerReceiver(downloadReceiver, filter)
     }
 }

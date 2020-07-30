@@ -15,32 +15,14 @@ open class DownloadThread(private val url: String,
     private var lastUpdateTime: Long = 0
 
     override fun run() {
-        val file = createFile()
-        if (file == null) {
-            downloadCallBack.onError("Can't create file")
-            return
-        }
+        val file = createFile() ?: return
         val url = URL(url)
-        val connection = url.openConnection() as HttpsURLConnection?
-        connection?.connect()
 
-        if (connection?.responseCode != HttpURLConnection.HTTP_OK) {
-            downloadCallBack.onError("Server returned HTTP response code: "
-                    + connection?.responseCode + " - " + connection?.responseMessage)
-            return
-        }
-        val fileLength = connection.contentLength
-        val inputStream = BufferedInputStream(url.openStream(), 8192)
-        val fos = FileOutputStream(file.path)
-        var next: Int
-        val data = ByteArray(1024)
-        while (inputStream.read(data).also { next = it } != -1) {
-            fos.write(data, 0, next)
-            updateProgress(fos, fileLength)
-        }
+        val connection = getConnection(url) ?: return
+
+        downloadStream(file, url, connection)
 
         downloadCallBack.onDownloadFinished(file.path)
-
     }
 
     private fun createFile(): File? {
@@ -52,9 +34,33 @@ open class DownloadThread(private val url: String,
         return File(dir.path + File.separator + imageName)
     }
 
+    private fun getConnection(url: URL): HttpsURLConnection? {
+        val connection = url.openConnection() as HttpsURLConnection
+        connection.connect()
+        if (connection.responseCode != HttpURLConnection.HTTP_OK) {
+            downloadCallBack.onError("Server returned HTTP response code: "
+                    + connection.responseCode + " - " + connection.responseMessage
+            )
+            return null
+        }
+        return connection
+    }
+
+    private fun downloadStream(file: File, url: URL, connection: HttpsURLConnection) {
+        val inputStream = BufferedInputStream(url.openStream(), 8192)
+        val fos = FileOutputStream(file.path)
+        val data = ByteArray(1024)
+        var next: Int
+        while (inputStream.read(data).also { next = it } != -1) {
+            fos.write(data, 0, next)
+            updateProgress(fos, connection.contentLength)
+        }
+    }
+
     @Throws(IOException::class)
     private fun updateProgress(fos: FileOutputStream, fileLength: Int) {
-        if (lastUpdateTime == 0L || System.currentTimeMillis() > lastUpdateTime + 500) {
+        val needsUpdate = (lastUpdateTime == 0L) || (System.currentTimeMillis() > lastUpdateTime + 500)
+        if (needsUpdate) {
             val count = fos.channel.size().toInt() * 100 / fileLength
             if (count > progress) {
                 progress = count
@@ -67,11 +73,5 @@ open class DownloadThread(private val url: String,
     private fun createImageFileName(): String {
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
         return "FILE_$timeStamp"
-    }
-
-    interface DownloadCallBack {
-        fun onProgressUpdate(percent: Int)
-        fun onDownloadFinished(filePath: String?)
-        fun onError(error: String?)
     }
 }
