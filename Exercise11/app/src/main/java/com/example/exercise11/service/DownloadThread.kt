@@ -66,6 +66,11 @@ open class DownloadThread(private val url: String,
             fos.write(data, 0, next)
             updateProgress(fos, connection.contentLength)
         }
+        fos.apply {
+            flush()
+            close()
+        }
+        inputStream.close()
     }
 
     @Throws(IOException::class)
