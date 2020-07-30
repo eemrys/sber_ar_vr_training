@@ -31,11 +31,18 @@ open class DownloadThread(private val url: String,
 
     private fun createFile(): File? {
         val dir = path
-        require(dir.exists() && dir.mkdirs()) {
-            return null
+        require(dir.exists()) {
+            require(dir.mkdirs()) {
+                return null
+            }
         }
         val imageName = createImageFileName() + ".jpg"
         return File(dir.path + File.separator + imageName)
+    }
+
+    private fun createImageFileName(): String {
+        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
+        return "FILE_$timeStamp"
     }
 
     private fun getConnection(url: URL): HttpsURLConnection? {
@@ -72,10 +79,5 @@ open class DownloadThread(private val url: String,
                 downloadCallBack.onProgressUpdate(progress)
             }
         }
-    }
-
-    private fun createImageFileName(): String {
-        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
-        return "FILE_$timeStamp"
     }
 }

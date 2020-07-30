@@ -12,6 +12,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.exercise11.IMAGE_PROGRESS
 import com.example.exercise11.IMAGE_URL
@@ -29,6 +30,13 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     private val downloadReceiver by lazy {
         DownloadReceiver()
+    }
+
+    private val navOptions by lazy {
+        NavOptions.Builder().setEnterAnim(R.anim.nav_default_enter_anim)
+            .setPopEnterAnim(R.anim.nav_default_pop_enter_anim)
+            .setPopUpTo(R.id.fragmentMain, true)
+            .build()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -109,7 +117,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     private fun navigateToImageFragment(path: String) {
         val args = ImageFragmentArgs.Builder(path).build().toBundle()
-        findNavController().navigate(R.id.fragmentImage, args)
+        findNavController().navigate(R.id.fragmentImage, args, navOptions)
     }
 
     private fun subscribeForProgressUpdates() {
