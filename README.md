@@ -1,1 +1,1 @@
-# SberARVRLab
+# Sber AR/VR Lab
